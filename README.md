@@ -1,2 +1,2 @@
 # vagrant-examples
-Example Vagrantfiles For Development
+Example Vagrantfiles For Development Purposes
