@@ -82,6 +82,18 @@ dependencies {
     kapt ("com.google.dagger:hilt-android-compiler:2.45")
 
     implementation ("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+
+    //retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    //Gson
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.11.0")
+
+    //Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
 }
 
 kapt {
