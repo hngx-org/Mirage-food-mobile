@@ -9,14 +9,16 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import com.shegs.miragefood.ui.theme.Typography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopNavigationBar(text: String, onBackButtonPressed: () -> Unit) {
     TopAppBar(
         title = {
-            Text(text)
+            Text(text, style = Typography.titleLarge.copy(fontWeight = FontWeight.W500))
         },
         navigationIcon = {
             IconButton(onClick = onBackButtonPressed) {
@@ -29,7 +31,7 @@ fun TopNavigationBar(text: String, onBackButtonPressed: () -> Unit) {
 @Preview
 @Composable
 fun Preview() {
-    TopNavigationBar(text = "welcome") {
+    TopNavigationBar(text = "20,000") {
 
     }
 }
