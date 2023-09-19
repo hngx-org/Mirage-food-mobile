@@ -22,10 +22,21 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-
+                    StartScreen()
                 }
             }
         }
     }
 }
 
+@Composable
+fun StartScreen() {
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
+        Text(text = "Hello World")
+    }
+
+}
