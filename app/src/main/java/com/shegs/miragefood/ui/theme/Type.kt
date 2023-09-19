@@ -24,6 +24,7 @@ val Typography = Typography(
         fontFamily = Poppins,
         fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
+        color = md_theme_dark_scrim,
     ),
 
 
@@ -31,11 +32,13 @@ val Typography = Typography(
         fontFamily = Poppins,
         fontWeight = FontWeight.Medium,
         fontSize = 18.sp,
+        color = md_theme_dark_scrim,
     ),
 
     bodySmall = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
+        color = md_theme_dark_scrim,
     )
 )

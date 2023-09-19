@@ -4,6 +4,7 @@ import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
@@ -36,9 +37,8 @@ fun TopNavigationBar(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 14.dp)
             ) {
-                Text(title, style = Typography.titleLarge.copy(fontWeight = FontWeight.W500))
+                Text(title, style = Typography.bodyMedium.copy(fontWeight = FontWeight.W500))
                 Text(
                     subtitle!!,
                     style = Typography.bodySmall.copy(
@@ -51,8 +51,19 @@ fun TopNavigationBar(
         },
         navigationIcon = {
             IconButton(onClick = onBackButtonPressed) {
-                if (!useCancelButton!!) Icon(Icons.Filled.ArrowBack, "arrow back")
-                else Icon(Icons.Filled.Close, "arrow back")
+                val icon = if (!useCancelButton!!) {
+                    Icons.Filled.ArrowBack
+                } else {
+                    Icons.Filled.Close
+                }
+                Icon(
+                    imageVector = icon,
+                    tint = grey,
+                    contentDescription = "Back",
+//                    modifier = Modifier
+//                        .size(20.dp)
+                )
+
             }
         },
     )
