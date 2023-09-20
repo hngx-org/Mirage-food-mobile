@@ -1,7 +1,7 @@
 package com.shegs.miragefood.ui.theme
 import androidx.compose.ui.graphics.Color
 
-val md_theme_light_primary = Color(0xFF714C9F)
+val md_theme_light_primary = Color(0xFF967BB6)
 val md_theme_light_onPrimary = Color(0xFFFFFFFF)
 val md_theme_light_primaryContainer = Color(0xFFEEDBFF)
 val md_theme_light_onPrimaryContainer = Color(0xFF2A0054)
@@ -30,7 +30,7 @@ val md_theme_light_inversePrimary = Color(0xFFD9B9FF)
 val md_theme_light_shadow = Color(0xFF000000)
 val md_theme_light_surfaceTint = Color(0xFF714C9F)
 val md_theme_light_outlineVariant = Color(0xFFCCC4CF)
-val md_theme_light_scrim = Color(0xFF000000)
+val md_theme_light_scrim = Color(0xFF1E1E1E)
 
 val md_theme_dark_primary = Color(0xFFD9B9FF)
 val md_theme_dark_onPrimary = Color(0xFF411B6D)
