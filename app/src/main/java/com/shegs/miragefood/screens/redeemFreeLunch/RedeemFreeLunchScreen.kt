@@ -1,5 +1,6 @@
-package com.shegs.miragefood.screens
+package com.shegs.miragefood.screens.redeemFreeLunch
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,11 +17,20 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,39 +44,76 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.R
+import com.shegs.miragefood.screens.redeemFreeLunch.components.BottomSheetContent
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
+import kotlinx.coroutines.launch
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RedeemFreeLunchScreen(){
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        RedeemLunchTopAppBar(
-            title = stringResource(id = R.string.redeem_free_lunch),
-            onBackPressed = {}
-        )
-        Text(
-            text = "\uD83C\uDF89",
-            modifier = Modifier,
-            fontSize = 60.sp
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        RedeemLunchDescriptionSection(
-            name = "Esther",
-            amount = 2,
-            description = "Thank you for helping me with my documentation today, You’re so sweet !"
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        RowButtons(
-            onClose = { },
-            onRedeem = { }
-        )
-        Spacer(modifier = Modifier.height(90.dp))
+    val sheetState = rememberModalBottomSheetState()
+    val scope = rememberCoroutineScope()
+    var showBottomSheet by remember { mutableStateOf(false) }
+
+
+    Scaffold {
+
+        if (showBottomSheet){
+            ModalBottomSheet(
+                onDismissRequest = {
+                    showBottomSheet = false
+                },
+                sheetState = sheetState
+            ){
+                BottomSheetContent(
+                    emoji = "\uD83E\uDD73",
+                    header = "Congratulations !",
+                    description = "You have redeemed your 2 free lunch gift from esther",
+                    message = "Have fun !",
+                    onClose = {
+                        scope.launch { sheetState.hide() }.invokeOnCompletion {
+                            if (!sheetState.isVisible) {
+                                showBottomSheet = false
+                            }
+                        }
+                    }
+                )
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            RedeemLunchTopAppBar(
+                title = stringResource(id = R.string.redeem_free_lunch),
+                onBackPressed = {}
+            )
+            Text(
+                text = "\uD83C\uDF89",
+                modifier = Modifier,
+                fontSize = 60.sp
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            RedeemLunchDescriptionSection(
+                name = "Esther",
+                amount = 2,
+                description = "Thank you for helping me with my documentation today, You’re so sweet !"
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            RowButtons(
+                onClose = { },
+                onRedeem = {
+                    showBottomSheet = true
+                }
+            )
+            Spacer(modifier = Modifier.height(90.dp))
+        }
     }
 }
 
