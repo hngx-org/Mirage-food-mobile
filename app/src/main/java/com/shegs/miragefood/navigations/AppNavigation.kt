@@ -7,13 +7,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.shegs.miragefood.models.datas.BottomNavItems
-import com.shegs.miragefood.ui.screens.FreeLunch
-import com.shegs.miragefood.viewmodels.FreeLunchViewModel
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -22,8 +19,7 @@ fun Navigation(navController: NavHostController) {
         startDestination = BottomNavItems.Home.route
     ) {
         composable(BottomNavItems.Home.route) {
-            val viewModel = viewModel<FreeLunchViewModel>()
-            FreeLunch(freeLunchViewModel = viewModel)
+
 
         }
         composable(BottomNavItems.Search.route) {

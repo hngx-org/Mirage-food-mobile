@@ -201,6 +201,7 @@ fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
 
             if (showModalBottomSheet.value) {
                 BottomSheet(
+                    emojiUnicode = 0x1F601,
                     sheetSate = sheetState,
                     title = "Nicely done!",
                     description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",

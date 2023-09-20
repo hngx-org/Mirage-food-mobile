@@ -31,7 +31,7 @@ import com.shegs.miragefood.ui.theme.seed
 fun BottomSheet(
     sheetSate: SheetState,
     title: String,
-    emojiUnicode: Int? = null,
+    emojiUnicode: Int,
     description: String,
     secondDescription: String,
     onButtonClicked: () -> Unit,
@@ -45,7 +45,7 @@ fun BottomSheet(
                 .align(Alignment.CenterHorizontally)
                 .padding(horizontal = 16.dp)
         ) {
-            EmojiByUnicode(emojiUnicode = emojiUnicode!!)
+            EmojiByUnicode(emojiUnicode = emojiUnicode)
             Spacer(modifier = Modifier.height(30.dp))
             Text(text = title, style = Typography.bodyMedium.copy(fontWeight = FontWeight.W500))
             Spacer(modifier = Modifier.height(10.dp))
