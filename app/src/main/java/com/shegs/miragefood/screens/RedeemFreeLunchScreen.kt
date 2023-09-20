@@ -1,4 +1,4 @@
-package com.shegs.miragefood.ui.screens
+package com.shegs.miragefood.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
