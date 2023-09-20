@@ -15,13 +15,16 @@ import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun Navigation(navController: NavHostController, userViewModel: UserViewModel) {
+fun Navigation(
+    navController: NavHostController,
+    userViewModel: UserViewModel,
+) {
     NavHost(
         navController = navController,
         startDestination = BottomNavItems.Home.route
     ) {
         composable(BottomNavItems.Home.route) {
-          HomeScreen(userViewModel)
+            HomeScreen(userViewModel)
         }
         composable(BottomNavItems.Search.route) {
             //TODO() replace with the search screen

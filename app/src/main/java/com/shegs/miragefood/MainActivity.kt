@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
+import com.shegs.miragefood.viewmodels.FreeLunchViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var userViewModel: UserViewModel
+
 
 
 
