@@ -1,6 +1,7 @@
 package com.shegs.miragefood.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,14 +15,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -34,11 +39,17 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import com.shegs.miragefood.R
+import com.shegs.miragefood.models.datas.ReceivedTransaction
+import com.shegs.miragefood.models.datas.RedeemedTransaction
+import com.shegs.miragefood.models.datas.Transaction
 import com.shegs.miragefood.models.datas.UserData
+import com.shegs.miragefood.models.datas.WithdrawnTransaction
+import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun HomeScreen(userViewModel: UserViewModel) {
+fun HomeScreen(userViewModel: UserViewModel, viewModel: TransactionViewModel) {
 
     val userData = userViewModel.userData.collectAsState().value
 
@@ -58,6 +69,8 @@ fun HomeScreen(userViewModel: UserViewModel) {
                 LunchBalance()
                 ActionButtonSection()
                 RecentTransactionSection()
+                Spacer(modifier = Modifier.height(24.dp))
+                TransactionScreen(viewModel)
             }
 
         }
@@ -266,5 +279,210 @@ fun RecentTransactionSection() {
                 modifier = Modifier
                     .alpha(0.6f)
             )
+    }
+}
+
+@Composable
+fun TransactionScreen(viewModel: TransactionViewModel) {
+    // Observe the ViewModel data
+    val transactions by viewModel.transactions.collectAsState(emptyList())
+
+    // Display the data using the TransactionList Composable
+    TransactionList(transactions = transactions)
+}
+
+@Composable
+fun TransactionList(transactions: List<Transaction>) {
+    LazyColumn {
+        items(transactions) { transaction ->
+            TransactionItem(transaction)
+        }
+    }
+}
+
+@Composable
+fun TransactionItem(transaction: Transaction) {
+    when (transaction) {
+            is ReceivedTransaction -> ReceivedTransaction(transaction)
+            is RedeemedTransaction -> RedeemedTransaction(transaction)
+            is WithdrawnTransaction -> WithdrawnTransaction(transaction)
+        }
+}
+
+
+
+@Composable
+fun ReceivedTransaction(transaction: ReceivedTransaction) {
+    // Display received transaction content
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 32.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Box(
+            modifier = Modifier
+                .size(36.dp)
+                .background(Color(0xFFF5F5F5), shape = RoundedCornerShape(8.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.icon_lunch_notification),
+                contentDescription = "Lunch Icon",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(20.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+        ) {
+            Text(
+                text = "From ${transaction.sender}",
+                fontWeight = FontWeight(500),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.scrim
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
+
+            Text(
+                text = transaction.timestamp.toString(),
+                fontWeight = FontWeight(400),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.scrim,
+                modifier = Modifier
+                    .alpha(0.6f)
+            )
+        }
+
+        Text(
+            text = "+${transaction.amountSent} Free Lunch",
+            fontWeight = FontWeight(500),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.primary
+        )
+
+    }
+}
+
+@Composable
+fun RedeemedTransaction(transaction: RedeemedTransaction) {
+    // Display redeemed transaction content
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 32.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Box(
+            modifier = Modifier
+                .size(36.dp)
+                .background(Color(0xFFF5F5F5), shape = RoundedCornerShape(8.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.icon_redeemed),
+                contentDescription = "Redeem Icon",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(20.dp)
+            )
+        }
+        
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+        ) {
+            Text(
+                text = "Redeemed Lunch",
+                fontWeight = FontWeight(400),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.scrim
+            )
+            
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = transaction.timestamp.toString(),
+                fontWeight = FontWeight(400),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.scrim,
+                modifier = Modifier
+                    .alpha(0.6f)
+            )
+        }
+
+        Text(
+            text = "${transaction.redeemedAmount} Free Lunch",
+            fontWeight = FontWeight(500),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.primary
+        )
+
+    }
+}
+
+@Composable
+fun WithdrawnTransaction(transaction: WithdrawnTransaction) {
+    // Display withdrawn transaction content
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 32.dp),
+        verticalAlignment = Alignment.Top
+    ) {
+        Box(
+            modifier = Modifier
+                .size(36.dp)
+                .background(Color(0xFFF5F5F5), shape = RoundedCornerShape(8.dp)),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.icon_withdraw),
+                contentDescription = "Withdrawal Icon",
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .size(20.dp)
+            )
+        }
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        Column(
+            modifier = Modifier
+                .weight(1f)
+        ) {
+            Text(
+                text = "Withdrawal from Wallet",
+                fontWeight = FontWeight(400),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.scrim
+            )
+
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = transaction.timestamp.toString(),
+                fontWeight = FontWeight(400),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.scrim,
+                modifier = Modifier
+                    .alpha(0.6f)
+            )
+        }
+
+        Text(
+            text = "-${transaction.withdrawnAmount}",
+            fontWeight = FontWeight(500),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.scrim
+        )
+
     }
 }
