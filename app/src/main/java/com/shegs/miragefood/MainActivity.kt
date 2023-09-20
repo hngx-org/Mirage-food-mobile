@@ -15,6 +15,7 @@ import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 
+
 class MainActivity : ComponentActivity() {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
@@ -22,19 +23,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-            MirageFoodTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Scaffold(
-                        bottomBar = {
-                            BottomNavBar(navController = navController)
-                        }
-                    ) {
-                        Navigation(navController = navController)
-                    }
 
+
+            class MainActivity : ComponentActivity() {
+                override fun onCreate(savedInstanceState: Bundle?) {
+                    super.onCreate(savedInstanceState)
+                    setContent {
+                        MirageFoodTheme {
+                            Surface(
+                                modifier = Modifier.fillMaxSize(),
+                                color = MaterialTheme.colorScheme.background
+                            ) {
+                                Scaffold(
+                                    bottomBar = {
+                                        BottomNavBar(navController = navController)
+                                    }
+                                ) {
+                                    Navigation(navController = navController)
+                                }
+
+                            }
+                        }
+                    }
                 }
             }
         }

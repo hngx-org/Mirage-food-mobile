@@ -37,7 +37,6 @@ fun AppTextField(
     onValueChanged: (String?) -> Unit
 ) {
     OutlinedTextField(
-        maxLines = maxLines,
         colors = TextFieldDefaults.outlinedTextFieldColors(
             containerColor = containerColor ?: grey2,
             unfocusedBorderColor = md_theme_light_onPrimary,
@@ -57,6 +56,15 @@ fun AppTextField(
                     )
                 )
             }
+            Text(
+                text = placeholder!!,
+                style = Typography.bodySmall.copy(
+                    fontSize = 12.sp,
+                    lineHeight = 18.sp,
+                    fontWeight = FontWeight.W500,
+                    color = grey3
+                )
+            )
         },
         shape = ShapeDefaults.Medium,
         modifier = modifier,

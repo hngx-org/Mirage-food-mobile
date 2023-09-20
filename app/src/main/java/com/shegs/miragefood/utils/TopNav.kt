@@ -11,18 +11,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shegs.miragefood.R
+import com.shegs.miragefood.ui.theme.grey3
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TopNavigationBar(
-
     useCancelButton: Boolean? = false,
     onBackButtonPressed: () -> Unit
 ) {
     TopAppBar(
-        title = {
-
-        },
+        title = {},
         navigationIcon = {
             IconButton(onClick = onBackButtonPressed) {
                 val icon = if (!useCancelButton!!) {
@@ -32,6 +30,7 @@ fun TopNavigationBar(
                 }
                 Icon(
                     painter = icon,
+                    tint = grey3,
                     contentDescription = "Back",
                     modifier = Modifier
                         .size(15.dp)

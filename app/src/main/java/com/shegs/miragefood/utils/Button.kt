@@ -16,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.md_theme_light_onPrimary
-import com.shegs.miragefood.ui.theme.seed
 
 @Composable
 fun RoundedCornerButton(
@@ -26,13 +25,12 @@ fun RoundedCornerButton(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .fillMaxWidth()
             .padding(2.dp)
-            .height(60.dp),
+            .height(60.dp)
+            .fillMaxWidth(),
         shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(
-            contentColor = Color.White,
-            containerColor = seed
+            contentColor = Color.White
         )
     ) {
         Text(
@@ -57,4 +55,3 @@ fun RoundedCornerButtonDemo() {
         }
     )
 }
-
