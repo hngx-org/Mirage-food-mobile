@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -27,6 +28,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
@@ -55,7 +57,7 @@ fun HomeScreen(userViewModel: UserViewModel) {
                 UserGreeting(user)
                 LunchBalance()
                 ActionButtonSection()
-
+                RecentTransactionSection()
             }
 
         }
@@ -238,5 +240,31 @@ fun ActionButtonSection() {
 
         }
 
+    }
+}
+
+
+@Composable
+fun RecentTransactionSection() {
+    Row (
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 32.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ){
+            Text(
+                text = "Recent",
+                fontWeight = FontWeight(500),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.scrim
+            )
+
+            ClickableText(
+                text = AnnotatedString("See all"),
+                onClick = { },
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier
+                    .alpha(0.6f)
+            )
     }
 }
