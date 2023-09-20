@@ -31,10 +31,12 @@ import com.shegs.miragefood.ui.theme.seed
 fun BottomSheet(
     sheetSate: SheetState,
     title: String,
+    emojiUnicode: Int? = null,
     description: String,
     secondDescription: String,
     onButtonClicked: () -> Unit,
 ) {
+
     ModalBottomSheet(sheetState = sheetSate, onDismissRequest = { /*TODO*/ }) {
         Column(
             verticalArrangement = Arrangement.Center,
@@ -43,6 +45,8 @@ fun BottomSheet(
                 .align(Alignment.CenterHorizontally)
                 .padding(horizontal = 16.dp)
         ) {
+            EmojiByUnicode(emojiUnicode = emojiUnicode!!)
+            Spacer(modifier = Modifier.height(30.dp))
             Text(text = title, style = Typography.bodyMedium.copy(fontWeight = FontWeight.W500))
             Spacer(modifier = Modifier.height(10.dp))
             Text(
@@ -63,6 +67,10 @@ fun BottomSheet(
     }
 }
 
+
+
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
@@ -71,6 +79,7 @@ fun PreviewBottomSheet() {
     var showBottomSheet by remember { mutableStateOf(false) }
     if (showBottomSheet) {
         BottomSheet(
+            emojiUnicode = 0x1F601,
             sheetSate = sheetState,
             title = "Nicely done!",
             description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",

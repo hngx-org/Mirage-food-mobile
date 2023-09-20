@@ -32,7 +32,6 @@ import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.seed
 import com.shegs.miragefood.ui.theme.seedWithOpacity
 import com.shegs.miragefood.utils.AppTextField
-import com.shegs.miragefood.utils.BottomSheet
 import com.shegs.miragefood.utils.CounterText
 import com.shegs.miragefood.utils.RedeemFreeLunch
 import com.shegs.miragefood.utils.RoundedCornerButton
@@ -192,18 +191,18 @@ fun FreeLunch() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            if (showModalBottomSheet) {
-
-                BottomSheet(
-                    sheetSate = sheetState,
-                    title = "Nicely done!",
-                    description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
-                    secondDescription = "You're a good sport!",
-                    onButtonClicked = {
-                        showBottomSheet = false
-                    }
-                )
-            }
+//            if (showModalBottomSheet) {
+//
+//                BottomSheet(
+//                    sheetSate = sheetState,
+//                    title = "Nicely done!",
+//                    description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
+//                    secondDescription = "You're a good sport!",
+//                    onButtonClicked = {
+//                        showBottomSheet = false
+//                    }
+//                )
+//            }
 
             RoundedCornerButton(text = "Send Free Lunch", onClick = {
 
