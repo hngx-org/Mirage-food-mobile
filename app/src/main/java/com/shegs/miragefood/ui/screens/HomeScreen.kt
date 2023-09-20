@@ -1,9 +1,11 @@
 package com.shegs.miragefood.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +13,10 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -18,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
@@ -37,7 +44,7 @@ fun HomeScreen(userViewModel: UserViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-        ){
+        ) {
 
             Column(
                 modifier = Modifier
@@ -47,6 +54,7 @@ fun HomeScreen(userViewModel: UserViewModel) {
             ) {
                 UserGreeting(user)
                 LunchBalance()
+                ActionButtonSection()
 
             }
 
@@ -90,16 +98,16 @@ fun UserGreeting(user: UserData) {
 
             Text(
                 text = buildAnnotatedString {
-                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
-                    append("Send them that ")
-                }
+                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
+                        append("Send them that ")
+                    }
                     withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                         append("free lunch")
                     }
-                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
-                    append(" today!")
-                }
-            },
+                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
+                        append(" today!")
+                    }
+                },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.scrim,
                 fontWeight = FontWeight(400)
@@ -128,7 +136,7 @@ fun LunchBalance() {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.scrim
             )
-            
+
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
@@ -143,4 +151,92 @@ fun LunchBalance() {
 
     }
 
+}
+
+
+@Composable
+fun ActionButtonSection() {
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 24.dp),
+        contentAlignment = Alignment.Center
+    ) {
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+
+            val buttonModifier = Modifier
+                .weight(1f) // Use weight to distribute the available space evenly
+                .padding(8.dp)
+                .border(1.dp, Color(0x80967BB6), shape = RoundedCornerShape(8.dp))
+                .height(34.dp)
+
+            Button(
+                onClick = { /*TODO*/ },
+                shape = RoundedCornerShape(8.dp),
+                contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0x1A967BB6),
+                    contentColor = Color(0xFF967BB6)
+                ),
+                modifier = buttonModifier
+                    .width(84.dp)
+            ) {
+                Text(
+                    text = "Gift Lunch",
+                    fontWeight = FontWeight(500),
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1
+                )
+            }
+
+            Button(
+                onClick = { /*TODO*/ },
+                shape = RoundedCornerShape(8.dp),
+
+                contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0x1A967BB6),
+                    contentColor = Color(0xFF967BB6)
+                ),
+                modifier = buttonModifier
+                    .width(114.dp)
+            ) {
+                Text(
+                    text = "Redeem Lunch",
+                    fontWeight = FontWeight(500),
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1
+                )
+            }
+
+
+            Button(
+                onClick = { /*TODO*/ },
+                shape = RoundedCornerShape(8.dp),
+                contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color(0x1A967BB6),
+                    contentColor = Color(0xFF967BB6)
+                ),
+                modifier = buttonModifier
+                    .width(84.dp)
+            ) {
+                Text(
+                    text = "Withdrawal",
+                    fontWeight = FontWeight(500),
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 1
+                )
+            }
+
+        }
+
+    }
 }
