@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mirage Food</string>
+    <string name="withdraw_screen_label">Withdraw to Bank account</string>
 </resources>
