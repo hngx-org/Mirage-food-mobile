@@ -1,11 +1,9 @@
 <resources>
     <string name="app_name">Mirage Food</string>
-    <string name="onBoardHeader1"> Welcome to Mirage Lunch</string>
-    <string name="onBoardHeader2">Recognize and Reward</string>
-    <string name="onBoardHeader3">Encourage Productivity</string>
-    <string name="onBoarding1Msg">Celebrate achievements, big or small\nwith a \‘free lunch\’ \!</string>
-    <string name="onBoarding2Msg">Empower your team with virtual lunches\nand tokens of appreciation</string>
-    <string name="onBoarding3Msg">Encourage a positive work environment\nwith meaningful acknowledgements</string>
-
-
+    <string name="redeem_free_lunch">Redeem Free Lunch</string>
+    <string name="you_were_sent_free_lunch">You were sent free lunch by</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
+    <string name="your_free_lunch_will_be_redeemed">Your Free Lunch redeemed for cash will be added to your wallet.</string>
+    <string name="fre_lunch_equals">1 Free Lunch equates to ₦1,000</string>
 </resources>
