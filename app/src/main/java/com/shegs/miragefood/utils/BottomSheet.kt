@@ -39,7 +39,7 @@ fun BottomSheet(
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier
+            modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(horizontal = 16.dp)
         ) {
@@ -53,7 +53,7 @@ fun BottomSheet(
             Spacer(modifier = Modifier.height(24.dp))
             Text(
                 text = secondDescription,
-                style = Typography.bodyMedium.copy(fontWeight = FontWeight.W400, color = seed)
+                style = Typography.bodySmall.copy(fontWeight = FontWeight.W400, color = seed)
             )
             Spacer(modifier = Modifier.height(40.dp))
             RoundedCornerButton(text = "Close", onClick = onButtonClicked)
@@ -75,7 +75,9 @@ fun PreviewBottomSheet() {
             title = "Nicely done!",
             description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
             secondDescription = "You're a good sport!",
-            onButtonClicked = {}
+            onButtonClicked = {
+                showBottomSheet = false
+            }
         )
     }
     RoundedCornerButton(text = "Close", onClick = {

@@ -32,13 +32,15 @@ import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.seed
 import com.shegs.miragefood.ui.theme.seedWithOpacity
 import com.shegs.miragefood.utils.AppTextField
+import com.shegs.miragefood.utils.BottomSheet
 import com.shegs.miragefood.utils.CounterText
 import com.shegs.miragefood.utils.RedeemFreeLunch
 import com.shegs.miragefood.utils.RoundedCornerButton
 import com.shegs.miragefood.utils.TextFieldHeader
 import com.shegs.miragefood.utils.TopNavigationBar
 
-@OptIn(ExperimentalMaterial3Api::class,
+@OptIn(
+    ExperimentalMaterial3Api::class,
 )
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -58,7 +60,7 @@ fun FreeLunch() {
                 .fillMaxSize()
                 .padding(top = 60.dp, start = 14.dp, end = 12.dp),
 
-        ) {
+            ) {
             RedeemFreeLunch(title = "20 Free Lunch", subtitle = "Your Free Lunch Redeemed Balance ")
             Spacer(modifier = Modifier.height(40.dp))
             Text(
@@ -189,6 +191,19 @@ fun FreeLunch() {
             }
 
             Spacer(modifier = Modifier.height(20.dp))
+
+            if (showModalBottomSheet) {
+
+                BottomSheet(
+                    sheetSate = sheetState,
+                    title = "Nicely done!",
+                    description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
+                    secondDescription = "You're a good sport!",
+                    onButtonClicked = {
+                        showBottomSheet = false
+                    }
+                )
+            }
 
             RoundedCornerButton(text = "Send Free Lunch", onClick = {
 
