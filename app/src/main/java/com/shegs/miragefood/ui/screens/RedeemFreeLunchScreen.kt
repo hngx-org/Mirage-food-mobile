@@ -8,7 +8,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.Button
@@ -40,14 +42,14 @@ fun RedeemFreeLunchScreen(){
 
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         RedeemLunchTopAppBar(
             title = stringResource(id = R.string.redeem_free_lunch),
             onBackPressed = {}
         )
-        Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = "\uD83C\uDF89",
             modifier = Modifier,
@@ -64,6 +66,7 @@ fun RedeemFreeLunchScreen(){
             onClose = { },
             onRedeem = { }
         )
+        Spacer(modifier = Modifier.height(90.dp))
     }
 }
 
@@ -86,14 +89,14 @@ fun RedeemLunchTopAppBar(
 ){
     Column(
         modifier = modifier
-            .padding(vertical = 24.dp)
+            .padding(vertical = 16.dp)
     ) {
         IconButton(
             onClick = onBackPressed
         ) {
             Icon(imageVector = Icons.Default.Clear, contentDescription = "back icon")
         }
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = title,
             style = MaterialTheme.typography.titleLarge,
