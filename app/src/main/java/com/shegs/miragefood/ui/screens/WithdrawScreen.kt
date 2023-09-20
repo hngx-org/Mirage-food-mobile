@@ -174,10 +174,10 @@ fun WithdrawScreen() {
                         modifier = Modifier.size(24.dp)
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Icon and Text")
+                    Text(text = "Elizabeth Faith Yaroson")
                 }
                 Spacer(modifier = Modifier.height(16.dp))
-                Text(text = "Another Text")
+                Text(text = "22058383 - Access Bank")
             }
         }
 
