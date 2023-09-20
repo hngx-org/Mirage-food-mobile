@@ -1,10 +1,7 @@
 package com.shegs.miragefood.utils
 
-import android.graphics.drawable.Icon
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
@@ -18,10 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey
+import com.shegs.miragefood.ui.theme.grey3
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +55,7 @@ fun TopNavigationBar(
                 }
                 Icon(
                     imageVector = icon,
-                    tint = grey,
+                    tint = grey3,
                     contentDescription = "Back",
 //                    modifier = Modifier
 //                        .size(20.dp)
