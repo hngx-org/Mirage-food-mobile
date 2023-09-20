@@ -212,11 +212,13 @@ fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
                 )
             }
 
+
+            RoundedCornerButton(text = "Send Free Lunch", onClick = {
+                freeLunchViewModel.setShowBottomSheet(true)
+            })
+
         }
 
-        RoundedCornerButton(text = "Send Free Lunch", onClick = {
-
-        })
 
 
     }

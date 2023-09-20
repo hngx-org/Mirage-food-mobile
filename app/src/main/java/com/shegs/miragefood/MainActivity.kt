@@ -14,41 +14,46 @@ import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
+import com.shegs.miragefood.viewmodels.FreeLunchViewModel
+import com.shegs.miragefood.viewmodels.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var userViewModel: UserViewModel
+
+    @Inject
+    lateinit var freeLunchViewModel: FreeLunchViewModel
+
+
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             val navController = rememberNavController()
-
-
-            class MainActivity : ComponentActivity() {
-                override fun onCreate(savedInstanceState: Bundle?) {
-                    super.onCreate(savedInstanceState)
-                    setContent {
-                        MirageFoodTheme {
-                            Surface(
-                                modifier = Modifier.fillMaxSize(),
-                                color = MaterialTheme.colorScheme.background
-                            ) {
-                                Scaffold(
-                                    bottomBar = {
-                                        BottomNavBar(navController = navController)
-                                    }
-                                ) {
-                                    Navigation(navController = navController)
-
-                                }
-
-                            }
+            MirageFoodTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    Scaffold(
+                        bottomBar = {
+                            BottomNavBar(navController = navController)
                         }
+                    ) {
+                        Navigation(
+                            navController = navController,
+                            userViewModel = userViewModel,
+                            freeLunchViewModel = freeLunchViewModel
+                        )
                     }
+
                 }
             }
         }
     }
 }
-
