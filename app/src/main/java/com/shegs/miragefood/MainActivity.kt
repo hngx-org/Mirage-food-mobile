@@ -13,8 +13,16 @@ import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
+import com.shegs.miragefood.viewmodels.UserViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var userViewModel: UserViewModel
+
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +38,7 @@ class MainActivity : ComponentActivity() {
                             BottomNavBar(navController = navController)
                         }
                     ) { innerPadding ->
-                        Navigation(navController = navController)
+                        Navigation(navController = navController, userViewModel = userViewModel)
                     }
 
                 }

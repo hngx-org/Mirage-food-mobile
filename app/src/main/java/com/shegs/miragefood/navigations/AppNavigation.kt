@@ -12,15 +12,16 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.shegs.miragefood.models.datas.BottomNavItems
 import com.shegs.miragefood.ui.screens.HomeScreen
+import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun Navigation(navController: NavHostController) {
+fun Navigation(navController: NavHostController, userViewModel: UserViewModel) {
     NavHost(
         navController = navController,
         startDestination = BottomNavItems.Home.route
     ) {
         composable(BottomNavItems.Home.route) {
-            HomeScreen()
+            HomeScreen(userViewModel)
         }
         composable(BottomNavItems.Search.route) {
             //TODO() replace with the search screen
