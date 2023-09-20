@@ -18,8 +18,6 @@ val Poppins = FontFamily(
     )
 
 val Typography = Typography(
-
-
     titleLarge = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Bold,
