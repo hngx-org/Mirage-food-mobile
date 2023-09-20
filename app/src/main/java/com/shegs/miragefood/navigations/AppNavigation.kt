@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.shegs.miragefood.models.datas.BottomNavItems
-import com.shegs.miragefood.ui.screens.HomeScreen
+import com.shegs.miragefood.ui.screens.FreeLunch
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -20,7 +20,7 @@ fun Navigation(navController: NavHostController) {
         startDestination = BottomNavItems.Home.route
     ) {
         composable(BottomNavItems.Home.route) {
-            HomeScreen()
+            FreeLunch()
         }
         composable(BottomNavItems.Search.route) {
             //TODO() replace with the search screen

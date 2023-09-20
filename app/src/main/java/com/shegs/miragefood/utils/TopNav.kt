@@ -17,7 +17,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.ui.theme.Typography
-import com.shegs.miragefood.ui.theme.grey
 import com.shegs.miragefood.ui.theme.grey3
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -40,7 +39,7 @@ fun TopNavigationBar(
                     subtitle!!,
                     style = Typography.bodySmall.copy(
                         fontSize = 12.sp,
-                        color = grey,
+                        color = grey3,
                         fontWeight = FontWeight.W400
                     )
                 )
