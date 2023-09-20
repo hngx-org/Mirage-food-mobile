@@ -1,4 +1,4 @@
-package com.shegs.miragefood.ui.screens
+package com.shegs.miragefood.ui.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -23,11 +23,12 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.shegs.miragefood.models.datas.UserData
 import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun HomeScreen(userViewModel: UserViewModel) {
+fun HomeScreen(userViewModel: UserViewModel = hiltViewModel()) {
 
     val userData = userViewModel.userData.collectAsState().value
 
@@ -35,7 +36,7 @@ fun HomeScreen(userViewModel: UserViewModel) {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-        ){
+        ) {
 
             Column(
                 modifier = Modifier
@@ -88,16 +89,16 @@ fun UserGreeting(user: UserData) {
 
             Text(
                 text = buildAnnotatedString {
-                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
-                    append("Send them that ")
-                }
+                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
+                        append("Send them that ")
+                    }
                     withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.primary)) {
                         append("free lunch")
                     }
-                withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
-                    append(" today!")
-                }
-            },
+                    withStyle(style = SpanStyle(color = MaterialTheme.colorScheme.scrim)) {
+                        append(" today!")
+                    }
+                },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.scrim,
                 fontWeight = FontWeight(400)

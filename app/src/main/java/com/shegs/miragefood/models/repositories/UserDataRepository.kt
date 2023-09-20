@@ -9,7 +9,8 @@ import javax.inject.Inject
 class UserDataRepository @Inject constructor() {
 
     // Simulated data source
-    private val userData = MutableStateFlow(UserData(name = "Amy", img = R.drawable.user_image, redeemedBalance = 0))
+    private val userData =
+        MutableStateFlow(UserData(name = "Amy", img = R.drawable.user_image, redeemedBalance = 0))
 
     fun getUserData(): StateFlow<UserData?> {
         return userData
