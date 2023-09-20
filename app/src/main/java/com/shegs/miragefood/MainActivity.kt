@@ -11,8 +11,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
-import com.shegs.miragefood.utils.BottomNavBar
-import com.shegs.miragefood.utils.Navigation
+import com.shegs.miragefood.navigations.BottomNavBar
+import com.shegs.miragefood.navigations.Navigation
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)

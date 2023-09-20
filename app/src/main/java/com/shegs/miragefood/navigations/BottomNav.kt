@@ -1,4 +1,4 @@
-package com.shegs.miragefood.utils
+package com.shegs.miragefood.navigations
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -15,28 +15,28 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.shegs.miragefood.R
+import com.shegs.miragefood.models.datas.BottomNavItems
 
 
 @Composable
 fun BottomNavBar(navController: NavController) {
 
-    val screens = listOf(
-        BottomBarScreens.Home,
-        BottomBarScreens.Search,
-        BottomBarScreens.Notifications,
-        BottomBarScreens.Settings
+    val navItems = listOf(
+        BottomNavItems.Home,
+        BottomNavItems.Search,
+        BottomNavItems.Notifications,
+        BottomNavItems.Settings
     )
 
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry.value?.destination?.route
 
     // Only show the bottom nav bar when the current route is one of the bottom nav destinations
-    val bottomBarDestination = screens.any { it.route == currentRoute }
+    val bottomBarDestination = navItems.any { it.route == currentRoute }
 
     if (bottomBarDestination) {
         NavigationBar {
-            screens.forEach { screen ->
+            navItems.forEach { screen ->
                 val selected = screen.route == currentRoute
                 NavigationBarItem(
                     selected = selected,
@@ -72,12 +72,3 @@ fun BottomNavBar(navController: NavController) {
     }
 }
 
-sealed class BottomBarScreens(val label: String, val icon: Int, val route: String) {
-    object Home : BottomBarScreens("Home", R.drawable.icon_home, "home_screen")
-    object Search : BottomBarScreens("Search", R.drawable.icon_search, "search_screen")
-    object Notifications :
-        BottomBarScreens("Notifications", R.drawable.icon_bell, "notifications_screen")
-
-    object Settings : BottomBarScreens("Settings", R.drawable.icon_setting, "settings_screen")
-
-}

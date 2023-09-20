@@ -1,4 +1,4 @@
-package com.shegs.miragefood.utils
+package com.shegs.miragefood.navigations
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,51 +10,46 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.shegs.miragefood.models.datas.BottomNavItems
+import com.shegs.miragefood.ui.screens.HomeScreen
 
 @Composable
 fun Navigation(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = BottomBarScreens.Home.route
+        startDestination = BottomNavItems.Home.route
     ) {
-        composable(BottomBarScreens.Home.route) {
-            //TODO() replace with the home screen
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = BottomBarScreens.Home.label)
-            }
+        composable(BottomNavItems.Home.route) {
+            HomeScreen()
         }
-        composable(BottomBarScreens.Search.route) {
+        composable(BottomNavItems.Search.route) {
             //TODO() replace with the search screen
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = BottomBarScreens.Search.label)
+                Text(text = BottomNavItems.Search.label)
             }
         }
-        composable(BottomBarScreens.Notifications.route) {
+        composable(BottomNavItems.Notifications.route) {
             //TODO() replace with the notifications screen
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = BottomBarScreens.Notifications.label)
+                Text(text = BottomNavItems.Notifications.label)
             }
         }
-        composable(BottomBarScreens.Settings.route) {
+        composable(BottomNavItems.Settings.route) {
             //TODO() replace with the settings screen
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Text(text = BottomBarScreens.Settings.label)
+                Text(text = BottomNavItems.Settings.label)
             }
         }
     }
