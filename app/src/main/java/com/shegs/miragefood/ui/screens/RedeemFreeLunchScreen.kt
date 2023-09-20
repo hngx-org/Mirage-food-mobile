@@ -1,4 +1,4 @@
-package com.shegs.miragefood.screens.redeemFreeLunch
+package com.shegs.miragefood.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
@@ -41,10 +41,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.R
-import com.shegs.miragefood.screens.redeemFreeLunch.components.BottomSheetContent
+import com.shegs.miragefood.ui.screens.components.BottomSheetContent
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 import kotlinx.coroutines.launch
 
@@ -52,27 +53,24 @@ import kotlinx.coroutines.launch
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RedeemFreeLunchScreen(){
-
+fun RedeemFreeLunchScreen() {
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false) }
 
-
     Scaffold {
-
-        if (showBottomSheet){
+        if (showBottomSheet) {
             ModalBottomSheet(
                 onDismissRequest = {
                     showBottomSheet = false
                 },
                 sheetState = sheetState
-            ){
+            ) {
                 BottomSheetContent(
                     emoji = "\uD83E\uDD73",
-                    header = "Congratulations !",
-                    description = "You have redeemed your 2 free lunch gift from esther",
-                    message = "Have fun !",
+                    header = "Congratulations!",
+                    description = "You have redeemed your 2 free lunch gift from Esther",
+                    message = "Have fun!",
                     onClose = {
                         scope.launch { sheetState.hide() }.invokeOnCompletion {
                             if (!sheetState.isVisible) {
@@ -94,20 +92,20 @@ fun RedeemFreeLunchScreen(){
                 title = stringResource(id = R.string.redeem_free_lunch),
                 onBackPressed = {}
             )
-            Text(
-                text = "\uD83C\uDF89",
+            EmojiText(
+                emoji = "\uD83C\uDF89",
+                fontSize = 60.sp,
                 modifier = Modifier,
-                fontSize = 60.sp
             )
             Spacer(modifier = Modifier.height(20.dp))
             RedeemLunchDescriptionSection(
                 name = "Esther",
                 amount = 2,
-                description = "Thank you for helping me with my documentation today, You’re so sweet !"
+                description = "Thank you for helping me with my documentation today. You're so sweet!"
             )
             Spacer(modifier = Modifier.height(20.dp))
             RowButtons(
-                onClose = { },
+                onClose = {},
                 onRedeem = {
                     showBottomSheet = true
                 }
@@ -119,24 +117,20 @@ fun RedeemFreeLunchScreen(){
 
 @Preview(showBackground = true)
 @Composable
-fun RedeemFreeLunchPreview(){
+fun RedeemFreeLunchPreview() {
     MirageFoodTheme {
         RedeemFreeLunchScreen()
     }
 }
 
-
-
-
 @Composable
 fun RedeemLunchTopAppBar(
     title: String,
     modifier: Modifier = Modifier,
-    onBackPressed: ()->Unit
-){
+    onBackPressed: () -> Unit
+) {
     Column(
-        modifier = modifier
-            .padding(vertical = 16.dp)
+        modifier = modifier.padding(vertical = 16.dp)
     ) {
         IconButton(
             onClick = onBackPressed
@@ -156,14 +150,12 @@ fun RedeemLunchTopAppBar(
 
 @Composable
 fun RowButtons(
-    onClose: ()->Unit,
-    onRedeem:()->Unit,
+    onClose: () -> Unit,
+    onRedeem: () -> Unit,
     modifier: Modifier = Modifier
-){
+) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp)
+        modifier = modifier.fillMaxWidth().padding(horizontal = 20.dp)
     ) {
         Button(
             onClick = onRedeem,
@@ -190,16 +182,15 @@ fun RedeemLunchDescriptionSection(
     amount: Int,
     description: String,
     modifier: Modifier = Modifier
-){
+) {
     Column(
-        modifier = modifier
-            .padding(horizontal = 20.dp),
+        modifier = modifier.padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.you_were_sent_free_lunch),
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 20.sp,
                 lineHeight = 24.sp,
                 fontWeight = FontWeight.W400
@@ -219,7 +210,7 @@ fun RedeemLunchDescriptionSection(
         Text(
             text = stringResource(id = R.string.amount),
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 20.sp,
                 lineHeight = 24.sp,
                 fontWeight = FontWeight.W400
@@ -237,7 +228,7 @@ fun RedeemLunchDescriptionSection(
         Text(
             text = stringResource(id = R.string.description),
             style = MaterialTheme.typography.bodyMedium.copy(
-                color = MaterialTheme.colorScheme.outline,
+                color = MaterialTheme.colorScheme.onBackground,
                 fontSize = 20.sp,
                 lineHeight = 24.sp,
                 fontWeight = FontWeight.W400
@@ -245,15 +236,12 @@ fun RedeemLunchDescriptionSection(
         )
         Spacer(modifier = Modifier.height(10.dp))
         Card(
-            modifier = Modifier
-                .fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.primary)
         ) {
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 24.dp, horizontal = 16.dp)
-            ){
+                modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp, horizontal = 16.dp)
+            ) {
                 Text(
                     text = description,
                     style = MaterialTheme.typography.bodyMedium.copy(
@@ -272,24 +260,23 @@ fun RedeemLunchDescriptionSection(
                     textAlign = TextAlign.Center
                 )
             }
-
         }
         Spacer(modifier = Modifier.height(10.dp))
         Text(
             text = buildAnnotatedString {
                 withStyle(
                     style = SpanStyle(
-                        color = MaterialTheme.colorScheme.outline,
+                        color = MaterialTheme.colorScheme.onBackground,
                     )
-                ){
+                ) {
                     append(stringResource(id = R.string.your_free_lunch_will_be_redeemed))
                 }
                 withStyle(
                     style = SpanStyle(
                         color = MaterialTheme.colorScheme.primary
                     )
-                ){
-                    append(stringResource(id = R.string.fre_lunch_equals))
+                ) {
+                    append(stringResource(id = R.string.free_lunch_equals))
                 }
             },
             fontSize = 12.sp,
@@ -298,4 +285,17 @@ fun RedeemLunchDescriptionSection(
             modifier = Modifier.padding(horizontal = 16.dp)
         )
     }
+}
+
+@Composable
+fun EmojiText(
+    emoji: String,
+    fontSize: TextUnit,
+    modifier: Modifier = Modifier,
+) {
+    Text(
+        text = emoji,
+        modifier = modifier,
+        fontSize = fontSize
+    )
 }

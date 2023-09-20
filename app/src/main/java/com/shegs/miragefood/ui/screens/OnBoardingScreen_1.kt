@@ -22,7 +22,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -91,7 +90,7 @@ fun OnBoardingScreen_1() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-                        stringResource(id = R.string.onBoardHeader1).HeadingText()
+                        //stringResource(id = R.string.onBoardHeader1).HeadingText()
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -102,7 +101,7 @@ fun OnBoardingScreen_1() {
                             .height(52.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        stringResource(id = R.string.onBoarding1Msg).NormalText()
+                        //stringResource(id = R.string.onBoarding1Msg).NormalText()
                     }
 
                 }

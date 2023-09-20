@@ -58,9 +58,6 @@ fun generateSampleTransactions(): List<Transaction> {
 
     // Add more transactions as needed
 
-
-
-
     return listOf(
         receivedTransaction1,
         redeemedTransaction1,

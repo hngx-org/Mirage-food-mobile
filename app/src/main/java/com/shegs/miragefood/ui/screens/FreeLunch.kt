@@ -229,5 +229,6 @@ fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
 @Preview
 @Composable
 fun PreviewFreeLunch() {
-//    FreeLunch()
+    val viewModel = FreeLunchViewModel()
+    FreeLunch(viewModel)
 }
