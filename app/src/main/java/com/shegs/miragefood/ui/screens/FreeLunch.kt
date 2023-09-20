@@ -19,7 +19,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -27,23 +29,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewModelScope
 import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.seed
 import com.shegs.miragefood.ui.theme.seedWithOpacity
 import com.shegs.miragefood.utils.AppTextField
+import com.shegs.miragefood.utils.BottomSheet
 import com.shegs.miragefood.utils.CounterText
 import com.shegs.miragefood.utils.RedeemFreeLunch
 import com.shegs.miragefood.utils.RoundedCornerButton
 import com.shegs.miragefood.utils.TextFieldHeader
 import com.shegs.miragefood.utils.TopNavigationBar
+import com.shegs.miragefood.viewmodels.FreeLunchViewModel
 
 @OptIn(
     ExperimentalMaterial3Api::class,
 )
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun FreeLunch() {
+fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
+
+    var showModalBottomSheet = freeLunchViewModel.showBottomSheet.collectAsState()
+    val sheetState = rememberModalBottomSheetState()
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -191,32 +199,33 @@ fun FreeLunch() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-//            if (showModalBottomSheet) {
-//
-//                BottomSheet(
-//                    sheetSate = sheetState,
-//                    title = "Nicely done!",
-//                    description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
-//                    secondDescription = "You're a good sport!",
-//                    onButtonClicked = {
-//                        showBottomSheet = false
-//                    }
-//                )
-//            }
 
-            RoundedCornerButton(text = "Send Free Lunch", onClick = {
-
-            })
-
+            if (showModalBottomSheet.value) {
+                BottomSheet(
+                    sheetSate = sheetState,
+                    title = "Nicely done!",
+                    description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
+                    secondDescription = "You're a good sport!",
+                    onButtonClicked = {
+                        showModalBottomSheet.value = false
+                    }
+                )
+            }
 
         }
 
+        RoundedCornerButton(text = "Send Free Lunch", onClick = {
+
+        })
+
+
     }
+
 }
 
 
 @Preview
 @Composable
 fun PreviewFreeLunch() {
-    FreeLunch()
+//    FreeLunch()
 }
