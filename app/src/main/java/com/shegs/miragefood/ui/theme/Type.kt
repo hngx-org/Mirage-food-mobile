@@ -18,8 +18,6 @@ val Poppins = FontFamily(
     )
 
 val Typography = Typography(
-
-
     titleLarge = TextStyle(
         fontFamily = Poppins,
         fontSize = 24.sp,
