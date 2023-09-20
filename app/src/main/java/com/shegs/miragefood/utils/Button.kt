@@ -27,9 +27,9 @@ fun RoundedCornerButton(
         onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(2.dp)
             .height(60.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(10.dp),
         colors = ButtonDefaults.buttonColors(
             contentColor = Color.White,
             containerColor = seed

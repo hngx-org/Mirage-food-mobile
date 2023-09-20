@@ -1,5 +1,6 @@
 package com.shegs.miragefood
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ import com.shegs.miragefood.navigations.Navigation
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +31,7 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             BottomNavBar(navController = navController)
                         }
-                    ) { innerPadding ->
+                    ) {
                         Navigation(navController = navController)
                     }
 

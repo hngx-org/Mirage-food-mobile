@@ -3,6 +3,7 @@ package com.shegs.miragefood.ui.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -11,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +33,7 @@ import com.shegs.miragefood.ui.theme.seed
 import com.shegs.miragefood.ui.theme.seedWithOpacity
 import com.shegs.miragefood.utils.AppTextField
 import com.shegs.miragefood.utils.CounterText
+import com.shegs.miragefood.utils.RedeemFreeLunch
 import com.shegs.miragefood.utils.RoundedCornerButton
 import com.shegs.miragefood.utils.TextFieldHeader
 import com.shegs.miragefood.utils.TopNavigationBar
@@ -39,10 +43,11 @@ import com.shegs.miragefood.utils.TopNavigationBar
 @Composable
 fun FreeLunch() {
     Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState()),
         topBar = {
             TopNavigationBar(
-                title = "₦20,000",
-                subtitle = "Your Free Lunch Redeemed Balance",
                 onBackButtonPressed = {})
         }
     ) {
@@ -50,16 +55,21 @@ fun FreeLunch() {
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 100.dp, start = 12.dp, end = 12.dp),
+                .padding(top = 60.dp, start = 14.dp, end = 12.dp),
+
         ) {
+            RedeemFreeLunch(title = "20 Free Lunch", subtitle = "Your Free Lunch Redeemed Balance ")
+            Spacer(modifier = Modifier.height(40.dp))
             Text(
                 text = "Gift free lunch to",
                 style = Typography.titleLarge.copy(
                     fontWeight = FontWeight.W500,
                     fontSize = 16.sp,
                     lineHeight = 24.sp
+                ),
+                modifier = Modifier.padding(start = 4.dp),
+
                 )
-            )
 
             AppTextField(
                 placeholderComposable = null,
@@ -76,7 +86,7 @@ fun FreeLunch() {
 
 
             Text(
-                modifier = Modifier.padding(top = 8.dp),
+                modifier = Modifier.padding(top = 8.dp, start = 1.dp),
                 text = "*1 Free Lunch equates to ₦1,000 ",
                 style = Typography.bodySmall.copy(
                     color = seed,
@@ -90,7 +100,7 @@ fun FreeLunch() {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 20.dp, horizontal = 10.dp),
+                    .padding(vertical = 20.dp, horizontal = 2.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Column(
@@ -121,23 +131,30 @@ fun FreeLunch() {
                         value = "",
                         onValueChanged = {},
                         placeholderComposable = {
-                            Row(
-                                horizontalArrangement = Arrangement.Center,
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(50.dp),
+                                contentAlignment = Alignment.Center
                             ) {
-                                IconButton(onClick = { /*TODO*/ }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.icon_add),
-                                        contentDescription = "add"
-                                    )
-                                }
-                                Spacer(modifier = Modifier.width(5.dp))
-                                CounterText(count = "2")
-                                Spacer(modifier = Modifier.width(5.dp))
-                                IconButton(onClick = { /*TODO*/ }) {
-                                    Icon(
-                                        painter = painterResource(id = R.drawable.icon_minus),
-                                        contentDescription = "remove"
-                                    )
+                                Row(
+                                    horizontalArrangement = Arrangement.Center,
+                                ) {
+                                    IconButton(onClick = { /*TODO*/ }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.icon_add),
+                                            contentDescription = "add"
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    CounterText(count = "2")
+                                    Spacer(modifier = Modifier.width(5.dp))
+                                    IconButton(onClick = { /*TODO*/ }) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.icon_minus),
+                                            contentDescription = "remove"
+                                        )
+                                    }
                                 }
                             }
                         },
@@ -151,7 +168,7 @@ fun FreeLunch() {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 10.dp, horizontal = 10.dp),
+                    .padding(vertical = 10.dp, horizontal = 2.dp),
             ) {
                 TextFieldHeader(header = "Message")
                 Spacer(modifier = Modifier.height(6.dp))
@@ -172,16 +189,11 @@ fun FreeLunch() {
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            RoundedCornerButton(text = "Send Free Lunch") {
-
-            }
-
+            RoundedCornerButton(text = "Send Free Lunch", onClick = {
+            })
 
 
         }
-        Spacer(modifier = Modifier.height(100.dp))
-
-
 
     }
 }
