@@ -8,7 +8,10 @@ import kotlinx.coroutines.flow.StateFlow
 class FreeLunchViewModel : ViewModel() {
 
     private var _showBottomSheet = MutableStateFlow(false)
-    var showBottomSheet: StateFlow<Boolean> = _showBottomSheet
+    val showBottomSheet: StateFlow<Boolean>  = _showBottomSheet
 
 
+      fun setShowBottomSheet(showBottomSheet:Boolean){
+          _showBottomSheet.value = showBottomSheet
+      }
 }

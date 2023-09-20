@@ -29,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewModelScope
 import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.seed
@@ -207,7 +206,7 @@ fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
                     description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
                     secondDescription = "You're a good sport!",
                     onButtonClicked = {
-                        showModalBottomSheet.value = false
+                        freeLunchViewModel.setShowBottomSheet(showBottomSheet = false)
                     }
                 )
             }
