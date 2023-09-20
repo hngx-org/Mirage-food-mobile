@@ -1,27 +1,41 @@
 package com.shegs.miragefood.utils
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import com.shegs.miragefood.ui.theme.Typography
+import androidx.compose.ui.unit.dp
+import com.shegs.miragefood.R
+import com.shegs.miragefood.ui.theme.grey3
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopNavigationBar(text: String, onBackButtonPressed: () -> Unit) {
+fun TopNavigationBar(
+    useCancelButton: Boolean? = false,
+    onBackButtonPressed: () -> Unit
+) {
     TopAppBar(
-        title = {
-            Text(text, style = Typography.titleLarge.copy(fontWeight = FontWeight.W500))
-        },
+        title = {},
         navigationIcon = {
             IconButton(onClick = onBackButtonPressed) {
-                Icon(Icons.Filled.ArrowBack, "arrow back")
+                val icon = if (!useCancelButton!!) {
+                    painterResource(id = R.drawable.icon_back)
+                } else {
+                    painterResource(id = R.drawable.icon_close)
+                }
+                Icon(
+                    painter = icon,
+                    tint = grey3,
+                    contentDescription = "Back",
+                    modifier = Modifier
+                        .size(15.dp)
+                )
+
             }
         },
     )
@@ -30,7 +44,7 @@ fun TopNavigationBar(text: String, onBackButtonPressed: () -> Unit) {
 @Preview
 @Composable
 fun Preview() {
-    TopNavigationBar(text = "20,000") {
+    TopNavigationBar() {
 
     }
 }
