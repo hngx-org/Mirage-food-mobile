@@ -3,22 +3,6 @@ package com.shegs.miragefood.ui.screens
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.shegs.miragefood.models.datas.WithdrawnTransaction
-import com.shegs.miragefood.utils.BottomSheet
-import com.shegs.miragefood.utils.TopNavigationBar
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,25 +13,45 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.TextUnit
-import com.shegs.miragefood.ui.theme.Typography
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.shegs.miragefood.models.datas.WithdrawnTransaction
+import com.shegs.miragefood.ui.screens.common.BottomSheet
+import com.shegs.miragefood.ui.screens.common.RoundedCornerButton
+import com.shegs.miragefood.ui.screens.common.TopNavigationBar
 import com.shegs.miragefood.ui.theme.seed
-import com.shegs.miragefood.utils.RoundedCornerButton
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun WithdrawScreen(
     withdrawnTransaction: WithdrawnTransaction,
+    navController: NavController,
     closeModal: () -> Unit,
 ) {
     var isSheetOpen by remember { mutableStateOf(false) }
@@ -57,6 +61,7 @@ fun WithdrawScreen(
         modifier = Modifier.fillMaxSize(),
         topBar = {
             TopNavigationBar(
+                navController = navController,
                 onBackButtonPressed = { TODO()/* Handle back button press */ }
             )
         }
@@ -80,7 +85,7 @@ fun WithdrawScreen(
             sheetBackgroundColor = MaterialTheme.colorScheme.onPrimaryContainer,
             sheetElevation = 16.dp,
             scaffoldState = rememberBottomSheetScaffoldState(),
-            ) {
+        ) {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -127,7 +132,12 @@ fun WithdrawScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                ButtonRow(onClick1 = { /*TODO*/ }, text1 ="10", onClick2 = { /*TODO*/ }, text2 = "₦20000")
+                ButtonRow(
+                    onClick1 = { /*TODO*/ },
+                    text1 = "10",
+                    onClick2 = { /*TODO*/ },
+                    text2 = "₦20000"
+                )
 
                 Spacer(modifier = Modifier.height(5.dp))
 
@@ -146,7 +156,12 @@ fun WithdrawScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                ButtonRow(onClick1 = { /*TODO*/ }, text1 ="Kuda MFB", onClick2 = { /*TODO*/ }, text2 = "1120000")
+                ButtonRow(
+                    onClick1 = { /*TODO*/ },
+                    text1 = "Kuda MFB",
+                    onClick2 = { /*TODO*/ },
+                    text2 = "1120000"
+                )
 
                 Spacer(modifier = Modifier.height(5.dp))
 
@@ -157,7 +172,12 @@ fun WithdrawScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
 
-                ButtonRow(onClick1 = { /*TODO*/ }, text1 ="Peter Joe", onClick2 = { /*TODO*/ }, text2 = "other")
+                ButtonRow(
+                    onClick1 = { /*TODO*/ },
+                    text1 = "Peter Joe",
+                    onClick2 = { /*TODO*/ },
+                    text2 = "other"
+                )
                 RoundedCornerButton(text = "Withdraw") {
                     //Todo Handle logic to open sheet
                     isSheetOpen = true
@@ -165,11 +185,10 @@ fun WithdrawScreen(
             }
 
 
-
         }
 
-        }
     }
+}
 
 @Composable
 fun ButtonRow(
