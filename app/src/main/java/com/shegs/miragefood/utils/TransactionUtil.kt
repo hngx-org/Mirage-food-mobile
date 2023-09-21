@@ -11,7 +11,7 @@ fun generateSampleTransactions(): List<Transaction> {
     val receivedTransaction1 = ReceivedTransaction(
         sender = "Shegs Boss",
         amountSent = 2, // Amount of lunch sent
-        message = "Thank you for helping me with documentation today. Your are so sweet" + "U+2764",
+        message = "Thank you for helping me with my documentation today. Your are so sweet",
         timestamp = currentTimeMillis,
     )
 

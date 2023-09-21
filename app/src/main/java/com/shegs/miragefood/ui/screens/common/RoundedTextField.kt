@@ -21,19 +21,17 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
-import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RoundedTextField(
     value: String,
-    label: String,
+    label: (String),
     icon: ImageVector,
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit
@@ -46,7 +44,11 @@ fun RoundedTextField(
         onValueChange = { onValueChange(it) },
         modifier = modifier,
         label = {
-            Text(text = label, fontFamily = FontFamily(Font(R.font.poppins_light)))
+            Text(
+                text = label,
+                fontWeight = FontWeight(400),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.scrim.copy(0.6f))
         },
         leadingIcon = {
             Icon(imageVector = icon, contentDescription = label)
