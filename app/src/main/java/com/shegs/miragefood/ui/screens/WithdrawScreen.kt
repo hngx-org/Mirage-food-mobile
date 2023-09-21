@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.shegs.miragefood.utils.EmojiByUnicode
 import com.shegs.miragefood.utils.TopNavigationBar
 
 @Composable
@@ -200,7 +201,8 @@ fun WithdrawScreen() {
         }
     }
     FullScreenBottomSheet(
-        isSheetOpen, onDismissSheet = {
+        isSheetOpen,
+        onDismissSheet = {
         isSheetOpen = false
     })
 }
@@ -231,15 +233,7 @@ fun FullScreenBottomSheet(isSheetOpen: Boolean, onDismissSheet: () -> Unit) {
                         .padding(8.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.celebrate),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clip(shape = CircleShape)
-                        .background(Color.Gray)
-                        .align(Alignment.CenterHorizontally)
-                )
+                EmojiByUnicode(emojiUnicode = 0x1F973)
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = "Congratulations!",
