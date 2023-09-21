@@ -10,46 +10,60 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.shegs.miragefood.models.datas.BottomNavItems
-import com.shegs.miragefood.models.datas.ReceivedTransaction
-import com.shegs.miragefood.ui.screens.FreeLunch
-import com.shegs.miragefood.ui.screens.HomeScreen
-import com.shegs.miragefood.ui.screens.LunchDetailsScreen
-import com.shegs.miragefood.utils.generateSampleTransactions
-import com.shegs.miragefood.viewmodels.FreeLunchViewModel
-import com.shegs.miragefood.viewmodels.TransactionViewModel
-import com.shegs.miragefood.viewmodels.UserViewModel
+import androidx.navigation.navigation
+import com.shegs.miragefood.ui.screens.home.HomeScreen
+import com.shegs.miragefood.ui.screens.onboarding.OnboardingScreen
+import com.shegs.miragefood.ui.screens.signin.SignInScreen
+import com.shegs.miragefood.ui.screens.signup.SignUpScreen
 
 @Composable
-fun Navigation(navController: NavHostController, userViewModel: UserViewModel, viewModel: TransactionViewModel) {
+fun Navigation(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = BottomNavItems.Home.route
+        startDestination = NestedNavItem.Onboarding.route,
+        modifier = modifier
     ) {
-        composable(BottomNavItems.Home.route) {
-            HomeScreen(userViewModel, viewModel)
+
+        composable(NestedNavItem.Onboarding.route) {
+            OnboardingScreen(navController = navController)
         }
-        composable(BottomNavItems.Search.route) {
-            //TODO() replace with the search screen
-            val receivedTransaction = generateSampleTransactions().firstOrNull() as? ReceivedTransaction
-            receivedTransaction?.let {
-                LunchDetailsScreen(receivedTransaction = it, closeModal = {})
+
+        composable(NestedNavItem.SignUpScreen.route) {
+            SignUpScreen()
+        }
+
+        composable(NestedNavItem.SignInScreen.route) {
+            SignInScreen()
+        }
+
+        navigation(
+            route = NestedNavItem.App.route,
+            startDestination = NestedNavItem.App.HomeScreen.route
+        ) {
+            composable(NestedNavItem.App.HomeScreen.route) {
+                HomeScreen()
             }
-        }
-        composable(BottomNavItems.Notifications.route) {
-            //TODO() replace with the notifications screen
-            val viewModel = FreeLunchViewModel()
-            FreeLunch(freeLunchViewModel = viewModel)
-        }
-        composable(BottomNavItems.Settings.route) {
-            //TODO() replace with the settings screen
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = BottomNavItems.Settings.label)
+            composable(NestedNavItem.App.SearchScreen.route) {
+                //TODO() replace with the search screen
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = NestedNavItem.App.SearchScreen.label!!)
+                }
             }
+            composable(NestedNavItem.App.RedeemScreen.route) {
+                //TODO() replace with the redeem screen
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = NestedNavItem.App.RedeemScreen.label!!)
+                }
+            }
+
         }
     }
 }
