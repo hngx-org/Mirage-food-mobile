@@ -1,5 +1,6 @@
 package com.shegs.miragefood.utils
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,32 +17,61 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.md_theme_light_onPrimary
+import com.shegs.miragefood.ui.theme.seed
 
 @Composable
 fun RoundedCornerButton(
     text: String,
+    usePlainButton: Boolean? = false,
     onClick: () -> Unit
 ) {
-    Button(
-        onClick = onClick,
-        modifier = Modifier
-            .padding(2.dp)
-            .height(60.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(10.dp),
-        colors = ButtonDefaults.buttonColors(
-            contentColor = Color.White
-        )
-    ) {
-        Text(
-            text = text,
-            style = Typography.bodyMedium.copy(
-                fontSize = 16.sp,
-                fontWeight = FontWeight.W500,
-                color = md_theme_light_onPrimary
+    if (!usePlainButton!!){
+        Button(
+            onClick = onClick,
+            modifier = Modifier
+                .padding(2.dp)
+                .height(60.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.buttonColors(
+                contentColor = Color.White
+
             )
-        )
+        ) {
+            Text(
+                text = text,
+                style = Typography.bodyMedium.copy(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.W500,
+                    color = md_theme_light_onPrimary
+                )
+            )
+        }
+    }else{
+        Button(
+            border =BorderStroke(1.dp, seed),
+            onClick = onClick,
+            modifier = Modifier
+                .padding(2.dp)
+                .height(60.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(10.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = Color.White
+
+            )
+        ) {
+            Text(
+                text = text,
+                style = Typography.bodyMedium.copy(
+                    fontSize = 16.sp,
+                    fontWeight = FontWeight.W500,
+                    color = seed
+                )
+            )
+        }
     }
+
 }
 
 
@@ -49,6 +79,7 @@ fun RoundedCornerButton(
 @Composable
 fun RoundedCornerButtonDemo() {
     RoundedCornerButton(
+        usePlainButton = true,
         text = "Click Me",
         onClick = {
             // Handle button click here
