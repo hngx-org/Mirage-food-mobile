@@ -29,7 +29,7 @@ import com.shegs.miragefood.ui.theme.seed
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheet(
-    sheetSate: SheetState,
+    sheetState: SheetState,
     title: String,
     emojiUnicode: Int,
     description: String,
@@ -37,7 +37,7 @@ fun BottomSheet(
     onButtonClicked: () -> Unit,
 ) {
 
-    ModalBottomSheet(sheetState = sheetSate, onDismissRequest = { /*TODO*/ }) {
+    ModalBottomSheet(sheetState = sheetState, onDismissRequest = { /*TODO*/ }) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -80,14 +80,13 @@ fun PreviewBottomSheet() {
     if (showBottomSheet) {
         BottomSheet(
             emojiUnicode = 0x1F601,
-            sheetSate = sheetState,
+            sheetState = sheetState,
             title = "Nicely done!",
             description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
-            secondDescription = "You're a good sport!",
-            onButtonClicked = {
-                showBottomSheet = false
-            }
-        )
+            secondDescription = "You're a good sport!"
+        ) {
+            showBottomSheet = false
+        }
     }
     RoundedCornerButton(text = "Close", onClick = {
         showBottomSheet = true

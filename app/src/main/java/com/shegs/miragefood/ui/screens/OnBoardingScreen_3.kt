@@ -17,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shegs.miragefood.R
@@ -78,7 +77,7 @@ fun OnBoardingScreen_3() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
 
-                        stringResource(id = R.string.onBoardHeader3).HeadingText()
+                        //stringResource(id = R.string.onBoardHeader3).HeadingText()
                     }
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -89,7 +88,7 @@ fun OnBoardingScreen_3() {
                             .height(52.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        stringResource(id = R.string.onBoarding3Msg).NormalText()
+                        //stringResource(id = R.string.onBoarding3Msg).NormalText()
                     }
 
                 }

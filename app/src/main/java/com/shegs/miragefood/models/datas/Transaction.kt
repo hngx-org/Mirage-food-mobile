@@ -7,6 +7,7 @@ sealed class Transaction {
 data class ReceivedTransaction(
     val sender: String,
     val amountSent: Int,
+    val message: String,
     override val timestamp: Long
 ) : Transaction()
 
