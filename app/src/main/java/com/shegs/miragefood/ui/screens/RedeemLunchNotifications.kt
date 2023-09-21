@@ -50,7 +50,7 @@ fun RedeemLunchLazyColumn(redeemLunchNotifications: List<RedeemLunchNotification
             // Display timestamp for each section
             item {
                 Text(
-                    text = "",
+                    text = timestamp,
                     style = Typography.bodyMedium.copy(
                         fontWeight = FontWeight.W500,
                         fontSize = 16.sp,
