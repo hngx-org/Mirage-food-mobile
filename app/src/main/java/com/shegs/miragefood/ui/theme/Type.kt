@@ -18,25 +18,26 @@ val Poppins = FontFamily(
     )
 
 val Typography = Typography(
-
-
     titleLarge = TextStyle(
         fontFamily = Poppins,
+        fontWeight = FontWeight.Bold,
         fontSize = 24.sp,
-        lineHeight = 36.sp
+        color = md_theme_dark_scrim,
     ),
 
 
     bodyMedium = TextStyle(
         fontFamily = Poppins,
+        fontWeight = FontWeight.Medium,
         fontSize = 18.sp,
-        lineHeight = 21.sp
+        color = md_theme_dark_scrim,
     ),
 
     bodySmall = TextStyle(
         fontFamily = Poppins,
+        fontWeight = FontWeight.Normal,
         fontSize = 14.sp,
-        lineHeight = 21.sp
+        color = md_theme_dark_scrim,
     )
 
 )
