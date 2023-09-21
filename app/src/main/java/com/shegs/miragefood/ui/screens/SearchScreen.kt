@@ -1,6 +1,7 @@
 package com.shegs.miragefood.ui.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -43,6 +44,7 @@ fun SearchScreen(searchViewModel: SearchViewModel){
 
     val uiState = searchViewModel.searchUIState.collectAsState().value
     val searchText = searchViewModel.searchText.collectAsState().value
+    val recentSearches = searchViewModel.recentSearches.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -90,7 +92,10 @@ fun SearchScreen(searchViewModel: SearchViewModel){
                 EmployeeListSection(
                     title = "Results",
                     employees = uiState.employees,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    onItemClick = {
+                        searchViewModel.addToRecents(it)
+                    }
                 )
             }
             is SearchUIState.Error ->{
@@ -107,7 +112,12 @@ fun SearchScreen(searchViewModel: SearchViewModel){
                 }
             }
             is SearchUIState.Idle ->{
-                // Display recent searches
+                EmployeeListSection(
+                    title = "Recents",
+                    employees = recentSearches,
+                    modifier = Modifier.weight(1f),
+                    onItemClick = {}
+                )
             }
         }
     }
@@ -117,7 +127,8 @@ fun SearchScreen(searchViewModel: SearchViewModel){
 fun EmployeeListSection(
     title: String,
     employees: List<Employee>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: (Employee) -> Unit
 ){
     Column(
         modifier = modifier
@@ -135,7 +146,12 @@ fun EmployeeListSection(
                 .weight(1f),
         ){
             items(employees.size){index ->
-                EmployeeListItem(employee = employees[index])
+                EmployeeListItem(
+                    employee = employees[index],
+                    onItemClick = {
+                        onItemClick(employees[index])
+                    }
+                )
             }
         }
     }
@@ -177,12 +193,16 @@ fun SearchTextField(
 @Composable
 fun EmployeeListItem(
     employee: Employee,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onItemClick: ()-> Unit
 ){
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
+            .padding(vertical = 8.dp)
+            .clickable {
+                onItemClick()
+            },
         horizontalArrangement = Arrangement.Start
     ) {
         Image(

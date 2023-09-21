@@ -2,6 +2,7 @@ package com.shegs.miragefood.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shegs.miragefood.models.datas.Employee
 import com.shegs.miragefood.models.datas.SearchUIState
 import com.shegs.miragefood.models.repositories.SearchRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,6 +26,9 @@ class SearchViewModel@Inject constructor(
     private val _searchUIState = MutableStateFlow<SearchUIState>(SearchUIState.Idle)
     val searchUIState = _searchUIState.asStateFlow()
 
+    private val _recentSearches = MutableStateFlow(mutableListOf<Employee>())
+    val recentSearches = _recentSearches.asStateFlow()
+
     private var searchJob: Job? = null
 
 
@@ -39,6 +43,10 @@ class SearchViewModel@Inject constructor(
                 searchEmployees(text)
             }
         }
+    }
+
+    fun addToRecents(employee: Employee){
+        _recentSearches.value.add(employee)
     }
 
     private suspend fun searchEmployees(text: String){
