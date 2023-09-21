@@ -139,7 +139,6 @@ fun EmployeeListSection(
             }
         }
     }
-
 }
 
 @Composable
