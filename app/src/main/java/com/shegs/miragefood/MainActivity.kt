@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
-import com.shegs.miragefood.ui.screens.onboarding.OnBoardingViewModel
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
-import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
+import com.shegs.miragefood.viewmodels.GiftLunchViewModel
+import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,13 +28,12 @@ class MainActivity : ComponentActivity() {
     lateinit var userViewModel: UserViewModel
 
     // Initialize the ViewModel
-    private val onBoardingViewModel: OnBoardingViewModel by viewModels()
+    private val onBoardingViewModel: OnboardingViewModel by viewModels()
+
+    private val giftLunchViewModel: GiftLunchViewModel by viewModels()
 
     @Inject
     lateinit var transactionViewModel: TransactionViewModel
-
-    @Inject
-    lateinit var redeemFreeLunchViewModel: RedeemLunchNotificationsViewModel
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,13 +50,13 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             BottomNavBar(navController = navController)
                         }
-                    ) { innerPadding ->
+                    ) {  innerPadding ->
                         Navigation(
-                            navController = navController,
-                            userViewModel = userViewModel,
+                            navController,
+                            userViewModel,
                             transactionViewModel,
-                            redeemFreeLunchViewModel = redeemFreeLunchViewModel
-                        )
+                            onBoardingViewModel,
+                            giftLunchViewModel)
                     }
 
                 }

@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class FreeLunchViewModel @Inject constructor() : ViewModel() {
+class GiftLunchViewModel @Inject constructor() : ViewModel() {
 
     private var _showBottomSheet = MutableStateFlow(false)
     val showBottomSheet: StateFlow<Boolean>  = _showBottomSheet

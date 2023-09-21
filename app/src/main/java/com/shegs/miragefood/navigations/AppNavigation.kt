@@ -7,14 +7,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.shegs.miragefood.ui.screens.GiftLunch
 import com.shegs.miragefood.ui.screens.HomeScreen
-import com.shegs.miragefood.ui.screens.RedeemLunchNotifications
-import com.shegs.miragefood.ui.screens.signin.SignInScreen
-import com.shegs.miragefood.ui.screens.signup.SignUpScreen
-import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
+import com.shegs.miragefood.ui.screens.OnBoardingScreen
+import com.shegs.miragefood.ui.screens.SignInScreen
+import com.shegs.miragefood.ui.screens.SignUpScreen
+import com.shegs.miragefood.viewmodels.GiftLunchViewModel
+import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
@@ -23,9 +26,9 @@ fun Navigation(
     navController: NavHostController,
     userViewModel: UserViewModel,
     transactionViewModel: TransactionViewModel,
-    modifier: Modifier = Modifier,
-    redeemFreeLunchViewModel: RedeemLunchNotificationsViewModel
-) {
+    onboardingViewModel: OnboardingViewModel,
+    giftLunchViewModel: GiftLunchViewModel,
+    modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = NestedNavItem.Onboarding.route,
@@ -33,8 +36,8 @@ fun Navigation(
     ) {
 
         composable(NestedNavItem.Onboarding.route) {
-//            OnboardingScreen(navController = navController)
-            RedeemLunchNotifications(viewModel = redeemFreeLunchViewModel)
+            val onboardingViewModel: OnboardingViewModel = hiltViewModel()
+            OnBoardingScreen(navController = navController, onboardingViewModel = onboardingViewModel, onEvent = onboardingViewModel::onEvent)
         }
 
         composable(NestedNavItem.SignUpScreen.route) {
@@ -44,29 +47,36 @@ fun Navigation(
         composable(NestedNavItem.SignInScreen.route) {
             SignInScreen(navController)
         }
+        composable(NestedNavItem.GiftLunchScreen.route){
+            GiftLunch(giftLunchViewModel = giftLunchViewModel, navController)
 
-        composable(NestedNavItem.App.HomeScreen.route) {
-            HomeScreen(userViewModel, transactionViewModel)
         }
-        composable(NestedNavItem.App.SearchScreen.route) {
-            //TODO() replace with the search screen
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = NestedNavItem.App.SearchScreen.label!!)
+
+
+            composable(NestedNavItem.App.HomeScreen.route) {
+                HomeScreen(userViewModel, transactionViewModel, navController)
             }
-        }
-        composable(NestedNavItem.App.RedeemScreen.route) {
-            //TODO() replace with the redeem screen
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = NestedNavItem.App.RedeemScreen.label!!)
+
+
+            composable(NestedNavItem.App.SearchScreen.route) {
+                //TODO() replace with the search screen
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = NestedNavItem.App.SearchScreen.label!!)
+                }
             }
-        }
+            composable(NestedNavItem.App.RedeemScreen.route) {
+                //TODO() replace with the redeem screen
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(text = NestedNavItem.App.RedeemScreen.label!!)
+                }
+            }
     }
 }

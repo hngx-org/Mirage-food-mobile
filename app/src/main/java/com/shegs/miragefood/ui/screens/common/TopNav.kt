@@ -1,4 +1,4 @@
-package com.shegs.miragefood.utils
+package com.shegs.miragefood.ui.screens.common
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -8,8 +8,8 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.theme.grey3
 
@@ -17,12 +17,20 @@ import com.shegs.miragefood.ui.theme.grey3
 @Composable
 fun TopNavigationBar(
     useCancelButton: Boolean? = false,
+    navController: NavController,
     onBackButtonPressed: () -> Unit
 ) {
     TopAppBar(
         title = {},
         navigationIcon = {
-            IconButton(onClick = onBackButtonPressed) {
+            IconButton(onClick = {
+                if (navController.previousBackStackEntry != null) {
+                    navController.popBackStack()
+                } else {
+                    // Fallback behavior when NavController is not provided
+                    onBackButtonPressed()
+                }
+            }) {
                 val icon = if (!useCancelButton!!) {
                     painterResource(id = R.drawable.icon_back)
                 } else {
@@ -41,9 +49,3 @@ fun TopNavigationBar(
     )
 }
 
-
-
-@Preview
-@Composable
-fun Preview() {
-}

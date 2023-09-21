@@ -1,4 +1,4 @@
-package com.shegs.miragefood.ui.screens.signup
+package com.shegs.miragefood.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -45,8 +45,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shegs.miragefood.ui.events.SignUpEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
+import com.shegs.miragefood.viewmodels.SignUpViewModel
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 
 @Composable
@@ -61,6 +63,12 @@ fun SignUpScreen(
 fun SignUpScreenContent(
     onEvent: (SignUpEvents) -> Unit
 ) {
+
+    var fullName by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var confirmPassword by remember { mutableStateOf("") }
+
     val focusManager = LocalFocusManager.current
     LazyColumn(
         modifier = Modifier
@@ -105,11 +113,11 @@ fun SignUpScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
-                    value = "",
+                    value = fullName,
                     label = "Full Name",
                     icon = Icons.Outlined.Person,
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {}
+                    onValueChange = { fullName = it }
                 )
             }
         }
@@ -129,11 +137,11 @@ fun SignUpScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
-                    value = "",
+                    value = email,
                     label = "Email",
                     icon = Icons.Outlined.Email,
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {}
+                    onValueChange = { email = it }
                 )
             }
         }
@@ -156,8 +164,8 @@ fun SignUpScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
-                    value = "",
-                    onValueChange = { },
+                    value = password,
+                    onValueChange = { password = it },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
                         Text(text = "Password",
@@ -217,12 +225,12 @@ fun SignUpScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
-                    value = "",
-                    onValueChange = { },
+                    value = confirmPassword,
+                    onValueChange = { confirmPassword = it },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
                         Text(
-                            text = "Password",
+                            text = "Confirm Password",
                             fontWeight = FontWeight(400),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.scrim.copy(0.6f)

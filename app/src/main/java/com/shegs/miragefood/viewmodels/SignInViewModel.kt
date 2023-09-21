@@ -1,7 +1,7 @@
-package com.shegs.miragefood.ui.screens.signin
+package com.shegs.miragefood.viewmodels
 
 import androidx.lifecycle.ViewModel
-import dagger.hilt.android.lifecycle.HiltViewModel
+import com.shegs.miragefood.ui.events.SignInEvents
 import javax.inject.Inject
 
 class SignInViewModel @Inject constructor(

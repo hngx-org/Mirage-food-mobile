@@ -1,4 +1,4 @@
-package com.shegs.miragefood.ui.screens.signin
+package com.shegs.miragefood.ui.screens
 
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
@@ -41,6 +41,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.shegs.miragefood.navigations.NestedNavItem
+import com.shegs.miragefood.ui.events.SignInEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
 
@@ -58,6 +59,10 @@ fun SignInScreenContent(
     navController: NavController,
     onEvent: (SignInEvents) -> Unit
 ) {
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     val focusManager = LocalFocusManager.current
     LazyColumn(
         modifier = Modifier
@@ -102,11 +107,11 @@ fun SignInScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
-                    value = "",
+                    value = email,
                     label = "Email",
                     icon = Icons.Outlined.Email,
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {}
+                    onValueChange = { email = it }
                 )
             }
         }
@@ -129,8 +134,8 @@ fun SignInScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
-                    value = "",
-                    onValueChange = { },
+                    value = password,
+                    onValueChange = { password = it },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
                         Text(text = "Password",

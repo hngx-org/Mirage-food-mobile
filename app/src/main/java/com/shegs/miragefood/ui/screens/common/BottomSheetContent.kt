@@ -1,4 +1,4 @@
-package com.shegs.miragefood.ui.screens.components
+package com.shegs.miragefood.ui.screens.common
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

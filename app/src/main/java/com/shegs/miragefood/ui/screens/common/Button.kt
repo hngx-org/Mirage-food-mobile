@@ -1,4 +1,4 @@
-package com.shegs.miragefood.utils
+package com.shegs.miragefood.ui.screens.common
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
