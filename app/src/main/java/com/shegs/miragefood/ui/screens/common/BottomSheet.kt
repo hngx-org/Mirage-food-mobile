@@ -1,4 +1,4 @@
-package com.shegs.miragefood.utils
+package com.shegs.miragefood.ui.screens.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey3
 import com.shegs.miragefood.ui.theme.seed
+import com.shegs.miragefood.utils.EmojiByUnicode
 
 
 @OptIn(ExperimentalMaterial3Api::class)

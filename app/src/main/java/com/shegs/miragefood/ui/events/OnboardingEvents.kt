@@ -1,4 +1,4 @@
-package com.shegs.miragefood.ui.screens.onboarding
+package com.shegs.miragefood.ui.events
 
 sealed interface OnboardingEvents {
     object OnSignUpClick : OnboardingEvents

@@ -12,9 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -31,26 +28,26 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.R
+import com.shegs.miragefood.ui.screens.common.AppTextField
+import com.shegs.miragefood.ui.screens.common.BottomSheet
+import com.shegs.miragefood.ui.screens.common.FreeLunchTitle
+import com.shegs.miragefood.ui.screens.common.RoundedCornerButton
+import com.shegs.miragefood.ui.screens.common.TextFieldHeader
+import com.shegs.miragefood.ui.screens.common.TopNavigationBar
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.seed
 import com.shegs.miragefood.ui.theme.seedWithOpacity
-import com.shegs.miragefood.utils.AppTextField
-import com.shegs.miragefood.utils.BottomSheet
 import com.shegs.miragefood.utils.CounterText
-import com.shegs.miragefood.utils.FreeLunchTitle
-import com.shegs.miragefood.utils.RoundedCornerButton
-import com.shegs.miragefood.utils.TextFieldHeader
-import com.shegs.miragefood.utils.TopNavigationBar
-import com.shegs.miragefood.viewmodels.FreeLunchViewModel
+import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 
 @OptIn(
-    ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class,
+    ExperimentalMaterial3Api::class
 )
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
+fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
 
-    var showModalBottomSheet = freeLunchViewModel.showBottomSheet.collectAsState()
+    var showModalBottomSheet = giftLunchViewModel.showBottomSheet.collectAsState()
     val sheetState = rememberModalBottomSheetState()
     Scaffold(
         modifier = Modifier
@@ -207,13 +204,13 @@ fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
                     description = "You’ve just brightened Ken Adam’s day\nwith a free lunch ",
                     secondDescription = "You're a good sport!"
                 ) {
-                    freeLunchViewModel.setShowBottomSheet(showBottomSheet = false)
+                    giftLunchViewModel.setShowBottomSheet(showBottomSheet = false)
                 }
             }
 
 
             RoundedCornerButton(text = "Send Free Lunch", onClick = {
-                freeLunchViewModel.setShowBottomSheet(true)
+                giftLunchViewModel.setShowBottomSheet(true)
             })
 
         }
@@ -227,6 +224,6 @@ fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
 @Preview
 @Composable
 fun PreviewFreeLunch() {
-    val viewModel = FreeLunchViewModel()
-    FreeLunch(viewModel)
+    val viewModel = GiftLunchViewModel()
+    GiftLunch(viewModel)
 }

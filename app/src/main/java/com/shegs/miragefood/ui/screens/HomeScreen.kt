@@ -39,17 +39,19 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.models.datas.RedeemedTransaction
 import com.shegs.miragefood.models.datas.Transaction
 import com.shegs.miragefood.models.datas.UserData
 import com.shegs.miragefood.models.datas.WithdrawnTransaction
+import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun HomeScreen(userViewModel: UserViewModel, transactionViewModel: TransactionViewModel) {
+fun HomeScreen(userViewModel: UserViewModel, transactionViewModel: TransactionViewModel, navController: NavController) {
 
     val userData = userViewModel.userData.collectAsState().value
 
@@ -67,7 +69,7 @@ fun HomeScreen(userViewModel: UserViewModel, transactionViewModel: TransactionVi
             ) {
                 UserGreeting(user)
                 LunchBalance()
-                ActionButtonSection()
+                ActionButtonSection(navController)
                 RecentTransactionSection()
                 Spacer(modifier = Modifier.height(24.dp))
                 TransactionScreen(transactionViewModel)
@@ -170,7 +172,7 @@ fun LunchBalance() {
 
 
 @Composable
-fun ActionButtonSection() {
+fun ActionButtonSection(navController: NavController) {
 
     Box(
         modifier = Modifier
@@ -193,7 +195,7 @@ fun ActionButtonSection() {
                 .height(34.dp)
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(NestedNavItem.GiftLunchScreen.route) },
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
                 colors = ButtonDefaults.buttonColors(

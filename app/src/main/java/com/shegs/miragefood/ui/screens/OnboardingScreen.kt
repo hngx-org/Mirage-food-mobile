@@ -24,17 +24,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.models.datas.OnboardingItems
+import com.shegs.miragefood.navigations.NestedNavItem
+import com.shegs.miragefood.ui.events.OnboardingEvents
+import com.shegs.miragefood.ui.events.OnboardingUiEvents
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.utils.HorizontalPagerIndicator
-import com.shegs.miragefood.utils.RoundedCornerButton
+import com.shegs.miragefood.ui.screens.common.RoundedCornerButton
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
+import kotlinx.coroutines.flow.collectLatest
 
 
 @SuppressLint("StateFlowValueCalledInComposition")
@@ -42,8 +44,33 @@ import com.shegs.miragefood.viewmodels.OnboardingViewModel
 @Composable
 fun OnBoardingScreen(
     navController: NavController,
-    onboardingViewModel: OnboardingViewModel
+    onboardingViewModel: OnboardingViewModel = hiltViewModel(),
+    onEvent: (OnboardingEvents) -> Unit
 ) {
+
+    val state = onboardingViewModel.state.collectAsState().value
+
+    LaunchedEffect(key1 = true) {
+        onboardingViewModel.uiEventFlow.collectLatest { event ->
+            when (event) {
+                OnboardingUiEvents.NavigateToSignIn -> {
+                    navController.navigate(NestedNavItem.SignInScreen.route)
+                }
+
+                OnboardingUiEvents.NavigateToSignUp -> {
+                    navController.navigate(NestedNavItem.SignUpScreen.route)
+                }
+
+                OnboardingUiEvents.SkipOnBoarding -> {
+                    navController.navigate(NestedNavItem.App.route) {
+                        popUpTo(NestedNavItem.Onboarding.route) {
+                            inclusive = true
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 
     val pagerState = rememberPagerState(pageCount = {
@@ -52,6 +79,8 @@ fun OnBoardingScreen(
 
     val pageIndex = onboardingViewModel.pageIndex.collectAsState()
 
+    
+
 
 
     LaunchedEffect(pagerState) {
@@ -59,37 +88,45 @@ fun OnBoardingScreen(
         onboardingViewModel.observePageIndex(pagerStateFlow)
     }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 16.dp)
-    ) {
-        HorizontalPager(
-            modifier = Modifier.weight(10f),
-            state = pagerState,
-            verticalAlignment = Alignment.Top
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp)
         ) {
-            // onboardingViewModel.setIndex(index)
-            Log.d("OnBoardingScreen", "Current Page: $it")
+            HorizontalPager(
+                modifier = Modifier.weight(10f),
+                state = pagerState,
+                verticalAlignment = Alignment.Top
+            ) {
+                // onboardingViewModel.setIndex(index)
+                Log.d("OnBoardingScreen", "Current Page: $it")
 
-            PagerScreen(onboardingItems = onboardingViewModel.onboardingPages.value[it])
+                PagerScreen(onboardingItems = onboardingViewModel.onboardingPages.value[it])
+            }
+            Spacer(modifier = Modifier.height(0.dp))
+            HorizontalPagerIndicator(
+                pageCount = onboardingViewModel.onboardingPages.value.size,
+                pagerState = pagerState,
+            )
+            Spacer(modifier = Modifier.height(0.dp))
+            RoundedCornerButton(
+                text = "Sign Up",
+                onClick = {
+                    onEvent(OnboardingEvents.OnSignUpClick)
+                })
+
+            Spacer(modifier = Modifier.height(10.dp))
+
+            RoundedCornerButton(
+                text = "Sign In",
+                usePlainButton = true,
+                onClick = {
+                    onEvent(OnboardingEvents.OnSignInClick)
+                })
+
+            Spacer(modifier = Modifier.height(60.dp))
+
         }
-        Spacer(modifier = Modifier.height(0.dp))
-        HorizontalPagerIndicator(
-            pageCount = onboardingViewModel.onboardingPages.value.size,
-            pagerState = pagerState,
-        )
-        Spacer(modifier = Modifier.height(0.dp))
-        RoundedCornerButton(text = "Sign Up", onClick = {
-
-        })
-        Spacer(modifier = Modifier.height(10.dp))
-        RoundedCornerButton(text = "Sign In", usePlainButton = true, onClick = {})
-        Spacer(modifier = Modifier.height(60.dp))
-
-    }
-
-
 }
 
 
@@ -136,14 +173,6 @@ fun PagerScreen(onboardingItems: OnboardingItems) {
     }
 }
 
-@Preview
-@Composable
-@Preview(showBackground = true)
-fun OnboardingScreenPreview() {
-    val navController = rememberNavController()
-    val viewModel = viewModel<OnboardingViewModel>()
-    OnBoardingScreen(navController = navController, onboardingViewModel = viewModel)
-}
 
 
 

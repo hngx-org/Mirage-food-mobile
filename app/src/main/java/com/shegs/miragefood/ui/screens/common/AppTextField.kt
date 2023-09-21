@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.shegs.miragefood.utils
+package com.shegs.miragefood.ui.screens.common
 
 
 import androidx.compose.foundation.layout.padding

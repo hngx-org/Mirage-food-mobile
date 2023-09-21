@@ -39,9 +39,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.models.datas.ReceivedTransaction
-import com.shegs.miragefood.utils.BottomSheet
-import com.shegs.miragefood.utils.FreeLunchTitle
-import com.shegs.miragefood.utils.TopNavigationBar
+import com.shegs.miragefood.ui.screens.common.BottomSheet
+import com.shegs.miragefood.ui.screens.common.FreeLunchTitle
+import com.shegs.miragefood.ui.screens.common.TopNavigationBar
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)

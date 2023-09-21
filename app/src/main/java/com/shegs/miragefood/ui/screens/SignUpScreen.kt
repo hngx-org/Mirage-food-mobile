@@ -1,4 +1,4 @@
-package com.shegs.miragefood.ui.screens.signup
+package com.shegs.miragefood.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -45,8 +45,10 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.shegs.miragefood.ui.events.SignUpEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
+import com.shegs.miragefood.viewmodels.SignUpViewModel
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 
 @Composable
