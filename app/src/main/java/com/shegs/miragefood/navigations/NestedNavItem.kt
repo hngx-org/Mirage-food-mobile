@@ -4,6 +4,8 @@ import com.shegs.miragefood.R
 
 sealed class NestedNavItem(val route: String, val label: String? = null, val icon: Int? = null) {
 
+    object Splash : NestedNavItem(route = "splash_screen")
+
     object Onboarding : NestedNavItem(route = "onboarding_screen")
 
     object SignInScreen : NestedNavItem(route = "sign_in_screen")

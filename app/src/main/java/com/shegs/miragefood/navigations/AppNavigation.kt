@@ -16,6 +16,7 @@ import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
 import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
+import com.shegs.miragefood.ui.screens.SplashScreen
 import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
@@ -28,16 +29,25 @@ fun Navigation(
     transactionViewModel: TransactionViewModel,
     onboardingViewModel: OnboardingViewModel,
     giftLunchViewModel: GiftLunchViewModel,
-    modifier: Modifier = Modifier) {
+    modifier: Modifier = Modifier
+) {
     NavHost(
         navController = navController,
-        startDestination = NestedNavItem.Onboarding.route,
+        startDestination = NestedNavItem.Splash.route,
         modifier = modifier
     ) {
 
+        composable(NestedNavItem.Splash.route) {
+            SplashScreen(navController = navController)
+        }
+
         composable(NestedNavItem.Onboarding.route) {
             val onboardingViewModel: OnboardingViewModel = hiltViewModel()
-            OnBoardingScreen(navController = navController, onboardingViewModel = onboardingViewModel, onEvent = onboardingViewModel::onEvent)
+            OnBoardingScreen(
+                navController = navController,
+                onboardingViewModel = onboardingViewModel,
+                onEvent = onboardingViewModel::onEvent
+            )
         }
 
         composable(NestedNavItem.SignUpScreen.route) {
@@ -47,36 +57,36 @@ fun Navigation(
         composable(NestedNavItem.SignInScreen.route) {
             SignInScreen(navController)
         }
-        composable(NestedNavItem.GiftLunchScreen.route){
+        composable(NestedNavItem.GiftLunchScreen.route) {
             GiftLunch(giftLunchViewModel = giftLunchViewModel)
 
         }
 
 
-            composable(NestedNavItem.App.HomeScreen.route) {
-                HomeScreen(userViewModel, transactionViewModel, navController)
-            }
+        composable(NestedNavItem.App.HomeScreen.route) {
+            HomeScreen(userViewModel, transactionViewModel, navController)
+        }
 
 
-            composable(NestedNavItem.App.SearchScreen.route) {
-                //TODO() replace with the search screen
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = NestedNavItem.App.SearchScreen.label!!)
-                }
+        composable(NestedNavItem.App.SearchScreen.route) {
+            //TODO() replace with the search screen
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = NestedNavItem.App.SearchScreen.label!!)
             }
-            composable(NestedNavItem.App.RedeemScreen.route) {
-                //TODO() replace with the redeem screen
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = NestedNavItem.App.RedeemScreen.label!!)
-                }
+        }
+        composable(NestedNavItem.App.RedeemScreen.route) {
+            //TODO() replace with the redeem screen
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(text = NestedNavItem.App.RedeemScreen.label!!)
             }
+        }
     }
 }
