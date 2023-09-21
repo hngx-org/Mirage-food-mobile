@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id ("kotlin-kapt")
+    id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
 
@@ -77,27 +77,31 @@ dependencies {
     implementation("androidx.compose.material:material:1.5.0")
 
     //Lifecycle
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.5")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.5")
 
-    implementation ("com.google.dagger:hilt-android:2.45")
-    kapt ("com.google.dagger:hilt-android-compiler:2.45")
+    implementation("com.google.dagger:hilt-android:2.45")
+    kapt("com.google.dagger:hilt-android-compiler:2.45")
 
-    implementation ("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0-alpha03")
 
     //retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
     //Gson
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
     //Glide
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
+    implementation("com.github.bumptech.glide:glide:4.11.0")
 
     //Coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
 
-    //DataStore
+    //Preferences datastore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //Icons Extended
+    implementation("androidx.compose.material:material-icons-extended")
+
 }
 
 kapt {

@@ -11,6 +11,7 @@ fun generateSampleTransactions(): List<Transaction> {
     val receivedTransaction1 = ReceivedTransaction(
         sender = "Shegs Boss",
         amountSent = 2, // Amount of lunch sent
+        message = "Thank you for helping me with documentation today. Your are so sweet" + "U+2764",
         timestamp = currentTimeMillis,
     )
 
@@ -27,6 +28,7 @@ fun generateSampleTransactions(): List<Transaction> {
     val receivedTransaction2 = ReceivedTransaction(
         sender = "John Wick",
         amountSent = 1, // Amount of lunch sent
+        message = "Thank you for helping me with documentation today. Your are so sweet" + "U+2764",
         timestamp = currentTimeMillis
     )
 
@@ -43,6 +45,7 @@ fun generateSampleTransactions(): List<Transaction> {
     val receivedTransaction3 = ReceivedTransaction(
         sender = "Victor Amanda",
         amountSent = 3, // Amount of lunch sent
+        message = "Thank you for helping me with documentation today. Your are so sweet" + "U+2764",
         timestamp = currentTimeMillis
     )
 
@@ -57,9 +60,6 @@ fun generateSampleTransactions(): List<Transaction> {
     )
 
     // Add more transactions as needed
-
-
-
 
     return listOf(
         receivedTransaction1,
