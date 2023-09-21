@@ -38,6 +38,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.ui.screens.common.BottomSheet
 import com.shegs.miragefood.ui.screens.common.FreeLunchTitle
@@ -48,6 +49,7 @@ import com.shegs.miragefood.ui.screens.common.TopNavigationBar
 @Composable
 fun LunchDetailsScreen(
     receivedTransaction: ReceivedTransaction,
+    navController: NavController,
     closeModal: () -> Unit,
 ) {
     var showModalBottomSheet by remember { mutableStateOf(false) } // Track if the bottom sheet should be shown
@@ -59,6 +61,7 @@ fun LunchDetailsScreen(
             .fillMaxSize(),
         topBar = {
             TopNavigationBar(
+                navController = navController,
                 onBackButtonPressed = {})
         }
     ) {

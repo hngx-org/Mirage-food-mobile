@@ -20,13 +20,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.screens.common.AppTextField
 import com.shegs.miragefood.ui.screens.common.BottomSheet
@@ -45,7 +50,7 @@ import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 )
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
+fun GiftLunch(giftLunchViewModel: GiftLunchViewModel, navController: NavController) {
 
     var showModalBottomSheet = giftLunchViewModel.showBottomSheet.collectAsState()
     val sheetState = rememberModalBottomSheetState()
@@ -54,9 +59,16 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
             .fillMaxSize(),
         topBar = {
             TopNavigationBar(
+                navController = navController,
                 onBackButtonPressed = {})
         }
     ) {
+
+        var search by remember { mutableStateOf("") }
+        var name by remember { mutableStateOf("") }
+        var message by remember { mutableStateOf("") }
+        var count by remember { mutableIntStateOf(1) }
+
         Column(
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
@@ -80,9 +92,13 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
             AppTextField(
                 placeholderComposable = null,
                 leadingIcon = R.drawable.icon_search,
-                value = "",
+                value = search,
                 placeholder = "Search co-worker",
-                onValueChanged = {},
+                onValueChanged = {
+                    if (it != null) {
+                        search = it
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(90.dp)
@@ -118,9 +134,13 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
                         placeholderComposable = null,
                         containerColor = seedWithOpacity,
                         placeholderColor = seed,
-                        value = "",
+                        value = name,
                         placeholder = "Ken Adams",
-                        onValueChanged = {},
+                        onValueChanged = {
+                            if (it != null) {
+                                name = it
+                            }
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp)
@@ -146,16 +166,18 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
                                 Row(
                                     horizontalArrangement = Arrangement.Center,
                                 ) {
-                                    IconButton(onClick = { /*TODO*/ }) {
+                                    IconButton(onClick = { count++ }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.icon_add),
                                             contentDescription = "add"
                                         )
                                     }
                                     Spacer(modifier = Modifier.width(5.dp))
-                                    CounterText(count = "2")
+                                    CounterText(count = count.toString())
                                     Spacer(modifier = Modifier.width(5.dp))
-                                    IconButton(onClick = { /*TODO*/ }) {
+                                    IconButton(onClick = { if (count > 0) {
+                                        count--
+                                    } }) {
                                         Icon(
                                             painter = painterResource(id = R.drawable.icon_minus),
                                             contentDescription = "remove"
@@ -180,12 +202,16 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
                 Spacer(modifier = Modifier.height(6.dp))
                 AppTextField(
                     containerColor = seedWithOpacity,
-                    value = "",
+                    value = message,
                     placeholderComposable = null,
                     placeholderColor = seed,
                     placeholder = "I know you were nervous at the presentation\n" +
                             "this morning. You killed it though !",
-                    onValueChanged = {},
+                    onValueChanged = {
+                        if (it != null) {
+                            message = it
+                        }
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp)
@@ -218,12 +244,4 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
 
     }
 
-}
-
-
-@Preview
-@Composable
-fun PreviewFreeLunch() {
-    val viewModel = GiftLunchViewModel()
-    GiftLunch(viewModel)
 }
