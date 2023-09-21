@@ -15,7 +15,7 @@ import javax.inject.Singleton
 object RepositoryModule {
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideUserDataRepository(): UserDataRepository {
         return UserDataRepository()
     }
@@ -27,7 +27,7 @@ object RepositoryModule {
     }
 
     @Provides
-    @Singleton
+    @ViewModelScoped
     fun provideSearchRepository(): SearchRepository {
         return SearchRepository()
     }
