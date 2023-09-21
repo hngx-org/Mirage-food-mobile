@@ -30,7 +30,7 @@ fun Navigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = NestedNavItem.App.route,
+        startDestination = NestedNavItem.Onboarding.route,
         modifier = modifier
     ) {
 

@@ -1,6 +1,5 @@
 package com.shegs.miragefood.ui.screens
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,16 +18,14 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
-import androidx.compose.material3.TextField
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -71,11 +68,12 @@ fun SearchScreen(searchViewModel: SearchViewModel){
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.TopCenter
                 ){
                     Text(
                         text = "No matching Items",
-                        style = MaterialTheme.typography.bodyMedium
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.scrim
                     )
                 }
             }
@@ -83,7 +81,7 @@ fun SearchScreen(searchViewModel: SearchViewModel){
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.TopCenter
                 ){
                     CircularProgressIndicator()
                 }
@@ -91,14 +89,22 @@ fun SearchScreen(searchViewModel: SearchViewModel){
             is SearchUIState.Success ->{
                 EmployeeListSection(
                     title = "Results",
-                    employees = uiState.employees
+                    employees = uiState.employees,
+                    modifier = Modifier.weight(1f)
                 )
             }
             is SearchUIState.Error ->{
-                Text(
-                    text = "Error searching items",
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.TopCenter
+                ){
+                    Text(
+                        text = "Error searching items",
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.scrim
+                    )
+                }
             }
             is SearchUIState.Idle ->{
                 // Display recent searches
@@ -184,11 +190,10 @@ fun EmployeeListItem(
             painter = painterResource(id = employee.image),
             contentDescription = null,
             modifier = Modifier
-                .size(36.dp)
-                .clip(RoundedCornerShape(8.dp)),
+                .size(36.dp),
             contentScale = ContentScale.Crop
         )
-        Spacer(modifier = Modifier.width(5.dp))
+        Spacer(modifier = Modifier.width(16.dp))
         Column {
             Text(
                 text = employee.name,
@@ -196,7 +201,7 @@ fun EmployeeListItem(
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.scrim
             )
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(3.dp))
             Text(
                 text = employee.department,
                 fontWeight = FontWeight(400),
