@@ -16,9 +16,6 @@ class OnboardingViewModel @Inject constructor(
     private var _pageIndex = MutableStateFlow(0)
     val pageIndex: StateFlow<Int> = _pageIndex
 
-    fun setIndex(index: Int) {
-        _pageIndex.value = index
-    }
 
 
     fun retrieveOnboardingPages(): List<OnboardingItems> {
