@@ -276,7 +276,7 @@ fun RedeemLunchDescriptionSection(
                         color = MaterialTheme.colorScheme.primary
                     )
                 ) {
-                    append(stringResource(id = R.string.free_lunch_equals))
+                    append(stringResource(id = R.string.fre_lunch_equals))
                 }
             },
             fontSize = 12.sp,
