@@ -58,6 +58,10 @@ fun SignInScreenContent(
     navController: NavController,
     onEvent: (SignInEvents) -> Unit
 ) {
+
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
     val focusManager = LocalFocusManager.current
     LazyColumn(
         modifier = Modifier
@@ -102,11 +106,11 @@ fun SignInScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
-                    value = "",
+                    value = email,
                     label = "Email",
                     icon = Icons.Outlined.Email,
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = {}
+                    onValueChange = { email = it }
                 )
             }
         }
@@ -129,8 +133,8 @@ fun SignInScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
-                    value = "",
-                    onValueChange = { },
+                    value = password,
+                    onValueChange = { password = it },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
                         Text(text = "Password",
