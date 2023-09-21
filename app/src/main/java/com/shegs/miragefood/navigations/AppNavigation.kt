@@ -34,7 +34,7 @@ fun Navigation(navController: NavHostController, userViewModel: UserViewModel, t
         }
 
         composable(NestedNavItem.SignInScreen.route) {
-            SignInScreen()
+            SignInScreen(navController)
         }
 
             composable(NestedNavItem.App.HomeScreen.route) {

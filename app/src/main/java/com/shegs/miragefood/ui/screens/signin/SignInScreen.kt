@@ -1,5 +1,6 @@
 package com.shegs.miragefood.ui.screens.signin
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -38,18 +39,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
 
 @Composable
-fun SignInScreen(viewModel: SignInViewModel = hiltViewModel()) {
+fun SignInScreen(navController: NavController) {
 
-    val navController = rememberNavController()
-    SignInScreenContent(navController = navController, onEvent = viewModel::onEvent)
+    SignInScreenContent(navController = navController) { event ->
+        // Handle SignInEvents here
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -184,7 +184,9 @@ fun SignInScreenContent(
                 filled = true,
                 onClick = {
                     onEvent(SignInEvents.SignInClicked)
+                    Log.d("SignInScreen", "Before navigation") // Add this log line
                     navController.navigate(NestedNavItem.App.HomeScreen.route)
+                    Log.d("SignInScreen", "After navigation")
                 }
             )
         }
