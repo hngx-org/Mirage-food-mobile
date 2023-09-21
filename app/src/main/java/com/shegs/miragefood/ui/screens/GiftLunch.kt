@@ -29,9 +29,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.screens.common.AppTextField
 import com.shegs.miragefood.ui.screens.common.BottomSheet
@@ -50,7 +50,7 @@ import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 )
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
+fun GiftLunch(giftLunchViewModel: GiftLunchViewModel, navController: NavController) {
 
     var showModalBottomSheet = giftLunchViewModel.showBottomSheet.collectAsState()
     val sheetState = rememberModalBottomSheetState()
@@ -59,6 +59,7 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
             .fillMaxSize(),
         topBar = {
             TopNavigationBar(
+                navController = navController,
                 onBackButtonPressed = {})
         }
     ) {
@@ -243,12 +244,4 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel) {
 
     }
 
-}
-
-
-@Preview
-@Composable
-fun PreviewFreeLunch() {
-    val viewModel = GiftLunchViewModel()
-    GiftLunch(viewModel)
 }

@@ -48,7 +48,7 @@ fun Navigation(
             SignInScreen(navController)
         }
         composable(NestedNavItem.GiftLunchScreen.route){
-            GiftLunch(giftLunchViewModel = giftLunchViewModel)
+            GiftLunch(giftLunchViewModel = giftLunchViewModel, navController)
 
         }
 
