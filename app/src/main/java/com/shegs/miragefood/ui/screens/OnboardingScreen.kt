@@ -1,6 +1,7 @@
 package com.shegs.miragefood.ui.screens
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +16,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -48,7 +50,14 @@ fun OnBoardingScreen(
         onboardingViewModel.retrieveOnboardingPages().size
     })
 
-    var pageIndex = onboardingViewModel.pageIndex.collectAsState()
+    val pageIndex = onboardingViewModel.pageIndex.collectAsState()
+
+
+
+    LaunchedEffect(pagerState) {
+        val pagerStateFlow = pagerState.currentPage
+        onboardingViewModel.observePageIndex(pagerStateFlow)
+    }
 
     Column(
         modifier = Modifier
@@ -59,13 +68,15 @@ fun OnBoardingScreen(
             modifier = Modifier.weight(10f),
             state = pagerState,
             verticalAlignment = Alignment.Top
-        ) { index ->
-            onboardingViewModel.setIndex(index)
-            PagerScreen(onboardingItems = onboardingViewModel.onboardingPages[index])
+        ) {
+            // onboardingViewModel.setIndex(index)
+            Log.d("OnBoardingScreen", "Current Page: $it")
+
+            PagerScreen(onboardingItems = onboardingViewModel.onboardingPages.value[it])
         }
         Spacer(modifier = Modifier.height(0.dp))
         HorizontalPagerIndicator(
-            pageCount = onboardingViewModel.onboardingPages.size,
+            pageCount = onboardingViewModel.onboardingPages.value.size,
             pagerState = pagerState,
             index = pageIndex.value,
         )

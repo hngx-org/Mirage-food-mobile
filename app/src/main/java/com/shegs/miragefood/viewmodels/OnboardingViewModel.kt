@@ -1,5 +1,6 @@
 package com.shegs.miragefood.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.shegs.miragefood.models.datas.OnboardingItems
 import com.shegs.miragefood.models.repositories.OnboardingRepository
@@ -22,6 +23,10 @@ class OnboardingViewModel @Inject constructor(
 
     fun retrieveOnboardingPages(): List<OnboardingItems> {
         return onboardingPages.value
+    }
+
+    fun observePageIndex(pagerStateFlow: Int) {
+        Log.d("pagerstateflow", pagerStateFlow.toString())
     }
 
 

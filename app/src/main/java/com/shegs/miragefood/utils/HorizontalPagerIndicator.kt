@@ -13,19 +13,21 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.pager.PagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import com.shegs.miragefood.ui.theme.grey2
 import com.shegs.miragefood.ui.theme.seed
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HorizontalPagerIndicator(pageCount: Int, index: Int, pagerState: PagerState) {
-    val scope = CoroutineScope(Dispatchers.Main)
+fun HorizontalPagerIndicator(pageCount: Int,pagerState: PagerState) {
+    val scope = rememberCoroutineScope()
+
 
     Row(
         Modifier
@@ -44,7 +46,10 @@ fun HorizontalPagerIndicator(pageCount: Int, index: Int, pagerState: PagerState)
                     .size(15.dp)
                     .clickable {
                         scope.launch {
-                            pagerState.animateScrollToPage(index)
+                            withContext(Dispatchers.Main) {
+                                pagerState.animateScrollToPage(iteration)
+
+                            }
                         }
                     }
 
