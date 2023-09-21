@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.md_theme_light_onPrimary
 import com.shegs.miragefood.ui.theme.seed
+import com.shegs.miragefood.ui.theme.seedWithOpacity
 
 @Composable
 fun RoundedCornerButton(
@@ -72,6 +74,31 @@ fun RoundedCornerButton(
         }
     }
 
+}
+@Composable
+fun SmallButton(text:String, onClick: () -> Unit){
+    Button(
+        border =BorderStroke(1.dp, seed),
+        onClick = onClick,
+        modifier = Modifier
+            .padding(2.dp)
+            .height(50.dp)
+            .width(220.dp),
+        shape = RoundedCornerShape(10.dp),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = seedWithOpacity
+
+        )
+    ) {
+        Text(
+            text = text,
+            style = Typography.bodyMedium.copy(
+                fontSize = 16.sp,
+                fontWeight = FontWeight.W500,
+                color = seed
+            )
+        )
+    }
 }
 
 

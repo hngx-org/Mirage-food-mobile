@@ -16,7 +16,11 @@ sealed class NestedNavItem(val route: String, val label: String? = null, val ico
         }
 
         object SearchScreen :
-            NestedNavItem(route = "search_screen", label = "Search", icon = R.drawable.icon_search) {
+            NestedNavItem(
+                route = "search_screen",
+                label = "Search",
+                icon = R.drawable.icon_search
+            ) {
 
         }
 
@@ -27,5 +31,6 @@ sealed class NestedNavItem(val route: String, val label: String? = null, val ico
         ) {
 
         }
+
     }
 }

@@ -41,10 +41,9 @@ fun TopNavigationBar(
     )
 }
 
+
+
 @Preview
 @Composable
 fun Preview() {
-    TopNavigationBar() {
-
-    }
 }
