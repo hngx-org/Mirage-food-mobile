@@ -10,14 +10,15 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
-import com.shegs.miragefood.ui.screens.home.HomeScreen
+import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.onboarding.OnboardingScreen
 import com.shegs.miragefood.ui.screens.signin.SignInScreen
 import com.shegs.miragefood.ui.screens.signup.SignUpScreen
+import com.shegs.miragefood.viewmodels.TransactionViewModel
+import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun Navigation(navController: NavHostController, modifier: Modifier = Modifier) {
+fun Navigation(navController: NavHostController, userViewModel: UserViewModel, transactionViewModel: TransactionViewModel, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = NestedNavItem.Onboarding.route,
@@ -33,15 +34,11 @@ fun Navigation(navController: NavHostController, modifier: Modifier = Modifier) 
         }
 
         composable(NestedNavItem.SignInScreen.route) {
-            SignInScreen()
+            SignInScreen(navController)
         }
 
-        navigation(
-            route = NestedNavItem.App.route,
-            startDestination = NestedNavItem.App.HomeScreen.route
-        ) {
             composable(NestedNavItem.App.HomeScreen.route) {
-                HomeScreen()
+                HomeScreen(userViewModel, transactionViewModel)
             }
             composable(NestedNavItem.App.SearchScreen.route) {
                 //TODO() replace with the search screen
@@ -63,7 +60,5 @@ fun Navigation(navController: NavHostController, modifier: Modifier = Modifier) 
                     Text(text = NestedNavItem.App.RedeemScreen.label!!)
                 }
             }
-
-        }
     }
 }

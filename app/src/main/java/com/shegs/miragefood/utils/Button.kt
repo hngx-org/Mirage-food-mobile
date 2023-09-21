@@ -28,7 +28,7 @@ fun RoundedCornerButton(
             .padding(2.dp)
             .height(60.dp)
             .fillMaxWidth(),
-        shape = RoundedCornerShape(10.dp),
+        shape = RoundedCornerShape(8.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = Color(0xFF967BB6),
             contentColor = Color.White

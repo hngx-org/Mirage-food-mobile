@@ -8,10 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.shegs.miragefood.R
 
 @Composable
 fun CustomRoundedButton(
@@ -51,8 +49,10 @@ fun CustomRoundedButton(
     ) {
         Text(
             text = label,
-            modifier = Modifier.padding(vertical = 8.dp),
-            fontFamily = FontFamily(Font(R.font.poppins_light))
+            modifier = Modifier
+                .padding(vertical = 8.dp),
+            fontWeight = FontWeight(500),
+            style = MaterialTheme.typography.bodyMedium,
         )
     }
 }
