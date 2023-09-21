@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -31,27 +32,30 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.shegs.miragefood.R
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
 
 @Composable
 fun SignInScreen(viewModel: SignInViewModel = hiltViewModel()) {
 
-    SignInScreenContent(onEvent = viewModel::onEvent)
+    val navController = rememberNavController()
+    SignInScreenContent(navController = navController, onEvent = viewModel::onEvent)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreenContent(
+    navController: NavController,
     onEvent: (SignInEvents) -> Unit
 ) {
     val focusManager = LocalFocusManager.current
@@ -59,33 +63,42 @@ fun SignInScreenContent(
         modifier = Modifier
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.Center
     ) {
         item {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
                     text = "Welcome back !",
-                    fontFamily = FontFamily(Font(R.font.poppins_black))
+                    fontWeight = FontWeight(500),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.scrim
                 )
                 Text(
                     text = "Sign in to access your account",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
             }
         }
 
         item {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = "Email Address",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
@@ -103,12 +116,16 @@ fun SignInScreenContent(
                 mutableStateOf(false)
             }
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = "Password",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
@@ -116,7 +133,11 @@ fun SignInScreenContent(
                     onValueChange = { },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
-                        Text(text = "Password", fontFamily = FontFamily(Font(R.font.poppins_light)))
+                        Text(text = "Password",
+                            fontWeight = FontWeight(400),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.scrim.copy(0.6f)
+                        )
                     },
                     leadingIcon = {
                         Icon(
@@ -156,11 +177,14 @@ fun SignInScreenContent(
 
         item {
             CustomRoundedButton(
-                label = "Sign Up",
-                modifier = Modifier.fillMaxWidth(),
+                label = "Sign In",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 30.dp),
                 filled = true,
                 onClick = {
                     onEvent(SignInEvents.SignInClicked)
+                    navController.navigate(NestedNavItem.App.HomeScreen.route)
                 }
             )
         }

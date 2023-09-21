@@ -49,7 +49,7 @@ import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun HomeScreen(userViewModel: UserViewModel, viewModel: TransactionViewModel) {
+fun HomeScreen(userViewModel: UserViewModel, transactionViewModel: TransactionViewModel) {
 
     val userData = userViewModel.userData.collectAsState().value
 
@@ -70,7 +70,7 @@ fun HomeScreen(userViewModel: UserViewModel, viewModel: TransactionViewModel) {
                 ActionButtonSection()
                 RecentTransactionSection()
                 Spacer(modifier = Modifier.height(24.dp))
-                TransactionScreen(viewModel)
+                TransactionScreen(transactionViewModel)
             }
 
         }

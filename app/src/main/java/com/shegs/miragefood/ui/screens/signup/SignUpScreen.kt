@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -36,8 +37,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -45,7 +45,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
@@ -67,33 +66,42 @@ fun SignUpScreenContent(
         modifier = Modifier
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.Center
     ) {
         item {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(
                     text = "Welcome on board !",
-                    fontFamily = FontFamily(Font(R.font.poppins_black))
+                    fontWeight = FontWeight(500),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.scrim
                 )
                 Text(
                     text = "Sign up to create an account",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
             }
         }
 
         item {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 50.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = "Name",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
@@ -108,12 +116,16 @@ fun SignUpScreenContent(
 
         item {
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = "Email Address",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
@@ -131,12 +143,16 @@ fun SignUpScreenContent(
                 mutableStateOf(false)
             }
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = "Password",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
@@ -144,7 +160,11 @@ fun SignUpScreenContent(
                     onValueChange = { },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
-                        Text(text = "Password", fontFamily = FontFamily(Font(R.font.poppins_light)))
+                        Text(text = "Password",
+                            fontWeight = FontWeight(400),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.scrim.copy(0.6f)
+                        )
                     },
                     leadingIcon = {
                         Icon(imageVector = Icons.Outlined.Lock, contentDescription = null)
@@ -184,12 +204,16 @@ fun SignUpScreenContent(
                 mutableStateOf(false)
             }
             Column(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 20.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
                     text = "Confirm Password",
-                    fontFamily = FontFamily(Font(R.font.poppins_light))
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
@@ -197,7 +221,12 @@ fun SignUpScreenContent(
                     onValueChange = { },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
-                        Text(text = "Password", fontFamily = FontFamily(Font(R.font.poppins_light)))
+                        Text(
+                            text = "Password",
+                            fontWeight = FontWeight(400),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.scrim.copy(0.6f)
+                        )
                     },
                     leadingIcon = {
                         Icon(
@@ -240,7 +269,9 @@ fun SignUpScreenContent(
                     Checkbox(checked = false, onCheckedChange = {})
                     Text(
                         text = "Remember Password",
-                        fontFamily = FontFamily(Font(R.font.poppins_light))
+                        fontWeight = FontWeight(400),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                     )
                 }
             }
@@ -249,7 +280,9 @@ fun SignUpScreenContent(
         item {
             CustomRoundedButton(
                 label = "Sign Up",
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 30.dp),
                 filled = true,
                 onClick = {
                     onEvent(SignUpEvents.OnSignUpClicked)
