@@ -18,6 +18,7 @@ fun CustomRoundedButton(
     label: String,
     modifier: Modifier = Modifier,
     filled: Boolean = false,
+    enabled: Boolean = true,
     onClick: () -> Unit
 ) {
 
@@ -42,6 +43,7 @@ fun CustomRoundedButton(
     Button(
         onClick = onClick,
         modifier = modifier,
+        enabled = enabled,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,

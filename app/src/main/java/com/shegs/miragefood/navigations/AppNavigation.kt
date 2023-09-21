@@ -11,7 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.shegs.miragefood.ui.screens.home.HomeScreen
+import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.onboarding.OnboardingScreen
 import com.shegs.miragefood.ui.screens.signin.SignInScreen
 import com.shegs.miragefood.ui.screens.signup.SignUpScreen
@@ -29,11 +29,11 @@ fun Navigation(navController: NavHostController, modifier: Modifier = Modifier) 
         }
 
         composable(NestedNavItem.SignUpScreen.route) {
-            SignUpScreen()
+            SignUpScreen(navController = navController)
         }
 
         composable(NestedNavItem.SignInScreen.route) {
-            SignInScreen()
+            SignInScreen(navController = navController)
         }
 
         navigation(

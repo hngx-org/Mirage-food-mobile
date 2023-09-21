@@ -25,8 +25,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
@@ -45,38 +43,37 @@ import com.shegs.miragefood.models.datas.RedeemedTransaction
 import com.shegs.miragefood.models.datas.Transaction
 import com.shegs.miragefood.models.datas.UserData
 import com.shegs.miragefood.models.datas.WithdrawnTransaction
-import com.shegs.miragefood.viewmodels.TransactionViewModel
-import com.shegs.miragefood.viewmodels.UserViewModel
+
 
 @Composable
-fun HomeScreen(userViewModel: UserViewModel, viewModel: TransactionViewModel) {
+fun HomeScreen() {
 
-    val userData = userViewModel.userData.collectAsState().value
+//    val userData = userViewModel.userData.collectAsState().value
+//
+//    userData?.let { user ->
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
 
-    userData?.let { user ->
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(start = 16.dp, end = 16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(start = 16.dp, end = 16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                UserGreeting(user)
-                LunchBalance()
-                ActionButtonSection()
-                RecentTransactionSection()
-                Spacer(modifier = Modifier.height(24.dp))
-                TransactionScreen(viewModel)
-            }
-
+            //UserGreeting(user)
+            LunchBalance()
+            ActionButtonSection()
+            RecentTransactionSection()
+            Spacer(modifier = Modifier.height(24.dp))
+            // TransactionScreen(viewModel)
         }
-    }
 
+    }
 }
+
+//}
 
 @Composable
 fun UserGreeting(user: UserData) {
@@ -195,7 +192,12 @@ fun ActionButtonSection() {
             Button(
                 onClick = { /*TODO*/ },
                 shape = RoundedCornerShape(8.dp),
-                contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+                contentPadding = PaddingValues(
+                    start = 12.dp,
+                    top = 8.dp,
+                    end = 12.dp,
+                    bottom = 8.dp
+                ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0x1A967BB6),
                     contentColor = Color(0xFF967BB6)
@@ -215,7 +217,12 @@ fun ActionButtonSection() {
                 onClick = { /*TODO*/ },
                 shape = RoundedCornerShape(8.dp),
 
-                contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+                contentPadding = PaddingValues(
+                    start = 12.dp,
+                    top = 8.dp,
+                    end = 12.dp,
+                    bottom = 8.dp
+                ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0x1A967BB6),
                     contentColor = Color(0xFF967BB6)
@@ -235,7 +242,12 @@ fun ActionButtonSection() {
             Button(
                 onClick = { /*TODO*/ },
                 shape = RoundedCornerShape(8.dp),
-                contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
+                contentPadding = PaddingValues(
+                    start = 12.dp,
+                    top = 8.dp,
+                    end = 12.dp,
+                    bottom = 8.dp
+                ),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0x1A967BB6),
                     contentColor = Color(0xFF967BB6)
@@ -259,37 +271,37 @@ fun ActionButtonSection() {
 
 @Composable
 fun RecentTransactionSection() {
-    Row (
+    Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 32.dp),
         horizontalArrangement = Arrangement.SpaceBetween
-    ){
-            Text(
-                text = "Recent",
-                fontWeight = FontWeight(500),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.scrim
-            )
+    ) {
+        Text(
+            text = "Recent",
+            fontWeight = FontWeight(500),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.scrim
+        )
 
-            ClickableText(
-                text = AnnotatedString("See all"),
-                onClick = { },
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .alpha(0.6f)
-            )
+        ClickableText(
+            text = AnnotatedString("See all"),
+            onClick = { },
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier
+                .alpha(0.6f)
+        )
     }
 }
 
-@Composable
-fun TransactionScreen(viewModel: TransactionViewModel) {
-    // Observe the ViewModel data
-    val transactions by viewModel.transactions.collectAsState(emptyList())
-
-    // Display the data using the TransactionList Composable
-    TransactionList(transactions = transactions)
-}
+//@Composable
+//fun TransactionScreen(viewModel: TransactionViewModel) {
+//    // Observe the ViewModel data
+//    val transactions by viewModel.transactions.collectAsState(emptyList())
+//
+//    // Display the data using the TransactionList Composable
+//    TransactionList(transactions = transactions)
+//}
 
 @Composable
 fun TransactionList(transactions: List<Transaction>) {
@@ -303,12 +315,11 @@ fun TransactionList(transactions: List<Transaction>) {
 @Composable
 fun TransactionItem(transaction: Transaction) {
     when (transaction) {
-            is ReceivedTransaction -> ReceivedTransaction(transaction)
-            is RedeemedTransaction -> RedeemedTransaction(transaction)
-            is WithdrawnTransaction -> WithdrawnTransaction(transaction)
-        }
+        is ReceivedTransaction -> ReceivedTransaction(transaction)
+        is RedeemedTransaction -> RedeemedTransaction(transaction)
+        is WithdrawnTransaction -> WithdrawnTransaction(transaction)
+    }
 }
-
 
 
 @Composable
@@ -393,7 +404,7 @@ fun RedeemedTransaction(transaction: RedeemedTransaction) {
                     .size(20.dp)
             )
         }
-        
+
         Spacer(modifier = Modifier.width(16.dp))
 
         Column(
@@ -406,7 +417,7 @@ fun RedeemedTransaction(transaction: RedeemedTransaction) {
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.scrim
             )
-            
+
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = transaction.timestamp.toString(),

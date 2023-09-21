@@ -35,6 +35,7 @@ fun RoundedTextField(
     value: String,
     label: String,
     icon: ImageVector,
+    error: Boolean,
     modifier: Modifier = Modifier,
     onValueChange: (String) -> Unit
 ) {
@@ -60,6 +61,7 @@ fun RoundedTextField(
                 focsManager.moveFocus(FocusDirection.Next)
             }
         ),
+        isError = error,
         colors = TextFieldDefaults.textFieldColors(
             focusedIndicatorColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
@@ -89,6 +91,7 @@ fun RoundedTextFieldPreview() {
                     value = "",
                     label = "Full Name",
                     icon = Icons.Outlined.Person,
+                    error = true,
                     onValueChange = {}
                 )
             }
