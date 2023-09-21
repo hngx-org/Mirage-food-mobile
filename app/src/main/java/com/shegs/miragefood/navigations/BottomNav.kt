@@ -15,17 +15,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.shegs.miragefood.models.datas.BottomNavItems
 
 
 @Composable
 fun BottomNavBar(navController: NavController) {
 
     val navItems = listOf(
-        BottomNavItems.Home,
-        BottomNavItems.Search,
-        BottomNavItems.Notifications,
-        BottomNavItems.Settings
+        NestedNavItem.App.HomeScreen,
+        NestedNavItem.App.SearchScreen,
+        NestedNavItem.App.RedeemScreen,
     )
 
     val navBackStackEntry = navController.currentBackStackEntryAsState()
@@ -51,13 +49,13 @@ fun BottomNavBar(navController: NavController) {
                     },
                     icon = {
                         Icon(
-                            painter = painterResource(id = screen.icon),
+                            painter = painterResource(id = screen.icon!!),
                             contentDescription = screen.label,
                             modifier = Modifier.size(24.dp)
                         )
                     },
                     label = {
-                        Text(text = screen.label, style = MaterialTheme.typography.labelLarge)
+                        Text(text = screen.label!!, style = MaterialTheme.typography.labelLarge)
                     },
                     colors = NavigationBarItemDefaults.colors(
                         selectedIconColor = MaterialTheme.colorScheme.primary,
