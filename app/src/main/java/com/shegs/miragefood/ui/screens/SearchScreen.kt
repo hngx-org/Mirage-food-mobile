@@ -45,7 +45,7 @@ fun SearchScreen(searchViewModel: SearchViewModel){
 
 
     val uiState = searchViewModel.searchUIState.collectAsState().value
-    val searchText = searchViewModel.searchText.collectAsState()
+    val searchText = searchViewModel.searchText.collectAsState().value
 
     Column(
         modifier = Modifier
@@ -55,18 +55,17 @@ fun SearchScreen(searchViewModel: SearchViewModel){
     ) {
         Text(
             text = "Search for a Co-worker",
-            style = MaterialTheme.typography.bodyMedium.copy(
-                lineHeight = 27.sp,
-                fontWeight = FontWeight.W500
-            )
+            fontWeight = FontWeight(500),
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.scrim
         )
         Spacer(modifier = Modifier.height(20.dp))
         SearchTextField(
             hint = "Search co-worker",
-            value = searchText.value,
+            value = searchText,
             onValueChange = searchViewModel::onSearchTextChange
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         when(uiState){
             is SearchUIState.Empty -> {
                 Box(
@@ -121,11 +120,8 @@ fun EmployeeListSection(
     ) {
         Text(
             text = title,
-            style = MaterialTheme.typography.bodySmall.copy(
-                lineHeight = 18.sp,
-                fontWeight = FontWeight.W500,
-                fontSize = 12.sp
-            )
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.scrim
         )
         Spacer(modifier = Modifier.height(10.dp))
         LazyColumn(
@@ -143,15 +139,12 @@ fun EmployeeListSection(
 @Composable
 fun SearchTextField(
     hint: String,
-    modifier: Modifier = Modifier,
     value: String,
     onValueChange: (String)->Unit
 ){
     TextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = modifier
-            .padding(horizontal = 12.dp, vertical = 16.dp),
         shape = RoundedCornerShape(8.dp),
         colors = TextFieldDefaults.colors(
             focusedIndicatorColor = Color.Transparent,
@@ -195,22 +188,20 @@ fun EmployeeListItem(
                 .clip(RoundedCornerShape(8.dp)),
             contentScale = ContentScale.Crop
         )
-        Spacer(modifier = Modifier.width(10.dp))
+        Spacer(modifier = Modifier.width(5.dp))
         Column {
             Text(
                 text = employee.name,
-                style = MaterialTheme.typography.bodySmall.copy(
-                    lineHeight = 21.sp,
-                    fontWeight = FontWeight.W500
-                )
+                fontWeight = FontWeight(500),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.scrim
             )
             Spacer(modifier = Modifier.height(10.dp))
             Text(
                 text = employee.department,
-                style = MaterialTheme.typography.bodySmall.copy(
-                    lineHeight = 18.sp,
-                    fontWeight = FontWeight.W400
-                )
+                fontWeight = FontWeight(400),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.scrim,
             )
         }
 
