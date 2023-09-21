@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">Mirage Food</string>
+<<<<<<< HEAD
     <string name="withdraw_screen_label">Withdraw to Bank account</string>
+=======
+    <string name="redeem_free_lunch">Redeem Free Lunch</string>
+    <string name="you_were_sent_free_lunch">You were sent free lunch by</string>
+    <string name="amount">Amount</string>
+    <string name="description">Description</string>
+    <string name="your_free_lunch_will_be_redeemed">Your Free Lunch redeemed for cash will be added to your wallet.</string>
+    <string name="free_lunch_equals">1 Free Lunch equates to ₦1,000</string>
+>>>>>>> upstream/dev
 </resources>

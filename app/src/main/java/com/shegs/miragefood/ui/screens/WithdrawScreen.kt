@@ -36,9 +36,6 @@ import com.shegs.miragefood.utils.TopNavigationBar
 fun WithdrawScreen() {
     var isSheetOpen by rememberSaveable{ mutableStateOf(false) }
 
-    TopNavigationBar(text = stringResource(id = R.string.withdraw_screen_label,)) {
-        
-    }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -275,24 +272,6 @@ fun FullScreenBottomSheet(isSheetOpen: Boolean, onDismissSheet: () -> Unit) {
 
 }
 
-@Composable
-fun CustomText(text: String) {
-    Box(
-        modifier = Modifier
-            .size(150.dp)
-            .background(
-                color = Color(0x1A967BB6), // Background color
-                shape = RoundedCornerShape(8.dp) // Corner radius
-            )
-            .padding(16.dp),
-        contentAlignment = androidx.compose.ui.Alignment.Center
-    ) {
-        Text(
-            text = "Custom Text",
-            color = Color.White, // Text color
-        )
-    }
-}
 
 @Preview(
     showBackground = true,
