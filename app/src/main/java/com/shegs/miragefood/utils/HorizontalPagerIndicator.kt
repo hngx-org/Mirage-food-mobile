@@ -24,11 +24,12 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HorizontalPagerIndicator(pageCount: Int, index:Int, pagerState: PagerState) {
+fun HorizontalPagerIndicator(pageCount: Int, index: Int, pagerState: PagerState) {
     val scope = CoroutineScope(Dispatchers.Main)
 
     Row(
         Modifier
+            .padding(bottom = 10.dp)
             .height(50.dp)
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.Center
@@ -37,10 +38,10 @@ fun HorizontalPagerIndicator(pageCount: Int, index:Int, pagerState: PagerState) 
             val color = if (pagerState.currentPage == iteration) seed else grey2
             Box(
                 modifier = Modifier
-                    .padding(2.dp)
+                    .padding(3.dp)
                     .clip(CircleShape)
                     .background(color)
-                    .size(20.dp)
+                    .size(15.dp)
                     .clickable {
                         scope.launch {
                             pagerState.animateScrollToPage(index)

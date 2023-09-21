@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
+import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var viewModel: TransactionViewModel
+
+    @Inject
+    lateinit var onboardingViewModel: OnboardingViewModel
 
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,8 +46,13 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             BottomNavBar(navController = navController)
                         }
-                    ) {  innerPadding ->
-                        Navigation(navController = navController, userViewModel = userViewModel, viewModel = viewModel)
+                    ) { innerPadding ->
+                        Navigation(
+                            navController = navController,
+                            userViewModel = userViewModel,
+                            viewModel = viewModel,
+                            onboardingViewModel = onboardingViewModel
+                        )
                     }
 
                 }

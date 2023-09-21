@@ -63,19 +63,19 @@ fun OnBoardingScreen(
             onboardingViewModel.setIndex(index)
             PagerScreen(onboardingItems = onboardingViewModel.onboardingPages[index])
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(0.dp))
         HorizontalPagerIndicator(
             pageCount = onboardingViewModel.onboardingPages.size,
             pagerState = pagerState,
             index = pageIndex.value,
         )
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(0.dp))
         RoundedCornerButton(text = "Sign Up", onClick = {
 
         })
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         RoundedCornerButton(text = "Sign In", usePlainButton = true, onClick = {})
-        Spacer(modifier = Modifier.height(123.49.dp))
+        Spacer(modifier = Modifier.height(60.dp))
 
     }
 
@@ -92,11 +92,11 @@ fun PagerScreen(onboardingItems: OnboardingItems) {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(80.dp))
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.63f),
+                .fillMaxHeight(0.6f),
             painter = painterResource(id = onboardingItems.image),
             contentDescription = "Pager Image"
         )
@@ -112,7 +112,8 @@ fun PagerScreen(onboardingItems: OnboardingItems) {
         Text(
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .fillMaxWidth(),
+                .fillMaxWidth()
+                .padding(bottom = 10.dp),
             text = onboardingItems.description,
             style = Typography.bodySmall.copy(
                 fontWeight = FontWeight.W400,
@@ -121,6 +122,7 @@ fun PagerScreen(onboardingItems: OnboardingItems) {
                 lineHeight = 24.sp
             )
         )
+        Spacer(modifier = Modifier.height(40.dp))
     }
 }
 
