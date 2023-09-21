@@ -54,8 +54,7 @@ fun FreeLunch(freeLunchViewModel: FreeLunchViewModel) {
     val sheetState = rememberModalBottomSheetState()
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .fillMaxSize(),
         topBar = {
             TopNavigationBar(
                 onBackButtonPressed = {})
