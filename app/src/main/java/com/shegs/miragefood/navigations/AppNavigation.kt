@@ -16,9 +16,15 @@ import com.shegs.miragefood.ui.screens.signin.SignInScreen
 import com.shegs.miragefood.ui.screens.signup.SignUpScreen
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
+import com.shegs.miragefood.viewmodels.SearchViewModel
 
 @Composable
-fun Navigation(navController: NavHostController, userViewModel: UserViewModel, transactionViewModel: TransactionViewModel, modifier: Modifier = Modifier) {
+fun Navigation(
+    navController: NavHostController,
+    userViewModel: UserViewModel,
+    transactionViewModel: TransactionViewModel,
+    searchViewModel: SearchViewModel,
+    modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = NestedNavItem.Onboarding.route,
@@ -41,14 +47,7 @@ fun Navigation(navController: NavHostController, userViewModel: UserViewModel, t
                 HomeScreen(userViewModel, transactionViewModel)
             }
             composable(NestedNavItem.App.SearchScreen.route) {
-                //TODO() replace with the search screen
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = NestedNavItem.App.SearchScreen.label!!)
-                }
+                com.shegs.miragefood.ui.screens.SearchScreen(searchViewModel = searchViewModel)
             }
             composable(NestedNavItem.App.RedeemScreen.route) {
                 //TODO() replace with the redeem screen

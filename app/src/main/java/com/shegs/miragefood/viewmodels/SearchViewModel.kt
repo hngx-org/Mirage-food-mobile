@@ -41,6 +41,8 @@ class SearchViewModel@Inject constructor(
             delay(400L)
             if (text.isNotBlank()){
                 searchEmployees(text)
+            }else{
+                _searchUIState.update { SearchUIState.Idle }
             }
         }
     }

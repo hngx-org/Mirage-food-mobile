@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.shegs.miragefood.models.datas.OnboardingItems
 import com.shegs.miragefood.models.repositories.OnboardingRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
+@HiltViewModel
 class OnboardingViewModel @Inject constructor(
     private val onboardingRepository: OnboardingRepository
 ) : ViewModel() {

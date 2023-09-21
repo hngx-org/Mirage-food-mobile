@@ -29,7 +29,7 @@ object OnboardingModule {
     fun providesOnboardingRepository(
         datastorePreferences: DataStore<Preferences>
     ): OnboardingRepository {
-        return OnboardingRepository(onboardingDatastorePreferences = datastorePreferences)
+        return OnboardingRepository()
     }
 
 }

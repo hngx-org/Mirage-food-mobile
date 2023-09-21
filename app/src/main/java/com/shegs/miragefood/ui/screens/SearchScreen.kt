@@ -112,12 +112,14 @@ fun SearchScreen(searchViewModel: SearchViewModel){
                 }
             }
             is SearchUIState.Idle ->{
-                EmployeeListSection(
-                    title = "Recents",
-                    employees = recentSearches,
-                    modifier = Modifier.weight(1f),
-                    onItemClick = {}
-                )
+                if(recentSearches.isNotEmpty()){
+                    EmployeeListSection(
+                        title = "Recent Searches",
+                        employees = recentSearches,
+                        modifier = Modifier.weight(1f),
+                        onItemClick = {}
+                    )
+                }
             }
         }
     }
