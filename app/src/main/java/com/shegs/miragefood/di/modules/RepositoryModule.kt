@@ -1,5 +1,6 @@
 package com.shegs.miragefood.di.modules
 
+import com.shegs.miragefood.models.repositories.SearchRepository
 import com.shegs.miragefood.models.repositories.TransactionRepository
 import com.shegs.miragefood.models.repositories.UserDataRepository
 import dagger.Module
@@ -24,4 +25,12 @@ object RepositoryModule {
     fun provideTransactionRepository(): TransactionRepository {
         return TransactionRepository()
     }
+
+    @Provides
+    @Singleton
+    fun provideSearchRepository(): SearchRepository {
+        return SearchRepository()
+    }
+
+
 }
