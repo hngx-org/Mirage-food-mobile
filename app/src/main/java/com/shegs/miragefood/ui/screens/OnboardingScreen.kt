@@ -78,7 +78,6 @@ fun OnBoardingScreen(
         HorizontalPagerIndicator(
             pageCount = onboardingViewModel.onboardingPages.value.size,
             pagerState = pagerState,
-            index = pageIndex.value,
         )
         Spacer(modifier = Modifier.height(0.dp))
         RoundedCornerButton(text = "Sign Up", onClick = {

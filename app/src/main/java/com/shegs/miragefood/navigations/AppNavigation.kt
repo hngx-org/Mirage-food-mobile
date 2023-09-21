@@ -11,8 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.shegs.miragefood.models.datas.BottomNavItems
-import com.shegs.miragefood.ui.screens.OnBoardingScreen
-import com.shegs.miragefood.viewmodels.OnboardingViewModel
+import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
@@ -20,26 +19,14 @@ import com.shegs.miragefood.viewmodels.UserViewModel
 fun Navigation(
     navController: NavHostController,
     userViewModel: UserViewModel,
-    onboardingViewModel: OnboardingViewModel,
     viewModel: TransactionViewModel
 ) {
     NavHost(
         navController = navController,
-        startDestination = "/"
+        startDestination = BottomNavItems.Home.route
     ) {
-        composable("/") {
-            //HomeScreen(userViewModel, viewModel)
-            OnBoardingScreen(
-                navController = navController,
-                onboardingViewModel = onboardingViewModel
-            )
-        }
         composable(BottomNavItems.Home.route) {
-            //HomeScreen(userViewModel, viewModel)
-            OnBoardingScreen(
-                navController = navController,
-                onboardingViewModel = onboardingViewModel
-            )
+            HomeScreen(userViewModel, viewModel)
         }
         composable(BottomNavItems.Search.route) {
             //TODO() replace with the search screen

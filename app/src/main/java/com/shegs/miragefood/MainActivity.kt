@@ -51,7 +51,6 @@ class MainActivity : ComponentActivity() {
                             navController = navController,
                             userViewModel = userViewModel,
                             viewModel = viewModel,
-                            onboardingViewModel = onboardingViewModel
                         )
                     }
 
