@@ -12,7 +12,7 @@ import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey3
 
 @Composable
-fun RedeemFreeLunch(title: String, subtitle: String? = "") {
+fun FreeLunchTitle(title: String, subtitle: String? = "") {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier

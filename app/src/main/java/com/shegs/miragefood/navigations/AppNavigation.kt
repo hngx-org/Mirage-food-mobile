@@ -11,7 +11,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.shegs.miragefood.models.datas.BottomNavItems
+import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.ui.screens.HomeScreen
+import com.shegs.miragefood.ui.screens.LunchDetailsScreen
+import com.shegs.miragefood.utils.generateSampleTransactions
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
@@ -26,12 +29,9 @@ fun Navigation(navController: NavHostController, userViewModel: UserViewModel, v
         }
         composable(BottomNavItems.Search.route) {
             //TODO() replace with the search screen
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = BottomNavItems.Search.label)
+            val receivedTransaction = generateSampleTransactions().firstOrNull() as? ReceivedTransaction
+            receivedTransaction?.let {
+                LunchDetailsScreen(receivedTransaction = it, closeModal = {})
             }
         }
         composable(BottomNavItems.Notifications.route) {
