@@ -6,6 +6,7 @@ import com.shegs.miragefood.models.datas.Employee
 import com.shegs.miragefood.models.datas.SearchUIState
 import com.shegs.miragefood.models.repositories.SearchRepository
 import com.shegs.miragefood.ui.screens.SearchScreen
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -13,11 +14,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @OptIn(FlowPreview::class)
+@HiltViewModel
 class SearchViewModel@Inject constructor(
     private val searchRepo: SearchRepository
 ): ViewModel() {
@@ -25,13 +28,18 @@ class SearchViewModel@Inject constructor(
     private val _searchText = MutableStateFlow("")
     val searchText = _searchText.asStateFlow()
 
+
     val searchUIState = searchText
-        .debounce(500L)
+        .debounce(300L)
         .onStart {
             SearchUIState.Loading
         }
         .map { text->
-            searchEmployees(text)
+            if(text.isBlank()){
+                searchEmployees(text)
+            }else{
+                SearchUIState.Idle
+            }
         }
         .catch { throwable ->
             SearchUIState.Error(message = throwable.message ?: "Unknown error occurred")
@@ -57,16 +65,3 @@ class SearchViewModel@Inject constructor(
         }
     }
 }
-
-val employees = listOf(
-    Employee(
-        name = "Ayodeji Musa",
-        image = 1,
-        department = "HR Department"
-    ),
-    Employee(
-        name = "Bisola Dabo",
-        image = 2,
-        department = "Marketing Department"
-    )
-)
