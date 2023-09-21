@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HorizontalPagerIndicator(pageCount: Int, pagerState: PagerState) {
+fun HorizontalPagerIndicator(pageCount: Int, index:Int, pagerState: PagerState) {
     val scope = CoroutineScope(Dispatchers.Main)
 
     Row(
@@ -43,7 +43,7 @@ fun HorizontalPagerIndicator(pageCount: Int, pagerState: PagerState) {
                     .size(20.dp)
                     .clickable {
                         scope.launch {
-                            pagerState.animateScrollToPage(pageCount)
+                            pagerState.animateScrollToPage(index)
                         }
                     }
 

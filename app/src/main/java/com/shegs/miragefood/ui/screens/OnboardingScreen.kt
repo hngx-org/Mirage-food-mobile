@@ -1,5 +1,6 @@
 package com.shegs.miragefood.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -14,6 +15,7 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,6 +35,7 @@ import com.shegs.miragefood.utils.RoundedCornerButton
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun OnBoardingScreen(
@@ -45,6 +48,8 @@ fun OnBoardingScreen(
         onboardingViewModel.retrieveOnboardingPages().size
     })
 
+    var pageIndex = onboardingViewModel.pageIndex.collectAsState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -55,16 +60,18 @@ fun OnBoardingScreen(
             state = pagerState,
             verticalAlignment = Alignment.Top
         ) { index ->
+            onboardingViewModel.setIndex(index)
             PagerScreen(onboardingItems = onboardingViewModel.onboardingPages[index])
         }
         Spacer(modifier = Modifier.height(20.dp))
         HorizontalPagerIndicator(
             pageCount = onboardingViewModel.onboardingPages.size,
-            pagerState = pagerState
+            pagerState = pagerState,
+            index = pageIndex.value,
         )
         Spacer(modifier = Modifier.height(40.dp))
         RoundedCornerButton(text = "Sign Up", onClick = {
-            
+
         })
         Spacer(modifier = Modifier.height(24.dp))
         RoundedCornerButton(text = "Sign In", usePlainButton = true, onClick = {})
