@@ -45,9 +45,11 @@ fun OnBoardingScreen(
         onboardingViewModel.retrieveOnboardingPages().size
     })
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(horizontal = 16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 16.dp)
+    ) {
         HorizontalPager(
             modifier = Modifier.weight(10f),
             state = pagerState,
@@ -55,13 +57,15 @@ fun OnBoardingScreen(
         ) { index ->
             PagerScreen(onboardingItems = onboardingViewModel.onboardingPages[index])
         }
-//        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(20.dp))
         HorizontalPagerIndicator(
             pageCount = onboardingViewModel.onboardingPages.size,
             pagerState = pagerState
         )
         Spacer(modifier = Modifier.height(40.dp))
-        RoundedCornerButton(text = "Sign Up", onClick = {})
+        RoundedCornerButton(text = "Sign Up", onClick = {
+            
+        })
         Spacer(modifier = Modifier.height(24.dp))
         RoundedCornerButton(text = "Sign In", usePlainButton = true, onClick = {})
         Spacer(modifier = Modifier.height(123.49.dp))
@@ -85,7 +89,7 @@ fun PagerScreen(onboardingItems: OnboardingItems) {
         Image(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
+                .fillMaxHeight(0.63f),
             painter = painterResource(id = onboardingItems.image),
             contentDescription = "Pager Image"
         )
