@@ -16,6 +16,7 @@ import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
 import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
+import com.shegs.miragefood.ui.screens.SplashScreen
 import com.shegs.miragefood.ui.screens.WithdrawScreen
 import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
@@ -34,9 +35,13 @@ fun Navigation(
     modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
-        startDestination = NestedNavItem.Onboarding.route,
+        startDestination = NestedNavItem.SplashScreen.route,
         modifier = modifier
     ) {
+
+        composable(NestedNavItem.SplashScreen.route) {
+            SplashScreen(navController)
+        }
 
         composable(NestedNavItem.Onboarding.route) {
             val onboardingViewModel: OnboardingViewModel = hiltViewModel()

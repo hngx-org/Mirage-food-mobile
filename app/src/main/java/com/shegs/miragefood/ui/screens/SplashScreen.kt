@@ -12,11 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,7 +22,6 @@ import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.events.SplashUiEvent
-import com.shegs.miragefood.ui.theme.MirageFoodTheme
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import kotlinx.coroutines.flow.collectLatest
 
@@ -40,14 +37,14 @@ fun SplashScreen(
 
                 SplashUiEvent.ShowOnBoarding -> {
                     navController.navigate(NestedNavItem.Onboarding.route) {
-                        popUpTo(NestedNavItem.Splash.route) {
+                        popUpTo(NestedNavItem.SplashScreen.route) {
                             inclusive = true
                         }
                     }
                 }
                 SplashUiEvent.SkipOnBoarding -> {
                     navController.navigate(NestedNavItem.App.HomeScreen.route) {
-                        popUpTo(NestedNavItem.Splash.route) {
+                        popUpTo(NestedNavItem.SplashScreen.route) {
                             inclusive = true
                         }
                     }
@@ -82,13 +79,5 @@ fun SplashScreen(
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun SplashScreenPreview() {
-    MirageFoodTheme {
-        SplashScreen(navController = NavController(LocalContext.current))
     }
 }

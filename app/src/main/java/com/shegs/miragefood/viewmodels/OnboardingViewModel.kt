@@ -60,7 +60,7 @@ class OnboardingViewModel @Inject constructor(
                     isUserOnboarded = onboardingRepository.readOnboardingState().stateIn(this).value
                 )
             }
-            delay(3000L)
+            delay(2000L)
             if (_state.value.isUserOnboarded) {
                 _splashEventFlow.emit(SplashUiEvent.SkipOnBoarding)
             } else {
