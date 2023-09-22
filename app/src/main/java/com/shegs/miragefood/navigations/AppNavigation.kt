@@ -14,12 +14,14 @@ import androidx.navigation.compose.composable
 import com.shegs.miragefood.ui.screens.GiftLunch
 import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
+import com.shegs.miragefood.ui.screens.RedeemLunchNotifications
 import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
 import com.shegs.miragefood.ui.screens.SplashScreen
 import com.shegs.miragefood.ui.screens.WithdrawScreen
 import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
+import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 import com.shegs.miragefood.viewmodels.WithdrawalViewModel
@@ -32,6 +34,7 @@ fun Navigation(
     onboardingViewModel: OnboardingViewModel,
     withdrawalViewModel: WithdrawalViewModel,
     giftLunchViewModel: GiftLunchViewModel,
+    redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel,
     modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
@@ -79,14 +82,7 @@ fun Navigation(
                 }
             }
             composable(NestedNavItem.App.RedeemScreen.route) {
-                //TODO() replace with the redeem screen
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = NestedNavItem.App.RedeemScreen.label!!)
-                }
+                RedeemLunchNotifications(redeemLunchNotificationsViewModel)
             }
     }
 }

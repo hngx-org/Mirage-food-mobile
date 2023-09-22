@@ -2,11 +2,18 @@ package com.shegs.miragefood.utils
 
 import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.models.datas.RedeemedTransaction
+import com.shegs.miragefood.models.datas.SentTransaction
 import com.shegs.miragefood.models.datas.Transaction
 import com.shegs.miragefood.models.datas.WithdrawnTransaction
 
 fun generateSampleTransactions(): List<Transaction> {
     val currentTimeMillis = System.currentTimeMillis()
+
+    val sentTransaction1 = SentTransaction(
+        receiver = "Aniedi Andikang",
+        amountSent = 2,
+        timestamp = currentTimeMillis,
+    )
 
     val receivedTransaction1 = ReceivedTransaction(
         sender = "Shegs Boss",
@@ -25,6 +32,12 @@ fun generateSampleTransactions(): List<Transaction> {
         timestamp = currentTimeMillis
     )
 
+    val sentTransaction2 = SentTransaction(
+        receiver = "Chinaza Owefilemile",
+        amountSent = 2,
+        timestamp = currentTimeMillis,
+    )
+
     val receivedTransaction2 = ReceivedTransaction(
         sender = "John Wick",
         amountSent = 1, // Amount of lunch sent
@@ -40,6 +53,12 @@ fun generateSampleTransactions(): List<Transaction> {
     val withdrawnTransaction2 = WithdrawnTransaction(
         withdrawnAmount = 4000, // Withdrew 2000 lunch as cash
         timestamp = currentTimeMillis
+    )
+
+    val sentTransaction3 = SentTransaction(
+        receiver = "Moses",
+        amountSent = 2,
+        timestamp = currentTimeMillis,
     )
 
     val receivedTransaction3 = ReceivedTransaction(
@@ -62,12 +81,15 @@ fun generateSampleTransactions(): List<Transaction> {
     // Add more transactions as needed
 
     return listOf(
+        sentTransaction1,
         receivedTransaction1,
         redeemedTransaction1,
         withdrawnTransaction1,
+        sentTransaction2,
         receivedTransaction2,
         redeemedTransaction2,
         withdrawnTransaction2,
+        sentTransaction3,
         receivedTransaction3,
         redeemedTransaction3,
         withdrawnTransaction3

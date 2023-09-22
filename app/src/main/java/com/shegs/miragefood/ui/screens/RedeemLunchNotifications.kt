@@ -24,8 +24,8 @@ import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun RedeemLunchNotifications(viewModel: RedeemLunchNotificationsViewModel) {
-    val redeemLunchNotifications by viewModel.redeemLunchNotificatinos.collectAsState()
+fun RedeemLunchNotifications(redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel) {
+    val redeemLunchNotifications by redeemLunchNotificationsViewModel.redeemLunchNotificatinos.collectAsState()
 
     Box(
         modifier = Modifier

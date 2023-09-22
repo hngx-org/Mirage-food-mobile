@@ -257,7 +257,7 @@ fun RecentTransactionSection() {
 
             ClickableText(
                 text = AnnotatedString("See all"),
-                onClick = { },
+                onClick = {  },
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .alpha(0.6f)
@@ -289,7 +289,8 @@ fun TransactionItem(transaction: Transaction) {
             is ReceivedTransaction -> ReceivedTransaction(transaction)
             is RedeemedTransaction -> RedeemedTransaction(transaction)
             is WithdrawnTransaction -> WithdrawnTransaction(transaction)
-        }
+        else -> {}
+    }
 }
 
 
