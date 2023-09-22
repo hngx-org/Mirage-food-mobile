@@ -11,6 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
@@ -39,6 +40,13 @@ class MainActivity : ComponentActivity() {
 
     private val withdrawalViewModel: WithdrawalViewModel by viewModels()
 
+    private var receivedTransaction: ReceivedTransaction = ReceivedTransaction(
+        amountSent = 2, // Provide the appropriate default value
+        message = "Thank you for helping me out with my task in HNG",  // Provide the appropriate default value
+        sender = "Shegs",   // Provide the appropriate default value
+        timestamp = System.currentTimeMillis() // Provide the appropriate default value
+    )
+
     @Inject
     lateinit var transactionViewModel: TransactionViewModel
 
@@ -65,7 +73,8 @@ class MainActivity : ComponentActivity() {
                             onBoardingViewModel,
                             withdrawalViewModel,
                             giftLunchViewModel,
-                            redeemLunchNotificationsViewModel
+                            redeemLunchNotificationsViewModel,
+                            receivedTransaction
                         )
                     }
 

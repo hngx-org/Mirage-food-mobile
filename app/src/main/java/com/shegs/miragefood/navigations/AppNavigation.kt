@@ -11,10 +11,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.ui.screens.GiftLunch
 import com.shegs.miragefood.ui.screens.HomeScreen
+import com.shegs.miragefood.ui.screens.NotificationScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
 import com.shegs.miragefood.ui.screens.RedeemLunchNotifications
+import com.shegs.miragefood.ui.screens.RedeemLunchScreen
 import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
 import com.shegs.miragefood.ui.screens.SplashScreen
@@ -35,6 +38,7 @@ fun Navigation(
     withdrawalViewModel: WithdrawalViewModel,
     giftLunchViewModel: GiftLunchViewModel,
     redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel,
+    receivedTransaction: ReceivedTransaction,
     modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
@@ -58,12 +62,23 @@ fun Navigation(
         composable(NestedNavItem.SignInScreen.route) {
             SignInScreen(navController)
         }
+
+        composable(NestedNavItem.SeeAllNotification.route){
+            NotificationScreen()
+        }
+
         composable(NestedNavItem.GiftLunchScreen.route){
             GiftLunch(giftLunchViewModel = giftLunchViewModel, navController)
         }
 
         composable(NestedNavItem.WithdrawalScreen.route){
             WithdrawScreen(navController, withdrawalViewModel)
+        }
+
+        composable(NestedNavItem.RedeemLunchScreen.route){
+            RedeemLunchScreen(receivedTransaction = receivedTransaction, navController = navController) {
+
+            }
         }
 
             composable(NestedNavItem.App.HomeScreen.route) {
@@ -82,7 +97,7 @@ fun Navigation(
                 }
             }
             composable(NestedNavItem.App.RedeemScreen.route) {
-                RedeemLunchNotifications(redeemLunchNotificationsViewModel)
+                RedeemLunchNotifications(redeemLunchNotificationsViewModel, navController)
             }
     }
 }

@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.shegs.miragefood.models.datas.RedeemLunchNotification
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey3
@@ -24,7 +25,7 @@ import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun RedeemLunchNotifications(redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel) {
+fun RedeemLunchNotifications(redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel, navController: NavController) {
     val redeemLunchNotifications by redeemLunchNotificationsViewModel.redeemLunchNotificatinos.collectAsState()
 
     Box(
@@ -32,14 +33,14 @@ fun RedeemLunchNotifications(redeemLunchNotificationsViewModel: RedeemLunchNotif
             .fillMaxSize()
     ) {
             CenterTextWithDivider(text = "Redeem Lunch")
-            RedeemLunchLazyColumn(redeemLunchNotifications = redeemLunchNotifications)
+            RedeemLunchLazyColumn(redeemLunchNotifications = redeemLunchNotifications, navController = navController)
 
     }
 
 }
 
 @Composable
-fun RedeemLunchLazyColumn(redeemLunchNotifications: List<RedeemLunchNotification>) {
+fun RedeemLunchLazyColumn(redeemLunchNotifications: List<RedeemLunchNotification>, navController: NavController) {
     val groupedNotifications =
         redeemLunchNotifications.groupBy { convertTimestampToTime(it.timeStamp) }
 
@@ -61,7 +62,7 @@ fun RedeemLunchLazyColumn(redeemLunchNotifications: List<RedeemLunchNotification
                 )
             }
             items(redeemLunchNotifications) { redeemLunchNotification ->
-                RedeemLunchNotificationCard(redeemLunchNotification = redeemLunchNotification)
+                RedeemLunchNotificationCard(redeemLunchNotification = redeemLunchNotification, navController)
             }
         }
 

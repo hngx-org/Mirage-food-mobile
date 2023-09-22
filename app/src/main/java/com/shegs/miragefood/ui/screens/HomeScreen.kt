@@ -71,7 +71,7 @@ fun HomeScreen(userViewModel: UserViewModel, transactionViewModel: TransactionVi
                 UserGreeting(user)
                 LunchBalance()
                 ActionButtonSection(navController)
-                RecentTransactionSection()
+                RecentTransactionSection(navController)
                 Spacer(modifier = Modifier.height(24.dp))
                 TransactionScreen(transactionViewModel)
             }
@@ -241,7 +241,7 @@ fun ActionButtonSection(navController: NavController) {
 
 
 @Composable
-fun RecentTransactionSection() {
+fun RecentTransactionSection(navController: NavController) {
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -257,7 +257,7 @@ fun RecentTransactionSection() {
 
             ClickableText(
                 text = AnnotatedString("See all"),
-                onClick = {  },
+                onClick = { navController.navigate(NestedNavItem.SeeAllNotification.route) },
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .alpha(0.6f)
