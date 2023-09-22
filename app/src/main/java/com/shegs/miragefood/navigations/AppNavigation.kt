@@ -1,11 +1,6 @@
 package com.shegs.miragefood.navigations
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -18,6 +13,7 @@ import com.shegs.miragefood.ui.screens.NotificationScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
 import com.shegs.miragefood.ui.screens.RedeemLunchNotifications
 import com.shegs.miragefood.ui.screens.RedeemLunchScreen
+import com.shegs.miragefood.ui.screens.SearchScreen
 import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
 import com.shegs.miragefood.ui.screens.SplashScreen
@@ -87,14 +83,7 @@ fun Navigation(
 
 
             composable(NestedNavItem.App.SearchScreen.route) {
-                //TODO() replace with the search screen
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(text = NestedNavItem.App.SearchScreen.label!!)
-                }
+                SearchScreen()
             }
             composable(NestedNavItem.App.RedeemScreen.route) {
                 RedeemLunchNotifications(redeemLunchNotificationsViewModel, navController)
