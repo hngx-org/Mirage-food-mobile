@@ -16,8 +16,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
+import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
+//import androidx.compose.material.icons.outlined.Visibility
+//import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -41,8 +44,10 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.events.SignUpEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
@@ -73,7 +78,9 @@ fun SignUpScreenContent(
     navController: NavController
 ) {
 
-    var fullName by remember { mutableStateOf("") }
+    var firstName by remember { mutableStateOf("") }
+    var lastName by remember { mutableStateOf("") }
+    var phoneNumber by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -81,14 +88,17 @@ fun SignUpScreenContent(
     val focusManager = LocalFocusManager.current
     LazyColumn(
         modifier = Modifier
+            .padding(top = 32.dp)
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
         item {
-            Column(
+
+                Column(
                 modifier = Modifier
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .padding(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -111,22 +121,22 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 50.dp),
+                    .padding(top = 32.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Name",
+                    text = "First Name",
                     fontWeight = FontWeight(400),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.scrim.copy(0.6f)
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
-                    value = fullName,
-                    label = "Full Name",
+                    value = firstName,
+                    label = "First Name",
                     icon = Icons.Outlined.Person,
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = { fullName = it }
+                    onValueChange = { firstName = it }
                 )
             }
         }
@@ -135,7 +145,55 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 32.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = "Last Name",
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                RoundedTextField(
+                    value = lastName,
+                    label = "Last Name",
+                    icon = Icons.Outlined.Person,
+                    modifier = Modifier.fillMaxWidth(),
+                    onValueChange = { lastName = it }
+                )
+            }
+        }
+
+        item {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 32.dp),
+                horizontalAlignment = Alignment.Start
+            ) {
+                Text(
+                    text = "Phone Number",
+                    fontWeight = FontWeight(400),
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                RoundedTextField(
+                    value = lastName,
+                    label = "Phone Number",
+                    icon = Icons.Outlined.Phone,
+                    modifier = Modifier.fillMaxWidth(),
+                    onValueChange = { phoneNumber = it }
+                )
+            }
+        }
+
+        item {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 32.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -162,7 +220,7 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 32.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -223,7 +281,7 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 20.dp),
+                    .padding(top = 32.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -278,28 +336,15 @@ fun SignUpScreenContent(
                     maxLines = 1,
                     singleLine = true,
                 )
-                Spacer(modifier = Modifier.height(2.dp))
-                Row(
-                    horizontalArrangement = Arrangement.Start,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Checkbox(checked = false, onCheckedChange = {})
-                    Text(
-                        text = "Remember Password",
-                        fontWeight = FontWeight(400),
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.scrim.copy(0.6f)
-                    )
-                }
             }
+            Spacer(modifier = Modifier.height(40.dp))
         }
 
         item {
             CustomRoundedButton(
                 label = "Sign Up",
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 30.dp),
+                    .fillMaxWidth(),
                 filled = true,
                 onClick = {
                     onEvent(SignUpEvents.OnSignUpClicked)
@@ -308,4 +353,11 @@ fun SignUpScreenContent(
             )
         }
     }
+}
+
+@Preview
+@Composable
+fun PreviewSignUP(){
+    val navController = rememberNavController()
+    SignUpScreenContent(onEvent = {}, navController = navController)
 }

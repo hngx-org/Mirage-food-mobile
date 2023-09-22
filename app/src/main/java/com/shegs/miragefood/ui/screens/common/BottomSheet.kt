@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey3
+import com.shegs.miragefood.ui.theme.md_theme_light_onPrimary
 import com.shegs.miragefood.ui.theme.seed
 import com.shegs.miragefood.utils.EmojiByUnicode
 
@@ -38,7 +39,10 @@ fun BottomSheet(
     onButtonClicked: () -> Unit,
 ) {
 
-    ModalBottomSheet(sheetState = sheetState, onDismissRequest = { /*TODO*/ }) {
+    ModalBottomSheet(
+        containerColor = md_theme_light_onPrimary,
+        sheetState = sheetState,
+        onDismissRequest = { /*TODO*/ }) {
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -70,7 +74,6 @@ fun BottomSheet(
 
     }
 }
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
