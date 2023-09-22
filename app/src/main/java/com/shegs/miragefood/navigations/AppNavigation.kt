@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import com.shegs.miragefood.ui.screens.GiftLunch
 import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
+import com.shegs.miragefood.ui.screens.SearchScreen
 import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
 import com.shegs.miragefood.ui.screens.SplashScreen
@@ -58,7 +59,7 @@ fun Navigation(
             SignInScreen(navController)
         }
         composable(NestedNavItem.GiftLunchScreen.route) {
-            GiftLunch(giftLunchViewModel = giftLunchViewModel)
+            GiftLunch(navController = navController, giftLunchViewModel = giftLunchViewModel)
 
         }
 
@@ -69,14 +70,7 @@ fun Navigation(
 
 
         composable(NestedNavItem.App.SearchScreen.route) {
-            //TODO() replace with the search screen
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(text = NestedNavItem.App.SearchScreen.label!!)
-            }
+            SearchScreen()
         }
         composable(NestedNavItem.App.RedeemScreen.route) {
             //TODO() replace with the redeem screen
