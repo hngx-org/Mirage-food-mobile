@@ -1,6 +1,5 @@
 package com.shegs.miragefood.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -189,9 +188,7 @@ fun SignInScreenContent(
                 filled = true,
                 onClick = {
                     onEvent(SignInEvents.SignInClicked)
-                    Log.d("SignInScreen", "Before navigation") // Add this log line
                     navController.navigate(NestedNavItem.App.HomeScreen.route)
-                    Log.d("SignInScreen", "After navigation")
                 }
             )
         }

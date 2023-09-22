@@ -4,6 +4,13 @@ sealed class Transaction {
     abstract val timestamp: Long
 }
 
+data class SentTransaction(
+    val receiver: String,
+    val amountSent: Int,
+    override val timestamp: Long
+) : Transaction()
+
+
 data class ReceivedTransaction(
     val sender: String,
     val amountSent: Int,

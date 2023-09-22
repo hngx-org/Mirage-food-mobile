@@ -35,7 +35,7 @@ import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.ui.screens.common.AppTextField
 import com.shegs.miragefood.ui.screens.common.BottomSheet
-import com.shegs.miragefood.ui.screens.common.FreeLunchTitle
+import com.shegs.miragefood.ui.screens.common.HeaderTitle
 import com.shegs.miragefood.ui.screens.common.RoundedCornerButton
 import com.shegs.miragefood.ui.screens.common.TextFieldHeader
 import com.shegs.miragefood.ui.screens.common.TopNavigationBar
@@ -73,11 +73,11 @@ fun GiftLunch(giftLunchViewModel: GiftLunchViewModel, navController: NavControll
             horizontalAlignment = Alignment.Start,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 60.dp, start = 14.dp, end = 12.dp),
+                .padding(top = 60.dp, start = 20.dp, end = 20.dp),
 
             ) {
-            FreeLunchTitle(title = "20 Free Lunch", subtitle = "Your Free Lunch Redeemed Balance ")
-            Spacer(modifier = Modifier.height(40.dp))
+            HeaderTitle(title = "20 Free Lunch", subtitle = "Your Free Lunch Redeemed Balance ")
+            Spacer(modifier = Modifier.height(32.dp))
             Text(
                 text = "Gift free lunch to",
                 style = Typography.titleLarge.copy(

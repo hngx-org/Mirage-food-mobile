@@ -47,6 +47,7 @@ import com.shegs.miragefood.models.datas.Transaction
 import com.shegs.miragefood.models.datas.UserData
 import com.shegs.miragefood.models.datas.WithdrawnTransaction
 import com.shegs.miragefood.navigations.NestedNavItem
+import com.shegs.miragefood.ui.screens.common.LunchBalanceSection
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
@@ -70,7 +71,7 @@ fun HomeScreen(userViewModel: UserViewModel, transactionViewModel: TransactionVi
                 UserGreeting(user)
                 LunchBalance()
                 ActionButtonSection(navController)
-                RecentTransactionSection()
+                RecentTransactionSection(navController)
                 Spacer(modifier = Modifier.height(24.dp))
                 TransactionScreen(transactionViewModel)
             }
@@ -142,30 +143,10 @@ fun LunchBalance() {
             .padding(top = 24.dp),
         contentAlignment = Alignment.Center
     ) {
-        Column(
-            modifier = Modifier,
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text = "20 Free Lunch",
-                fontWeight = FontWeight(500),
-                style = MaterialTheme.typography.bodyMedium,
-                color = MaterialTheme.colorScheme.scrim
-            )
-
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Text(
-                text = "Redeemed Free Lunch",
-                fontWeight = FontWeight(400),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.scrim,
-                modifier = Modifier
-                    .alpha(0.6f)
-            )
-        }
-
+        LunchBalanceSection(
+            lunchBalance = "20 Free Lunch",
+            subtitle = "Redeemed Free Lunch"
+        )
     }
 
 }
@@ -214,7 +195,7 @@ fun ActionButtonSection(navController: NavController) {
             }
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {  },
                 shape = RoundedCornerShape(8.dp),
 
                 contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
@@ -235,7 +216,7 @@ fun ActionButtonSection(navController: NavController) {
 
 
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { navController.navigate(NestedNavItem.WithdrawalScreen.route) },
                 shape = RoundedCornerShape(8.dp),
                 contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),
                 colors = ButtonDefaults.buttonColors(
@@ -260,7 +241,7 @@ fun ActionButtonSection(navController: NavController) {
 
 
 @Composable
-fun RecentTransactionSection() {
+fun RecentTransactionSection(navController: NavController) {
     Row (
         modifier = Modifier
             .fillMaxWidth()
@@ -276,7 +257,7 @@ fun RecentTransactionSection() {
 
             ClickableText(
                 text = AnnotatedString("See all"),
-                onClick = { },
+                onClick = { navController.navigate(NestedNavItem.SeeAllNotification.route) },
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .alpha(0.6f)
@@ -308,7 +289,8 @@ fun TransactionItem(transaction: Transaction) {
             is ReceivedTransaction -> ReceivedTransaction(transaction)
             is RedeemedTransaction -> RedeemedTransaction(transaction)
             is WithdrawnTransaction -> WithdrawnTransaction(transaction)
-        }
+        else -> {}
+    }
 }
 
 

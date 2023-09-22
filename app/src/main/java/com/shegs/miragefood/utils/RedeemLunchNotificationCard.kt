@@ -26,14 +26,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.models.datas.RedeemLunchNotification
+import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.screens.common.SmallButton
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey3
 
 @Composable
-fun RedeemLunchNotificationCard(redeemLunchNotification: RedeemLunchNotification) {
+fun RedeemLunchNotificationCard(redeemLunchNotification: RedeemLunchNotification, navController: NavController) {
 
     Row(
         modifier = Modifier
@@ -115,7 +117,10 @@ fun RedeemLunchNotificationCard(redeemLunchNotification: RedeemLunchNotification
 
             )
             Spacer(modifier = Modifier.height(12.dp))
-            SmallButton(text = "Redeem Free Lunch", onClick = {})
+            SmallButton(
+                text = "Redeem Free Lunch",
+                onClick = {navController.navigate(NestedNavItem.RedeemLunchScreen.route)}
+            )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
                 text = convertTimestampToTime(redeemLunchNotification.timeStamp),

@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shegs.miragefood.models.datas.OnboardingItems
 import com.shegs.miragefood.models.repositories.OnboardingRepository
-import com.shegs.miragefood.ui.events.OnboardingEvents
-import com.shegs.miragefood.ui.events.OnboardingUiEvents
+import com.shegs.miragefood.ui.events.OnboardingEvent
+import com.shegs.miragefood.ui.events.OnboardingUiEvent
+import com.shegs.miragefood.ui.events.SplashUiEvent
 import com.shegs.miragefood.ui.states.OnboardingState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,8 +31,6 @@ class OnboardingViewModel @Inject constructor(
     private var _pageIndex = MutableStateFlow(0)
     val pageIndex: StateFlow<Int> = _pageIndex
 
-
-
     fun retrieveOnboardingPages(): List<OnboardingItems> {
         return onboardingPages.value
     }
@@ -42,8 +42,12 @@ class OnboardingViewModel @Inject constructor(
     private val _state = MutableStateFlow(OnboardingState())
     val state = _state.asStateFlow()
 
-    private val _uiEventFlow = MutableSharedFlow<OnboardingUiEvents>()
-    val uiEventFlow = _uiEventFlow.asSharedFlow()
+    private val _onboardingEventFlow = MutableSharedFlow<OnboardingUiEvent>()
+    val onboardingEventFlow = _onboardingEventFlow.asSharedFlow()
+
+    private val _splashEventFlow = MutableSharedFlow<SplashUiEvent>()
+    val splashEventFlow = _splashEventFlow.asSharedFlow()
+
 
     init {
         readOnboardingState()
@@ -53,31 +57,29 @@ class OnboardingViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
-//                    isUserLoggedIn = onboardingRepository.readOnboardingState().stateIn(this).value
+                    isUserOnboarded = onboardingRepository.readOnboardingState().stateIn(this).value
                 )
             }
-            delay(100)
-            if (_state.value.isUserLoggedIn) {
-                _uiEventFlow.emit(OnboardingUiEvents.SkipOnBoarding)
+            delay(2000L)
+            if (_state.value.isUserOnboarded) {
+                _splashEventFlow.emit(SplashUiEvent.SkipOnBoarding)
             } else {
-                _state.update {
-                    it.copy(showOptions = true)
-                }
+                _splashEventFlow.emit(SplashUiEvent.ShowOnBoarding)
             }
         }
     }
 
-    fun onEvent(event: OnboardingEvents) {
+    fun onEvent(event: OnboardingEvent) {
         when (event) {
-            OnboardingEvents.OnSignInClick -> {
+            OnboardingEvent.OnSignInClick -> {
                 viewModelScope.launch {
-                    _uiEventFlow.emit(OnboardingUiEvents.NavigateToSignIn)
+                    _onboardingEventFlow.emit(OnboardingUiEvent.NavigateToSignIn)
                 }
             }
 
-            OnboardingEvents.OnSignUpClick -> {
+            OnboardingEvent.OnSignUpClick -> {
                 viewModelScope.launch {
-                    _uiEventFlow.emit(OnboardingUiEvents.NavigateToSignUp)
+                    _onboardingEventFlow.emit(OnboardingUiEvent.NavigateToSignUp)
                 }
             }
         }

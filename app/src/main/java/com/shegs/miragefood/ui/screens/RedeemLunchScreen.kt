@@ -14,10 +14,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Text
-import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -41,13 +39,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.ui.screens.common.BottomSheet
-import com.shegs.miragefood.ui.screens.common.FreeLunchTitle
+import com.shegs.miragefood.ui.screens.common.HeaderTitle
 import com.shegs.miragefood.ui.screens.common.TopNavigationBar
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterialApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun LunchDetailsScreen(
+fun RedeemLunchScreen(
     receivedTransaction: ReceivedTransaction,
     navController: NavController,
     closeModal: () -> Unit,
@@ -65,27 +63,6 @@ fun LunchDetailsScreen(
                 onBackButtonPressed = {})
         }
     ) {
-        BottomSheetScaffold(
-            sheetContent = {
-                if (showModalBottomSheet) {
-                    BottomSheet(
-                        sheetState = sheetState,
-                        title = "Congratulations!",
-                        emojiUnicode = 0x1F601,
-                        description = "You have redeemed your ${receivedTransaction.amountSent} free Lunch gift from ${receivedTransaction.sender}",
-                        secondDescription = "Have fun!"
-                    ) {
-                        // Close the bottom sheet when the "Close" button in the sheet is clicked
-                        showModalBottomSheet = false
-                    }
-                }
-            },
-            sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
-            sheetBackgroundColor = MaterialTheme.colorScheme.onPrimaryContainer,
-            sheetElevation = 16.dp,
-            scaffoldState = rememberBottomSheetScaffoldState(),
-        ) {
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -93,7 +70,7 @@ fun LunchDetailsScreen(
                     .padding(top = 60.dp, start = 14.dp, end = 14.dp),
                 )
             {
-                FreeLunchTitle(title = "Redeem Free Lunch")
+                HeaderTitle(title = "Redeem Free Lunch")
 
                 Text(
                     text = "\uD83C\uDF89",
@@ -243,6 +220,19 @@ fun LunchDetailsScreen(
 
                     Spacer(modifier = Modifier.width(24.dp))
 
+                    if (showModalBottomSheet) {
+                        BottomSheet(
+                            sheetState = sheetState,
+                            title = "Congratulations!",
+                            emojiUnicode = 0x1F601,
+                            description = "You have redeemed your ${receivedTransaction.amountSent} free Lunch gift from ${receivedTransaction.sender}",
+                            secondDescription = "Have fun!"
+                        ) {
+                            // Close the bottom sheet when the "Close" button in the sheet is clicked
+                            showModalBottomSheet = false
+                        }
+                    }
+
                     Button(
                         shape = RoundedCornerShape(8.dp),
                         colors = ButtonDefaults.buttonColors(
@@ -266,7 +256,6 @@ fun LunchDetailsScreen(
                     }
                 }
             }
-        }
     }
 }
 
