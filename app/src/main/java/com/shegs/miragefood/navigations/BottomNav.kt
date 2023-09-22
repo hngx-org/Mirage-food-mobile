@@ -40,11 +40,12 @@ fun BottomNavBar(navController: NavController) {
                     selected = selected,
                     onClick = {
                         navController.navigate(screen.route) {
-                            navController.graph.startDestinationRoute?.let { route ->
-                                popUpTo(route)
+                            popUpTo(NestedNavItem.App.HomeScreen.route) {
+                                saveState = true
                             }
                             // Handles instances when the destination is already at the top of the stack.
                             launchSingleTop = true
+                            restoreState = true
                         }
                     },
                     icon = {
