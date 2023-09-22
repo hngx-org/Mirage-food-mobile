@@ -17,6 +17,8 @@ import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Phone
+import androidx.compose.material.icons.outlined.Visibility
+import androidx.compose.material.icons.outlined.VisibilityOff
 //import androidx.compose.material.icons.outlined.Visibility
 //import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.material3.Checkbox
@@ -86,12 +88,14 @@ fun SignUpScreenContent(
     val focusManager = LocalFocusManager.current
     LazyColumn(
         modifier = Modifier
+            .padding(top = 32.dp)
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.Center
     ) {
         item {
-            Column(
+
+                Column(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(),
@@ -117,7 +121,7 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 0.dp),
+                    .padding(top = 32.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -242,7 +246,7 @@ fun SignUpScreenContent(
                     },
                     trailingIcon = {
                         val icon =
-                            if (passwordVisibility) Icons.Outlined.Lock else Icons.Outlined.Lock
+                            if (passwordVisibility) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff
 
                         IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                             Icon(imageVector = icon, contentDescription = null)
@@ -307,7 +311,7 @@ fun SignUpScreenContent(
                     },
                     trailingIcon = {
                         val icon =
-                            if (passwordVisibility) Icons.Outlined.Lock else Icons.Outlined.Lock
+                            if (passwordVisibility) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff
 
                         IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
                             Icon(imageVector = icon, contentDescription = null)
