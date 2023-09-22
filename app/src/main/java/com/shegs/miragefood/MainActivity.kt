@@ -18,6 +18,7 @@ import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
+import com.shegs.miragefood.viewmodels.WithdrawalViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -31,6 +32,8 @@ class MainActivity : ComponentActivity() {
     private val onBoardingViewModel: OnboardingViewModel by viewModels()
 
     private val giftLunchViewModel: GiftLunchViewModel by viewModels()
+
+    private val withdrawalViewModel: WithdrawalViewModel by viewModels()
 
     @Inject
     lateinit var transactionViewModel: TransactionViewModel
@@ -56,7 +59,9 @@ class MainActivity : ComponentActivity() {
                             userViewModel,
                             transactionViewModel,
                             onBoardingViewModel,
-                            giftLunchViewModel)
+                            withdrawalViewModel,
+                            giftLunchViewModel
+                        )
                     }
 
                 }

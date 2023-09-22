@@ -16,10 +16,12 @@ import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
 import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
+import com.shegs.miragefood.ui.screens.WithdrawScreen
 import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
+import com.shegs.miragefood.viewmodels.WithdrawalViewModel
 
 @Composable
 fun Navigation(
@@ -27,6 +29,7 @@ fun Navigation(
     userViewModel: UserViewModel,
     transactionViewModel: TransactionViewModel,
     onboardingViewModel: OnboardingViewModel,
+    withdrawalViewModel: WithdrawalViewModel,
     giftLunchViewModel: GiftLunchViewModel,
     modifier: Modifier = Modifier) {
     NavHost(
@@ -41,7 +44,7 @@ fun Navigation(
         }
 
         composable(NestedNavItem.SignUpScreen.route) {
-            SignUpScreen()
+            SignUpScreen(navController)
         }
 
         composable(NestedNavItem.SignInScreen.route) {
@@ -49,9 +52,11 @@ fun Navigation(
         }
         composable(NestedNavItem.GiftLunchScreen.route){
             GiftLunch(giftLunchViewModel = giftLunchViewModel, navController)
-
         }
 
+        composable(NestedNavItem.WithdrawalScreen.route){
+            WithdrawScreen(navController, withdrawalViewModel)
+        }
 
             composable(NestedNavItem.App.HomeScreen.route) {
                 HomeScreen(userViewModel, transactionViewModel, navController)

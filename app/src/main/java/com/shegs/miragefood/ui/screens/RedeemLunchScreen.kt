@@ -41,7 +41,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.ui.screens.common.BottomSheet
-import com.shegs.miragefood.ui.screens.common.FreeLunchTitle
+import com.shegs.miragefood.ui.screens.common.HeaderTitle
 import com.shegs.miragefood.ui.screens.common.TopNavigationBar
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter", "UnusedMaterial3ScaffoldPaddingParameter")
@@ -93,7 +93,7 @@ fun LunchDetailsScreen(
                     .padding(top = 60.dp, start = 14.dp, end = 14.dp),
                 )
             {
-                FreeLunchTitle(title = "Redeem Free Lunch")
+                HeaderTitle(title = "Redeem Free Lunch")
 
                 Text(
                     text = "\uD83C\uDF89",

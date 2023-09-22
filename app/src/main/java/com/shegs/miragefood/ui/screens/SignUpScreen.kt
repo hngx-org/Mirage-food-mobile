@@ -23,7 +23,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -42,26 +41,36 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.events.SignUpEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
-import com.shegs.miragefood.viewmodels.SignUpViewModel
-import com.shegs.miragefood.ui.theme.MirageFoodTheme
 
 @Composable
 fun SignUpScreen(
-    viewModel: SignUpViewModel = hiltViewModel()
+    navController: NavController
 ) {
-    SignUpScreenContent(onEvent = viewModel::onEvent)
+    SignUpScreenContent(
+        onEvent = { event ->
+            // Handle SignUpEvents here
+            when (event) {
+                SignUpEvents.OnSignUpClicked -> {
+                    // Handle the sign-up event, e.g., call a ViewModel function
+                    // and navigate if necessary.
+                }
+            }
+        },
+        navController = navController
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreenContent(
-    onEvent: (SignUpEvents) -> Unit
+    onEvent: (SignUpEvents) -> Unit,
+    navController: NavController
 ) {
 
     var fullName by remember { mutableStateOf("") }
@@ -294,21 +303,9 @@ fun SignUpScreenContent(
                 filled = true,
                 onClick = {
                     onEvent(SignUpEvents.OnSignUpClicked)
+                    navController.navigate(NestedNavItem.App.HomeScreen.route)
                 }
             )
-        }
-    }
-}
-
-@Preview
-@Composable
-fun SignUpScreenPreview() {
-    MirageFoodTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
-        ) {
-            SignUpScreenContent(onEvent = {})
         }
     }
 }

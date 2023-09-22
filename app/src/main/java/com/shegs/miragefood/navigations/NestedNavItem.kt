@@ -11,6 +11,8 @@ sealed class NestedNavItem(val route: String, val label: String? = null, val ico
 
     object GiftLunchScreen : NestedNavItem(route = "gift_lunch_screen")
 
+    object WithdrawalScreen : NestedNavItem(route = "withdrawal_screen")
+
     object App : NestedNavItem(route = "app_screen") {
         object HomeScreen :
             NestedNavItem(route = "home_screen", label = "Home", icon = R.drawable.icon_home) {
