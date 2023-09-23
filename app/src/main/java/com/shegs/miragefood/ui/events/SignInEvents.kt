@@ -1,5 +1,7 @@
 package com.shegs.miragefood.ui.events
 
-sealed interface SignInEvents {
-    object SignInClicked : SignInEvents
+import com.shegs.miragefood.models.datas.LoginRequest
+
+sealed class SignInEvents {
+   data class SignInClicked(val loginRequest: LoginRequest) : SignInEvents()
 }
