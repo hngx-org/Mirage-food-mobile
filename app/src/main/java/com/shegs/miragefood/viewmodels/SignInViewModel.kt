@@ -3,6 +3,7 @@ package com.shegs.miragefood.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.shegs.miragefood.repositories.OnboardingRepository
 import com.shegs.miragefood.repositories.SignInRepository
 import com.shegs.miragefood.ui.events.SignInEvents
 import com.shegs.miragefood.ui.states.SignInState
@@ -12,10 +13,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SignInViewModel @Inject constructor(
-    private val signInRepository: SignInRepository
+    private val signInRepository: SignInRepository,
+    private val onboardingRepository: OnboardingRepository
 ) : ViewModel() {
 
-    private val _signInstate = MutableStateFlow<SignInState>(SignInState.Initial)
+    private var _signInstate = MutableStateFlow<SignInState>(SignInState.Initial)
     val signInState: StateFlow<SignInState> = _signInstate
 
     fun login(event: SignInEvents) {
@@ -35,16 +37,22 @@ class SignInViewModel @Inject constructor(
 
 
                         if (response.isSuccessful && response.body() != null) {
-                            _signInstate.value = SignInState.Success(user = response.body()!!)
+                            _signInstate.emit(SignInState.Success(user = response.body()!!))
+                            onboardingRepository.saveLoginDataStorePreferences(access = response.body()!!.access)
+                            Log.i("LOGIN RESP", response.body()!!.toString())
                         } else {
-                            _signInstate.value =
+                            _signInstate.emit(
                                 SignInState.Error(detail = response.body()!!.toString())
+                            )
                             Log.i("LOGIN RESP", response.body()!!.toString())
                         }
                     } catch (e: Exception) {
                         e.message?.let { Log.i("exception", it) }
-                        _signInstate.value =
+                        Log.i("exception", e.message.toString())
+
+                        _signInstate.emit(
                             SignInState.Error(detail = e.message.toString())
+                        )
                     }
                 }
             }

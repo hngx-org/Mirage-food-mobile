@@ -12,8 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-val Context.datastore by preferencesDataStore(name = "onboarding_preferences")
-
+val Context.datastore by preferencesDataStore(name = "app_preferences")
 @Module
 @InstallIn(SingletonComponent::class)
 object OnboardingModule {
@@ -30,5 +29,6 @@ object OnboardingModule {
     ): OnboardingRepository {
         return OnboardingRepository(onboardingDatastorePreferences = datastorePreferences)
     }
+
 
 }
