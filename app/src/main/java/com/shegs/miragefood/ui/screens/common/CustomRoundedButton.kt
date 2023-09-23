@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 fun CustomRoundedButton(
     label: String,
     modifier: Modifier = Modifier,
+    enabled: Boolean?,
     filled: Boolean = false,
     onClick: () -> Unit
 ) {
@@ -40,6 +41,7 @@ fun CustomRoundedButton(
     Button(
         onClick = onClick,
         modifier = modifier,
+        enabled = enabled!!,
         shape = MaterialTheme.shapes.medium,
         colors = ButtonDefaults.buttonColors(
             containerColor = containerColor,

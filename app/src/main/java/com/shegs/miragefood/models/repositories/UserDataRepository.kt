@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class UserDataRepository @Inject constructor() {
+class UserDataRepository @Inject constructor(
+
+) {
 
     // Simulated data source
     private val userData =

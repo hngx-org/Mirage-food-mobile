@@ -1,6 +1,8 @@
 package com.shegs.miragefood.di.modules
 
+import com.shegs.miragefood.models.repositories.SignInRepository
 import com.shegs.miragefood.models.repositories.TransactionRepository
+import com.shegs.miragefood.viewmodels.SignInViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import dagger.Module
 import dagger.Provides
@@ -17,4 +19,11 @@ object ViewModelModule {
     fun provideTransactionViewModel(transactionRepository: TransactionRepository): TransactionViewModel {
         return TransactionViewModel(transactionRepository)
     }
+
+    @Provides
+    @ViewModelScoped
+    fun provideSignInViewModel(signInRepository: SignInRepository): SignInViewModel {
+        return SignInViewModel(signInRepository)
+    }
+
 }
