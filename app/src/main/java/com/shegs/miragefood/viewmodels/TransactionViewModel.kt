@@ -2,7 +2,7 @@ package com.shegs.miragefood.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.shegs.miragefood.models.datas.Transaction
-import com.shegs.miragefood.models.repositories.TransactionRepository
+import com.shegs.miragefood.repositories.TransactionRepository
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 

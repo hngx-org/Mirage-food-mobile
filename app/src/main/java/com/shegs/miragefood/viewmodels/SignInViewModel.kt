@@ -44,7 +44,7 @@ class SignInViewModel @Inject constructor(
                     } catch (e: Exception) {
                         e.message?.let { Log.i("exception", it) }
                         _signInstate.value =
-                            SignInState.Error(detail = "Login Failed")
+                            SignInState.Error(detail = e.message.toString())
                     }
                 }
             }
