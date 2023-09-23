@@ -27,6 +27,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,32 +37,70 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.shegs.miragefood.navigations.NestedNavItem
+import com.shegs.miragefood.network.data.Result
 import com.shegs.miragefood.ui.events.SignUpEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
+import com.shegs.miragefood.viewmodels.SignUpViewModel
 
 @Composable
 fun SignUpScreen(
-    navController: NavController
+    navController: NavController,
 ) {
+    val viewModel: SignUpViewModel = hiltViewModel()
+
+    // Initialize the error message state
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+
+    val signUpResultState = viewModel.signUpResult.collectAsState()
+    val result = signUpResultState.value // Declare result at a higher level
+
+    val context = LocalContext.current
+
+
+
+    LaunchedEffect(result) {
+        when (result) {
+            is Result.Success -> {
+
+                navController.navigate(NestedNavItem.SignInScreen.route)
+                errorMessage = null
+            }
+            is Result.Error -> {
+                // Sign-up failed, set the error message
+                errorMessage = result.message
+
+                // Show a Toast for the error message
+                if (errorMessage != null) {
+                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                }
+            }
+            else -> {
+                // Clear the error message
+                errorMessage = null
+            }
+        }
+    }
+
     SignUpScreenContent(
-        onEvent = { event ->
+        errorMessage = errorMessage,
+        onEvent = { event, email,firstName,lastName,password,phoneNumber ->
             // Handle SignUpEvents here
             when (event) {
                 SignUpEvents.OnSignUpClicked -> {
-                    // Handle the sign-up event, e.g., call a ViewModel function
-                    // and navigate if necessary.
+                    // Call the ViewModel's signUp function when the "Sign Up" button is clicked
+                    viewModel.signUp(email,firstName,lastName,password,phoneNumber)
                 }
             }
         },
@@ -71,7 +111,8 @@ fun SignUpScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpScreenContent(
-    onEvent: (SignUpEvents) -> Unit,
+    errorMessage: String?,
+    onEvent: (SignUpEvents, String, String, String, String, String) -> Unit,
     navController: NavController
 ) {
 
@@ -80,7 +121,6 @@ fun SignUpScreenContent(
     var phoneNumber by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
 
     val focusManager = LocalFocusManager.current
     LazyColumn(
@@ -177,7 +217,7 @@ fun SignUpScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
-                    value = lastName,
+                    value = phoneNumber,
                     label = "Phone Number",
                     icon = Icons.Outlined.Phone,
                     modifier = Modifier.fillMaxWidth(),
@@ -272,72 +312,6 @@ fun SignUpScreenContent(
         }
 
         item {
-            var passwordVisibility by remember {
-                mutableStateOf(false)
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 32.dp),
-                horizontalAlignment = Alignment.Start
-            ) {
-                Text(
-                    text = "Confirm Password",
-                    fontWeight = FontWeight(400),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.scrim.copy(0.6f)
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                TextField(
-                    value = confirmPassword,
-                    onValueChange = { confirmPassword = it },
-                    modifier = Modifier.fillMaxWidth(),
-                    label = {
-                        Text(
-                            text = "Confirm Password",
-                            fontWeight = FontWeight(400),
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.scrim.copy(0.6f)
-                        )
-                    },
-                    leadingIcon = {
-                        Icon(
-                            imageVector = Icons.Outlined.Lock,
-                            contentDescription = "confirm password"
-                        )
-                    },
-                    trailingIcon = {
-                        val icon =
-                            if (passwordVisibility) Icons.Outlined.Visibility else Icons.Outlined.VisibilityOff
-
-                        IconButton(onClick = { passwordVisibility = !passwordVisibility }) {
-                            Icon(imageVector = icon, contentDescription = null)
-                        }
-                    },
-                    visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Done
-                    ),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            focusManager.clearFocus()
-                        }
-                    ),
-                    colors = TextFieldDefaults.textFieldColors(
-                        focusedIndicatorColor = Color.Transparent,
-                        unfocusedIndicatorColor = Color.Transparent,
-                        disabledIndicatorColor = Color.Transparent
-                    ),
-                    shape = MaterialTheme.shapes.medium,
-                    maxLines = 1,
-                    singleLine = true,
-                )
-            }
-            Spacer(modifier = Modifier.height(40.dp))
-        }
-
-        item {
             CustomRoundedButton(
                 label = "Sign Up",
                 enabled = true,
@@ -356,11 +330,4 @@ fun SignUpScreenContent(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewSignUP(){
-    val navController = rememberNavController()
-    SignUpScreenContent(onEvent = {}, navController = navController)
 }

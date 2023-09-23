@@ -10,8 +10,8 @@ import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
-object RepositoryModule {
+@InstallIn(SingletonComponent::class)
+object AppModule {
 
     @Provides
     @Singleton

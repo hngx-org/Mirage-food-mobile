@@ -1,4 +1,4 @@
-package com.shegs.miragefood.models.repositories
+package com.shegs.miragefood.repositories
 
 import com.shegs.miragefood.R
 import com.shegs.miragefood.models.datas.UserData

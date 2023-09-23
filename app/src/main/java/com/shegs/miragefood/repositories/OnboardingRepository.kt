@@ -1,4 +1,4 @@
-package com.shegs.miragefood.models.repositories
+package com.shegs.miragefood.repositories
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

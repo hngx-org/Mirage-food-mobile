@@ -1,19 +1,52 @@
 package com.shegs.miragefood.viewmodels
 
 import androidx.lifecycle.ViewModel
-import com.shegs.miragefood.ui.events.SignUpEvents
+import androidx.lifecycle.viewModelScope
+import com.shegs.miragefood.network.data.Result
+import com.shegs.miragefood.network.data.SignUpRequest
+import com.shegs.miragefood.network.data.SignUpResponse
+import com.shegs.miragefood.repositories.SignUpRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SignUpViewModel @Inject constructor(
+@HiltViewModel
+class SignUpViewModel @Inject constructor(private val signUpRepository: SignUpRepository) : ViewModel() {
 
-) : ViewModel() {
+    private val _signUpResult = MutableStateFlow<Result<SignUpResponse>>(Result.Loading)
+    val signUpResult: StateFlow<Result<SignUpResponse>> = _signUpResult.asStateFlow()
 
-    fun onEvent(event: SignUpEvents) {
-        when (event) {
-            SignUpEvents.OnSignUpClicked -> {
-                // TODO()
+    fun signUp(email: String, firstName: String, lastName: String, password: String, phoneNumber: String) {
+        val signUpRequest = SignUpRequest(email, firstName, lastName, password, phoneNumber)
+
+        viewModelScope.launch {
+            try {
+                val response = signUpRepository.signUp(signUpRequest)
+                when (response) {
+                    is Result.Success -> {
+                        // Extract the data from the response and emit it as success
+                        val signUpResponse = response.data
+                        _signUpResult.emit(Result.Success(signUpResponse))
+                    }
+                    is Result.Error -> {
+                        // Emit the error result as-is
+                        _signUpResult.emit(Result.Error(response.message))
+                    }
+
+                    else -> {}
+                }
+            } catch (e: Exception) {
+                _signUpResult.emit(Result.Error("Sign-up failed. Please try again."))
             }
         }
     }
-
 }
+
+
+
+
+
+
