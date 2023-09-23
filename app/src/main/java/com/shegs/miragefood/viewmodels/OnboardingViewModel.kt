@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shegs.miragefood.models.datas.OnboardingItems
-import com.shegs.miragefood.models.repositories.OnboardingRepository
+import com.shegs.miragefood.repositories.OnboardingRepository
 import com.shegs.miragefood.ui.events.OnboardingEvent
 import com.shegs.miragefood.ui.events.OnboardingUiEvent
 import com.shegs.miragefood.ui.events.SplashUiEvent

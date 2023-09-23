@@ -2,7 +2,7 @@ package com.shegs.miragefood.viewmodels
 
 import androidx.lifecycle.ViewModel
 import com.shegs.miragefood.models.datas.RedeemLunchNotification
-import com.shegs.miragefood.models.repositories.RedeemLunchNotificationRepository
+import com.shegs.miragefood.repositories.RedeemLunchNotificationRepository
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 

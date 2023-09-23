@@ -14,7 +14,7 @@ interface ApiService {
     @POST("api/auth/user/signup")
     fun signUp(@Body requestBody: SignUpRequest): Call<SignUpResponse>
 
-    @POST("api/auth/user/login")
+    @POST("api/auth/login")
     suspend fun login(@Body loginRequest: LoginRequest): Response<User>
 
 }
