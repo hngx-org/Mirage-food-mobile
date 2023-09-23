@@ -28,19 +28,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.shegs.miragefood.R
-import com.shegs.miragefood.models.datas.RedeemLunchNotification
+import com.shegs.miragefood.models.datas.Lunch
 import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.screens.common.SmallButton
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey3
 
 @Composable
-fun RedeemLunchNotificationCard(redeemLunchNotification: RedeemLunchNotification, navController: NavController) {
+fun RedeemLunchNotificationCard(lunch: Lunch, navController: NavController) {
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 32.dp),
+            .padding(bottom = 20.dp),
         verticalAlignment = Alignment.Top
     ) {
         Box(
@@ -90,7 +90,7 @@ fun RedeemLunchNotificationCard(redeemLunchNotification: RedeemLunchNotification
                             color = MaterialTheme.colorScheme.primary
                         )
                     ) {
-                        append("${redeemLunchNotification.lunchCount}")
+                        append("${lunch.quantity}")
                     }
                     withStyle(
                         style = SpanStyle(
@@ -106,7 +106,7 @@ fun RedeemLunchNotificationCard(redeemLunchNotification: RedeemLunchNotification
                             color = MaterialTheme.colorScheme.primary
                         )
                     ) {
-                        append("${redeemLunchNotification.lunchSender}")
+                        append(lunch.senderId)
                     }
                 },
                 fontWeight = FontWeight(400),
@@ -123,7 +123,7 @@ fun RedeemLunchNotificationCard(redeemLunchNotification: RedeemLunchNotification
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = convertTimestampToTime(redeemLunchNotification.timeStamp),
+                text = lunch.createdAt,
                 style = Typography.bodyMedium.copy(
                     fontWeight = FontWeight.W500,
                     fontSize = 16.sp,

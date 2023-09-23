@@ -29,7 +29,7 @@ class LunchViewModel @Inject constructor(
     private fun readToken(){
         viewModelScope.launch {
            val token = onboardingRepository.readLoginData().stateIn(this).value
-            getLunch(GetAllLunchEvents.GetAllLunch(token = token))
+            getLunch(GetAllLunchEvents.GetAllLunch(token =  "Bearer $token"))
         }
     }
 
@@ -42,7 +42,7 @@ class LunchViewModel @Inject constructor(
                         val response = repository.getAllLunch(event.token)
 
                         if (response.isSuccessful && response.body() != null) {
-                            _lunchState.emit(GetAllLunchState.Success(lunch = response.body()!!))
+                            _lunchState.emit(GetAllLunchState.Success(lunch = response.body()!!.data))
                             Log.i("Lunch RESP", response.body()!!.toString())
                         } else {
                             _lunchState.emit(
@@ -54,6 +54,8 @@ class LunchViewModel @Inject constructor(
                         _lunchState.emit(
                             GetAllLunchState.Error(detail = e.message.toString())
                         )
+                        Log.e("Lunch RESP", e.message.toString())
+
                     }
                 }
             }

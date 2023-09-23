@@ -11,4 +11,6 @@ class RedeemLunchNotificationsViewModel @Inject constructor(
 ) : ViewModel() {
     val redeemLunchNotificatinos: StateFlow<List<RedeemLunchNotification>> = repository.freeLunchNotification
 
+
+
 }

@@ -19,6 +19,7 @@ import com.shegs.miragefood.ui.screens.SignUpScreen
 import com.shegs.miragefood.ui.screens.SplashScreen
 import com.shegs.miragefood.ui.screens.WithdrawScreen
 import com.shegs.miragefood.viewmodels.GiftLunchViewModel
+import com.shegs.miragefood.viewmodels.LunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
 import com.shegs.miragefood.viewmodels.SignInViewModel
@@ -32,6 +33,7 @@ fun Navigation(
     userViewModel: UserViewModel,
     transactionViewModel: TransactionViewModel,
     onboardingViewModel: OnboardingViewModel,
+    lunchViewModel: LunchViewModel,
     withdrawalViewModel: WithdrawalViewModel,
     giftLunchViewModel: GiftLunchViewModel,
     redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel,
@@ -89,6 +91,7 @@ fun Navigation(
 
         composable(NestedNavItem.App.HomeScreen.route) {
             HomeScreen(userViewModel, transactionViewModel, navController)
+
         }
 
 
@@ -96,7 +99,7 @@ fun Navigation(
             SearchScreen()
         }
         composable(NestedNavItem.App.RedeemScreen.route) {
-            RedeemLunchNotifications(redeemLunchNotificationsViewModel, navController)
+            RedeemLunchNotifications(lunchViewModel, navController)
         }
     }
 }

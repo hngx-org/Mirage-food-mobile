@@ -16,6 +16,7 @@ import com.shegs.miragefood.navigations.BottomNavBar
 import com.shegs.miragefood.navigations.Navigation
 import com.shegs.miragefood.ui.theme.MirageFoodTheme
 import com.shegs.miragefood.viewmodels.GiftLunchViewModel
+import com.shegs.miragefood.viewmodels.LunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
 import com.shegs.miragefood.viewmodels.SignInViewModel
@@ -36,6 +37,9 @@ class MainActivity : ComponentActivity() {
 
     @Inject
     lateinit var redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel
+
+    @Inject
+    lateinit var lunchViewModel: LunchViewModel
 
     // Initialize the ViewModel
     private val onBoardingViewModel: OnboardingViewModel by viewModels()
@@ -70,17 +74,18 @@ class MainActivity : ComponentActivity() {
                         bottomBar = {
                             BottomNavBar(navController = navController)
                         }
-                    ) {  innerPadding ->
+                    ) { innerPadding ->
                         Navigation(
                             navController,
                             userViewModel,
                             transactionViewModel,
                             onBoardingViewModel,
+                            lunchViewModel,
                             withdrawalViewModel,
                             giftLunchViewModel,
                             redeemLunchNotificationsViewModel,
                             receivedTransaction,
-                            signInViewModel
+                            signInViewModel,
                         )
                     }
 
