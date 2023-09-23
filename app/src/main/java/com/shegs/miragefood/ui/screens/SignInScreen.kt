@@ -1,6 +1,7 @@
 package com.shegs.miragefood.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
@@ -33,7 +34,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -48,21 +48,19 @@ import com.shegs.miragefood.ui.events.SignInEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
 import com.shegs.miragefood.ui.states.SignInState
+import com.shegs.miragefood.ui.theme.md_theme_light_error
 import com.shegs.miragefood.viewmodels.SignInViewModel
 
 @Composable
 fun SignInScreen(navController: NavController, viewModel: SignInViewModel) {
 
-    SignInScreenContent(navController = navController, onEvent = { event ->
-        viewModel.login(event = event)
-    }, viewModel = viewModel)
+    SignInScreenContent(navController = navController, viewModel = viewModel)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreenContent(
     navController: NavController,
-    onEvent: (SignInEvents) -> Unit,
     viewModel: SignInViewModel
 ) {
 
@@ -198,19 +196,26 @@ fun SignInScreenContent(
                 enabled = email.isNotEmpty() && password.isNotEmpty(),
                 onClick = {
                     val loginRequest = LoginRequest(email = email, password = password)
-                    onEvent(SignInEvents.SignInClicked(loginRequest = loginRequest))
+                    viewModel.login(event = SignInEvents.SignInClicked(loginRequest = loginRequest))
                 }
             )
         }
 
         item {
             when (signInState) {
-                is SignInState.Loading -> CircularProgressIndicator()
+                is SignInState.Loading -> Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
                 is SignInState.Success ->
                     navController.navigate(NestedNavItem.App.HomeScreen.route)
 
                 is SignInState.Error ->
-                    Text(text = "Error: ${(signInState as SignInState.Error).detail}")
+                    Text(text = "Error: ${(signInState as SignInState.Error).detail}", color = md_theme_light_error)
 
                 else -> {}
             }

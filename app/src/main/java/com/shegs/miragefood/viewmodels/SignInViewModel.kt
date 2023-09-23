@@ -31,15 +31,18 @@ class SignInViewModel @Inject constructor(
                             )
                         )
 
+                        Log.i("LOGIN RESP", response.body()!!.toString())
+
+
                         if (response.isSuccessful && response.body() != null) {
                             _signInstate.value = SignInState.Success(user = response.body()!!)
-                            Log.i("LOGIN RESP:::", response.body()!!.toString())
                         } else {
                             _signInstate.value =
                                 SignInState.Error(detail = response.body()!!.toString())
-                            Log.i("LOGIN RESP:::", response.body()!!.toString())
+                            Log.i("LOGIN RESP", response.body()!!.toString())
                         }
                     } catch (e: Exception) {
+                        e.message?.let { Log.i("exception", it) }
                         _signInstate.value =
                             SignInState.Error(detail = "Login Failed")
                     }

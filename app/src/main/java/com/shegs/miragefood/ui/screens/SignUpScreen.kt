@@ -1,9 +1,10 @@
 package com.shegs.miragefood.ui.screens
 
+//import androidx.compose.material.icons.outlined.Visibility
+//import androidx.compose.material.icons.outlined.VisibilityOff
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,9 +20,6 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
-//import androidx.compose.material.icons.outlined.Visibility
-//import androidx.compose.material.icons.outlined.VisibilityOff
-import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -346,6 +344,7 @@ fun SignUpScreenContent(
                 modifier = Modifier
                     .fillMaxWidth(),
                 filled = true,
+                enabled = true,
                 onClick = {
                     onEvent(SignUpEvents.OnSignUpClicked)
                     navController.navigate(NestedNavItem.App.HomeScreen.route)
