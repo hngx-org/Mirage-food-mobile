@@ -340,14 +340,20 @@ fun SignUpScreenContent(
         item {
             CustomRoundedButton(
                 label = "Sign Up",
+                enabled = true,
                 modifier = Modifier
                     .fillMaxWidth(),
-                filled = true,
-                onClick = {
-                    onEvent(SignUpEvents.OnSignUpClicked)
-                    navController.navigate(NestedNavItem.App.HomeScreen.route)
-                }
-            )
+                filled = true
+            ) {
+                onEvent(
+                    SignUpEvents.OnSignUpClicked,
+                    email,
+                    firstName,
+                    lastName,
+                    password,
+                    phoneNumber
+                )
+            }
         }
     }
 }

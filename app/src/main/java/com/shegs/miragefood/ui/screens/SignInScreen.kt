@@ -189,16 +189,15 @@ fun SignInScreenContent(
         item {
             CustomRoundedButton(
                 label = "Sign In",
+                enabled = email.isNotEmpty() && password.isNotEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 30.dp),
-                filled = true,
-                enabled = email.isNotEmpty() && password.isNotEmpty(),
-                onClick = {
-                    val loginRequest = LoginRequest(email = email, password = password)
-                    viewModel.login(event = SignInEvents.SignInClicked(loginRequest = loginRequest))
-                }
-            )
+                filled = true
+            ) {
+                val loginRequest = LoginRequest(email = email, password = password)
+                viewModel.login(event = SignInEvents.SignInClicked(loginRequest = loginRequest))
+            }
         }
 
         item {

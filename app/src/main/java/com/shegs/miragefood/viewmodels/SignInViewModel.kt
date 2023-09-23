@@ -3,7 +3,7 @@ package com.shegs.miragefood.viewmodels
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.shegs.miragefood.models.repositories.SignInRepository
+import com.shegs.miragefood.repositories.SignInRepository
 import com.shegs.miragefood.ui.events.SignInEvents
 import com.shegs.miragefood.ui.states.SignInState
 import kotlinx.coroutines.flow.MutableStateFlow
