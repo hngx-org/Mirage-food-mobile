@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Lock
@@ -24,6 +25,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +33,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
@@ -39,28 +42,33 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.shegs.miragefood.models.datas.LoginRequest
 import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.events.SignInEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
+import com.shegs.miragefood.ui.states.SignInState
+import com.shegs.miragefood.viewmodels.SignInViewModel
 
 @Composable
-fun SignInScreen(navController: NavController) {
+fun SignInScreen(navController: NavController, viewModel: SignInViewModel) {
 
-    SignInScreenContent(navController = navController) { event ->
-        // Handle SignInEvents here
-    }
+    SignInScreenContent(navController = navController, onEvent = { event ->
+        viewModel.login(event = event)
+    }, viewModel = viewModel)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreenContent(
     navController: NavController,
-    onEvent: (SignInEvents) -> Unit
+    onEvent: (SignInEvents) -> Unit,
+    viewModel: SignInViewModel
 ) {
 
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val signInState by viewModel.signInState.collectAsState()
 
     val focusManager = LocalFocusManager.current
     LazyColumn(
@@ -137,7 +145,8 @@ fun SignInScreenContent(
                     onValueChange = { password = it },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
-                        Text(text = "Password",
+                        Text(
+                            text = "Password",
                             fontWeight = FontWeight(400),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.scrim.copy(0.6f)
@@ -186,12 +195,27 @@ fun SignInScreenContent(
                     .fillMaxWidth()
                     .padding(top = 30.dp),
                 filled = true,
+                enabled = email.isNotEmpty() && password.isNotEmpty(),
                 onClick = {
-                    onEvent(SignInEvents.SignInClicked)
-                    navController.navigate(NestedNavItem.App.HomeScreen.route)
+                    val loginRequest = LoginRequest(email = email, password = password)
+                    onEvent(SignInEvents.SignInClicked(loginRequest = loginRequest))
                 }
             )
         }
+
+        item {
+            when (signInState) {
+                is SignInState.Loading -> CircularProgressIndicator()
+                is SignInState.Success ->
+                    navController.navigate(NestedNavItem.App.HomeScreen.route)
+
+                is SignInState.Error ->
+                    Text(text = "Error: ${(signInState as SignInState.Error).detail}")
+
+                else -> {}
+            }
+        }
+
     }
 }
 

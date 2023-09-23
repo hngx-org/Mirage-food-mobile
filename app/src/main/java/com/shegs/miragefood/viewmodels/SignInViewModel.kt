@@ -1,5 +1,6 @@
 package com.shegs.miragefood.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shegs.miragefood.models.repositories.SignInRepository
@@ -17,7 +18,7 @@ class SignInViewModel @Inject constructor(
     private val _signInstate = MutableStateFlow<SignInState>(SignInState.Initial)
     val signInState: StateFlow<SignInState> = _signInstate
 
-    fun onEvent(event: SignInEvents) {
+    fun login(event: SignInEvents) {
         when (event) {
             is SignInEvents.SignInClicked -> {
                 viewModelScope.launch {
@@ -32,9 +33,11 @@ class SignInViewModel @Inject constructor(
 
                         if (response.isSuccessful && response.body() != null) {
                             _signInstate.value = SignInState.Success(user = response.body()!!)
+                            Log.i("LOGIN RESP:::", response.body()!!.toString())
                         } else {
                             _signInstate.value =
                                 SignInState.Error(detail = response.body()!!.toString())
+                            Log.i("LOGIN RESP:::", response.body()!!.toString())
                         }
                     } catch (e: Exception) {
                         _signInstate.value =

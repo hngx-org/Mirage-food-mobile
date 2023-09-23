@@ -18,6 +18,7 @@ import com.shegs.miragefood.ui.theme.MirageFoodTheme
 import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
 import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
+import com.shegs.miragefood.viewmodels.SignInViewModel
 import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 import com.shegs.miragefood.viewmodels.WithdrawalViewModel
@@ -31,6 +32,9 @@ class MainActivity : ComponentActivity() {
     lateinit var userViewModel: UserViewModel
 
     @Inject
+    lateinit var signInViewModel: SignInViewModel
+
+    @Inject
     lateinit var redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel
 
     // Initialize the ViewModel
@@ -39,6 +43,7 @@ class MainActivity : ComponentActivity() {
     private val giftLunchViewModel: GiftLunchViewModel by viewModels()
 
     private val withdrawalViewModel: WithdrawalViewModel by viewModels()
+
 
     private var receivedTransaction: ReceivedTransaction = ReceivedTransaction(
         amountSent = 2, // Provide the appropriate default value
@@ -74,7 +79,8 @@ class MainActivity : ComponentActivity() {
                             withdrawalViewModel,
                             giftLunchViewModel,
                             redeemLunchNotificationsViewModel,
-                            receivedTransaction
+                            receivedTransaction,
+                            signInViewModel
                         )
                     }
 
