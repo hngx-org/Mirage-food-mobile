@@ -8,7 +8,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.shegs.miragefood.models.datas.ReceivedTransaction
 import com.shegs.miragefood.ui.screens.GiftLunch
-import com.shegs.miragefood.ui.screens.HomeScreen
 import com.shegs.miragefood.ui.screens.NotificationScreen
 import com.shegs.miragefood.ui.screens.OnBoardingScreen
 import com.shegs.miragefood.ui.screens.RedeemLunchNotifications
@@ -90,7 +89,8 @@ fun Navigation(
         }
 
         composable(NestedNavItem.App.HomeScreen.route) {
-            HomeScreen(userViewModel, transactionViewModel, navController)
+//            HomeScreen(userViewModel, transactionViewModel, navController)
+            RedeemLunchNotifications(lunchViewModel = lunchViewModel, navController = navController)
 
         }
 

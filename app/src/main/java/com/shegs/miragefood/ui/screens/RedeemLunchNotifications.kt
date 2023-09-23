@@ -80,10 +80,10 @@ fun RedeemLunchNotifications(lunchViewModel: LunchViewModel, navController: NavC
 @Composable
 fun RedeemLunchLazyColumn(lunch: List<Lunch>, navController: NavController) {
     val groupedNotifications =
-        lunch.groupBy { it.createdAt }
+        lunch.groupBy { it.created_at }
 
     LazyColumn(
-        modifier = Modifier.padding(top = 40.dp, start = 16.dp, end = 16.dp),
+        modifier = Modifier.padding(top = 100.dp, start = 16.dp, end = 16.dp),
     ) {
         groupedNotifications.forEach { (timestamp) ->
             // Display timestamp for each section
@@ -96,7 +96,7 @@ fun RedeemLunchLazyColumn(lunch: List<Lunch>, navController: NavController) {
                         color = grey3
                     ),
                     modifier = Modifier
-                        .padding(bottom = 28.dp)
+                        .padding(bottom = 32.dp)
                 )
             }
             items(lunch) { lunch ->

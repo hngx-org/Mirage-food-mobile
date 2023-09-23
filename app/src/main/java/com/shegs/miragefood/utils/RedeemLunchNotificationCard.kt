@@ -106,7 +106,7 @@ fun RedeemLunchNotificationCard(lunch: Lunch, navController: NavController) {
                             color = MaterialTheme.colorScheme.primary
                         )
                     ) {
-                        append(lunch.senderId)
+                        append(lunch.sender_id)
                     }
                 },
                 fontWeight = FontWeight(400),
@@ -123,7 +123,7 @@ fun RedeemLunchNotificationCard(lunch: Lunch, navController: NavController) {
             )
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = lunch.createdAt,
+                text = lunch.created_at,
                 style = Typography.bodyMedium.copy(
                     fontWeight = FontWeight.W500,
                     fontSize = 16.sp,
