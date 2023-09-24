@@ -1,16 +1,17 @@
 package com.shegs.miragefood.repositories
+
 import android.util.Log
 import com.shegs.miragefood.network.data.Result
 import com.shegs.miragefood.network.data.SignUpRequest
 import com.shegs.miragefood.network.data.SignUpResponse
-import com.shegs.miragefood.services.ApiService
+import com.shegs.miragefood.services.FreeLunchApiService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import javax.inject.Inject
 
 
-class SignUpRepository @Inject constructor(private val apiService: ApiService) {
+class SignUpRepository @Inject constructor(private val apiService: FreeLunchApiService) {
     suspend fun signUp(signUpRequest: SignUpRequest): Result<SignUpResponse> {
         return try {
             val response = withContext(Dispatchers.IO) {

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shegs.miragefood.models.datas.OnboardingItems
+import com.shegs.miragefood.repositories.DataStoreRepository
 import com.shegs.miragefood.repositories.OnboardingRepository
 import com.shegs.miragefood.ui.events.OnboardingEvent
 import com.shegs.miragefood.ui.events.OnboardingUiEvent
@@ -24,7 +25,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class OnboardingViewModel @Inject constructor(
-    private val onboardingRepository: OnboardingRepository
+    onboardingRepository: OnboardingRepository,
+    private val dataStoreRepository: DataStoreRepository
 ) : ViewModel() {
     val onboardingPages: StateFlow<List<OnboardingItems>> = onboardingRepository.onboardingItems
 
@@ -57,7 +59,7 @@ class OnboardingViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _state.update {
                 it.copy(
-                    isUserOnboarded = onboardingRepository.readOnboardingState().stateIn(this).value
+                    isUserOnboarded = dataStoreRepository.readOnboardingState().stateIn(this).value
                 )
             }
             delay(2000L)
