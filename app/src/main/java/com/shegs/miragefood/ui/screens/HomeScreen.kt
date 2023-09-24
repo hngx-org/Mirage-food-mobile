@@ -200,7 +200,7 @@ fun ActionButtonSection(navController: NavController) {
             }
 
             Button(
-                onClick = {  },
+                onClick = { navController.navigate(NestedNavItem.RedeemLunchScreen.route) },
                 shape = RoundedCornerShape(8.dp),
 
                 contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),

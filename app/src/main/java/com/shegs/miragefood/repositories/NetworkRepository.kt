@@ -1,7 +1,7 @@
 package com.shegs.miragefood.repositories
 
-import com.shegs.miragefood.services.FreeLunchApiService
 import com.shegs.miragefood.services.CustomResponse
+import com.shegs.miragefood.services.FreeLunchApiService
 import com.shegs.miragefood.services.LoginResponse
 import com.shegs.miragefood.services.SignInRequest
 import com.shegs.miragefood.services.UserInfo
@@ -27,7 +27,6 @@ class NetworkRepository @Inject constructor(
             }
         }
     }
-
 
     fun getAllUsers(accessToken: String): Flow<Resource<CustomResponse<UserInfo>>> {
         return flow {

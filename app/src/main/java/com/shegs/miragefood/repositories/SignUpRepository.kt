@@ -37,14 +37,15 @@ class SignUpRepository @Inject constructor(private val apiService: FreeLunchApiS
                 // Handle non-successful HTTP status codes
                 Result.Error("Sign-up failed. Please try again. mumu Http")
             }
-        } catch (e: Exception) {
-            println("lkjhgx")
-            Log.e("NetworkError", "Exception: ${e.localizedMessage}", e)
+        } catch (e: Exception,) {
+            Log.e("NetworkError", "NOOO Exception: ${e.localizedMessage}", e)
+            e.printStackTrace()
             // Handle network or other exceptions
             if (e is java.net.ConnectException) {
                 // This is a network-related error
                 Result.Error("Network error. Please check your connection.")
             } else {
+                Log.e("NetworkError", "OBBBOO", e)
                 // Handle other exceptions
                 Result.Error("An error occurred.")
             }

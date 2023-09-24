@@ -13,7 +13,7 @@ import retrofit2.http.Query
 interface FreeLunchApiService {
 
     @POST("auth/user/signup")
-    suspend fun signUp(@Body requestBody: SignUpRequest): Call<SignUpResponse>
+    fun signUp(@Body requestBody: SignUpRequest): Call<SignUpResponse>
 
     @POST("auth/login")
     suspend fun login(@Body signInRequest: SignInRequest): CustomResponse<LoginResponse>
