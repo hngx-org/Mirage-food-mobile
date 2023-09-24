@@ -1,5 +1,6 @@
 package com.shegs.miragefood.repositories
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
@@ -37,6 +38,7 @@ class DataStoreRepository(
         userPreferencesDataStore.edit { preferences ->
             preferences[ACCESS_TOKEN_KEY] = accessToken
         }
+        Log.i("access token saved",accessToken)
     }
 
     fun readAccessToken(): Flow<String> {

@@ -7,10 +7,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-@HiltViewModel
 class RedeemLunchNotificationsViewModel @Inject constructor(
     private val repository: RedeemLunchNotificationRepository
 ) : ViewModel() {
     val redeemLunchNotificatinos: StateFlow<List<RedeemLunchNotification>> = repository.freeLunchNotification
+
+
 
 }

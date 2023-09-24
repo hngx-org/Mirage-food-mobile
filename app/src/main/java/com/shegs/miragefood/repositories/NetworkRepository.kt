@@ -1,5 +1,6 @@
 package com.shegs.miragefood.repositories
 
+import android.util.Log
 import com.shegs.miragefood.services.CustomResponse
 import com.shegs.miragefood.services.FreeLunchApiService
 import com.shegs.miragefood.services.LoginResponse
@@ -8,20 +9,22 @@ import com.shegs.miragefood.services.UserInfo
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
+import retrofit2.Response
 import javax.inject.Inject
 
 class NetworkRepository @Inject constructor(
     private val apiService: FreeLunchApiService
 ) {
 
-    fun signIn(signInRequest: SignInRequest): Flow<Resource<CustomResponse<LoginResponse>>> {
+    fun signIn(signInRequest: SignInRequest): Flow<Resource<Response<LoginResponse>>> {
         return flow {
             emit(Resource.Loading())
             try {
                 val response = apiService.login(signInRequest)
+                Log.i("login resp",response.toString())
                 emit(Resource.Success(response))
             } catch (e: Exception) {
-                emit(Resource.Error(e.message ?: "An error occurred"))
+                Log.e("exception",e.message.toString())
             } catch (e: HttpException) {
                 emit(Resource.Error(e.message ?: "An error occurred"))
             }
@@ -63,3 +66,4 @@ sealed class Resource<T>(val data: T? = null, val errorMessage: String? = null) 
     class Success<T>(data: T) : Resource<T>(data)
     class Error<T>(errorMessage: String, data: T? = null) : Resource<T>(data, errorMessage)
 }
+

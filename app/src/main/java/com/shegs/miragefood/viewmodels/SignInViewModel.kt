@@ -9,7 +9,6 @@ import com.shegs.miragefood.services.SignInRequest
 import com.shegs.miragefood.ui.events.SignInEvents
 import com.shegs.miragefood.ui.events.SignInUiEvents
 import com.shegs.miragefood.ui.states.SignInState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -22,7 +21,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@HiltViewModel
 class SignInViewModel @Inject constructor(
     private val networkRepository: NetworkRepository,
     private val dataStoreRepository: DataStoreRepository
@@ -77,7 +75,7 @@ class SignInViewModel @Inject constructor(
                     is Resource.Success -> {
                         _state.update { it.copy(loading = false) }
                         dataStoreRepository.saveAccessToken(
-                            result.data?.data?.first()?.access_token ?: ""
+                            result.data?.body()?.access ?: ""
                         )
                         _eventFlow.emit(SignInUiEvents.ShowSnackBar("Login successful"))
                         delay(1500)
