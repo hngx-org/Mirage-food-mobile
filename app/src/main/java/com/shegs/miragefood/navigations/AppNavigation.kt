@@ -99,6 +99,7 @@ fun Navigation(
             SearchScreen()
         }
         composable(NestedNavItem.App.RedeemScreen.route) {
+            lunchViewModel.getLunch()
             RedeemLunchNotifications(lunchViewModel, navController)
         }
     }

@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.shegs.miragefood.R
-import com.shegs.miragefood.models.datas.Lunch
 import com.shegs.miragefood.navigations.NestedNavItem
+import com.shegs.miragefood.services.Lunch
 import com.shegs.miragefood.ui.screens.common.SmallButton
 import com.shegs.miragefood.ui.theme.Typography
 import com.shegs.miragefood.ui.theme.grey3
