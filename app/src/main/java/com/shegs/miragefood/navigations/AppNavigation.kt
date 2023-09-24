@@ -18,25 +18,12 @@ import com.shegs.miragefood.ui.screens.SignInScreen
 import com.shegs.miragefood.ui.screens.SignUpScreen
 import com.shegs.miragefood.ui.screens.SplashScreen
 import com.shegs.miragefood.ui.screens.WithdrawScreen
-import com.shegs.miragefood.viewmodels.GiftLunchViewModel
 import com.shegs.miragefood.viewmodels.OnboardingViewModel
-import com.shegs.miragefood.viewmodels.RedeemLunchNotificationsViewModel
-import com.shegs.miragefood.viewmodels.SignInViewModel
-import com.shegs.miragefood.viewmodels.TransactionViewModel
-import com.shegs.miragefood.viewmodels.UserViewModel
-import com.shegs.miragefood.viewmodels.WithdrawalViewModel
 
 @Composable
-fun Navigation(
+fun AppNavigation(
     navController: NavHostController,
-    userViewModel: UserViewModel,
-    transactionViewModel: TransactionViewModel,
-    onboardingViewModel: OnboardingViewModel,
-    withdrawalViewModel: WithdrawalViewModel,
-    giftLunchViewModel: GiftLunchViewModel,
-    redeemLunchNotificationsViewModel: RedeemLunchNotificationsViewModel,
     receivedTransaction: ReceivedTransaction,
-    signInViewModel: SignInViewModel,
     modifier: Modifier = Modifier
 ) {
     NavHost(
@@ -53,7 +40,6 @@ fun Navigation(
             val onboardingViewModel: OnboardingViewModel = hiltViewModel()
             OnBoardingScreen(
                 navController = navController,
-                onboardingViewModel = onboardingViewModel,
                 onEvent = onboardingViewModel::onEvent
             )
         }
@@ -63,7 +49,7 @@ fun Navigation(
         }
 
         composable(NestedNavItem.SignInScreen.route) {
-            SignInScreen(navController, viewModel = signInViewModel)
+            SignInScreen(navController = navController)
         }
 
         composable(NestedNavItem.SeeAllNotification.route) {
@@ -71,11 +57,11 @@ fun Navigation(
         }
 
         composable(NestedNavItem.GiftLunchScreen.route) {
-            GiftLunch(giftLunchViewModel = giftLunchViewModel, navController)
+            GiftLunch(navController = navController)
         }
 
         composable(NestedNavItem.WithdrawalScreen.route) {
-            WithdrawScreen(navController, withdrawalViewModel)
+            WithdrawScreen(navController)
         }
 
         composable(NestedNavItem.RedeemLunchScreen.route) {
@@ -88,7 +74,7 @@ fun Navigation(
         }
 
         composable(NestedNavItem.App.HomeScreen.route) {
-            HomeScreen(userViewModel, transactionViewModel, navController)
+            HomeScreen(navController = navController)
         }
 
 
@@ -96,7 +82,7 @@ fun Navigation(
             SearchScreen()
         }
         composable(NestedNavItem.App.RedeemScreen.route) {
-            RedeemLunchNotifications(redeemLunchNotificationsViewModel, navController)
+            RedeemLunchNotifications(navController = navController)
         }
     }
 }
