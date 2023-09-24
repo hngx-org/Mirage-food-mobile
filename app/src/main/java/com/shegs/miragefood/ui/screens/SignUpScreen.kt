@@ -2,13 +2,16 @@ package com.shegs.miragefood.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,6 +22,7 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Phone
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.material.icons.outlined.VisibilityOff
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -66,9 +70,9 @@ fun SignUpScreen(
     val signUpResultState = viewModel.signUpResult.collectAsState()
     val result = signUpResultState.value // Declare result at a higher level
 
+    val loadingState = viewModel.loading.collectAsState()
+
     val context = LocalContext.current
-
-
 
     LaunchedEffect(result) {
         when (result) {
@@ -104,7 +108,9 @@ fun SignUpScreen(
                 }
             }
         },
-        navController = navController
+        navController = navController,
+        loading = loadingState.value // Pass loading state to the content
+
     )
 }
 
@@ -113,7 +119,8 @@ fun SignUpScreen(
 fun SignUpScreenContent(
     errorMessage: String?,
     onEvent: (SignUpEvents, String, String, String, String, String) -> Unit,
-    navController: NavController
+    navController: NavController,
+    loading: Boolean
 ) {
 
     var firstName by remember { mutableStateOf("") }
@@ -122,10 +129,12 @@ fun SignUpScreenContent(
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
+
+
     val focusManager = LocalFocusManager.current
     LazyColumn(
         modifier = Modifier
-            .padding(top = 32.dp)
+            .padding(top = 24.dp)
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.Center
@@ -182,7 +191,7 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 32.dp),
+                    .padding(top = 16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -206,7 +215,7 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 32.dp),
+                    .padding(top = 16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -230,7 +239,7 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 32.dp),
+                    .padding(top = 16.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -257,7 +266,7 @@ fun SignUpScreenContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(top = 32.dp),
+                    .padding(top = 16.dp, bottom = 40.dp),
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
@@ -292,7 +301,7 @@ fun SignUpScreenContent(
                     visualTransformation = if (passwordVisibility) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Password,
-                        imeAction = ImeAction.Next
+                        imeAction = ImeAction.Done
                     ),
                     keyboardActions = KeyboardActions(
                         onNext = {
@@ -327,6 +336,27 @@ fun SignUpScreenContent(
                     password,
                     phoneNumber
                 )
+            }
+        }
+
+        // Show circular progress bar when loading is true
+        if (loading) {
+            item {
+                Row (
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = 12.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier.size(40.dp)
+                    ) {
+                        CircularProgressIndicator()
+                    }
+                }
+
             }
         }
     }

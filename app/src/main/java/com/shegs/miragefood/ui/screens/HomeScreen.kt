@@ -39,6 +39,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.shegs.miragefood.R
 import com.shegs.miragefood.models.datas.ReceivedTransaction
@@ -52,7 +53,11 @@ import com.shegs.miragefood.viewmodels.TransactionViewModel
 import com.shegs.miragefood.viewmodels.UserViewModel
 
 @Composable
-fun HomeScreen(userViewModel: UserViewModel, transactionViewModel: TransactionViewModel, navController: NavController) {
+fun HomeScreen(
+    userViewModel: UserViewModel = hiltViewModel(),
+    transactionViewModel: TransactionViewModel = hiltViewModel(),
+    navController: NavController
+) {
 
     val userData = userViewModel.userData.collectAsState().value
 
@@ -195,7 +200,7 @@ fun ActionButtonSection(navController: NavController) {
             }
 
             Button(
-                onClick = {  },
+                onClick = { navController.navigate(NestedNavItem.RedeemLunchScreen.route) },
                 shape = RoundedCornerShape(8.dp),
 
                 contentPadding = PaddingValues(start = 12.dp, top = 8.dp, end = 12.dp, bottom = 8.dp),

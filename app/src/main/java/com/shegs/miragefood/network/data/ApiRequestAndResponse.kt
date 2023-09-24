@@ -15,19 +15,3 @@ data class SignUpResponse(
     val phone: String?
 )
 
-data class SignInRequest(
-    val email: String,
-    val password: String
-)
-
-data class SignInResponse(
-    val message: String,
-    val statusCode: Int,
-    val data: UserData
-)
-data class UserData(
-    val access_token: String,
-    val email: String,
-    val id: String,
-    val isAdmin: Boolean
-)

@@ -22,14 +22,19 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,36 +46,73 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.shegs.miragefood.models.datas.LoginRequest
 import com.shegs.miragefood.navigations.NestedNavItem
 import com.shegs.miragefood.ui.events.SignInEvents
+import com.shegs.miragefood.ui.events.SignInUiEvents
 import com.shegs.miragefood.ui.screens.common.CustomRoundedButton
 import com.shegs.miragefood.ui.screens.common.RoundedTextField
 import com.shegs.miragefood.ui.states.SignInState
-import com.shegs.miragefood.ui.theme.md_theme_light_error
 import com.shegs.miragefood.viewmodels.SignInViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 @Composable
-fun SignInScreen(navController: NavController, viewModel: SignInViewModel) {
+fun SignInScreen(
+    navController: NavController,
+    viewModel: SignInViewModel = hiltViewModel()
+) {
+    val state = viewModel.state.collectAsState().value
+    val snackBarHostState = remember {
+        SnackbarHostState()
+    }
+    val scope = rememberCoroutineScope()
 
-    SignInScreenContent(navController = navController, viewModel = viewModel)
+    LaunchedEffect(key1 = true) {
+        viewModel.eventFlow.collectLatest { event ->
+            when (event) {
+                SignInUiEvents.OnsuccessfulSignIn -> {
+                    navController.navigate(NestedNavItem.App.HomeScreen.route) {
+                        popUpTo(NestedNavItem.App.HomeScreen.route) {
+                            inclusive = false
+                        }
+                    }
+                }
+
+                is SignInUiEvents.ShowSnackBar -> {
+                    scope.launch { snackBarHostState.showSnackbar(event.message) }
+                }
+            }
+        }
+    }
+    Scaffold(
+        snackbarHost = {
+            SnackbarHost(snackBarHostState)
+        }
+    ) { innerPadding ->
+        SignInScreenContent(
+            state = state,
+            onEvent = viewModel::onEvent,
+            modifier = Modifier.padding(
+                top = innerPadding.calculateTopPadding(),
+                bottom = innerPadding.calculateBottomPadding()
+            )
+        )
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreenContent(
-    navController: NavController,
-    viewModel: SignInViewModel
+    state: SignInState,
+    onEvent: (SignInEvents) -> Unit,
+    modifier: Modifier = Modifier
 ) {
-
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    val signInState by viewModel.signInState.collectAsState()
 
     val focusManager = LocalFocusManager.current
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize(),
         contentPadding = PaddingValues(16.dp),
         verticalArrangement = Arrangement.Center
@@ -112,11 +154,11 @@ fun SignInScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 RoundedTextField(
-                    value = email,
+                    value = state.email,
                     label = "Email",
                     icon = Icons.Outlined.Email,
                     modifier = Modifier.fillMaxWidth(),
-                    onValueChange = { email = it }
+                    onValueChange = { onEvent(SignInEvents.OnEmailChange(it)) }
                 )
             }
         }
@@ -139,8 +181,8 @@ fun SignInScreenContent(
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 TextField(
-                    value = password,
-                    onValueChange = { password = it },
+                    value = state.password,
+                    onValueChange = { onEvent(SignInEvents.OnPasswordChange(it)) },
                     modifier = Modifier.fillMaxWidth(),
                     label = {
                         Text(
@@ -189,34 +231,22 @@ fun SignInScreenContent(
         item {
             CustomRoundedButton(
                 label = "Sign In",
-                enabled = email.isNotEmpty() && password.isNotEmpty(),
+                enabled = state.email.isNotEmpty() && state.password.isNotEmpty(),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 30.dp),
-                filled = true
-            ) {
-                val loginRequest = LoginRequest(email = email, password = password)
-                viewModel.login(event = SignInEvents.SignInClicked(loginRequest = loginRequest))
-            }
+                filled = true,
+                onClick = {
+                    onEvent(SignInEvents.OnSignIn)
+                }
+            )
         }
 
         item {
-            when (signInState) {
-                is SignInState.Loading -> Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
+            if (state.loading) {
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     CircularProgressIndicator()
                 }
-                is SignInState.Success ->
-                    navController.navigate(NestedNavItem.App.HomeScreen.route)
-
-                is SignInState.Error ->
-                    Text(text = "Error: ${(signInState as SignInState.Error).detail}", color = md_theme_light_error)
-
-                else -> {}
             }
         }
 

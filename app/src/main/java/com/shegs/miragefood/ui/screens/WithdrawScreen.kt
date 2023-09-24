@@ -28,6 +28,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.shegs.miragefood.ui.screens.common.AppTextField
 import com.shegs.miragefood.ui.screens.common.BottomSheet
@@ -44,7 +45,7 @@ import com.shegs.miragefood.viewmodels.WithdrawalViewModel
 @Composable
 fun WithdrawScreen(
     navController: NavController,
-    withdrawalViewModel: WithdrawalViewModel
+    withdrawalViewModel: WithdrawalViewModel = hiltViewModel()
 ) {
 
     var showModalBottomSheet = withdrawalViewModel.showBottomSheet.collectAsState()
