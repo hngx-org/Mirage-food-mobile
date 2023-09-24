@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.Text
@@ -71,22 +70,22 @@ fun RedeemLunchLazyColumn(
     val groupedNotifications =
         state.lunch.groupBy { it.created_at }
 
-    if (state.loading) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(top = 100.dp, start = 16.dp, end = 16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            LazyColumn {
-                item {
-                    CircularProgressIndicator()
-                }
-                // Add other items here if needed
-            }
-        }
-    }
-    if (state.isLoaded && state.lunch.isEmpty()) {
+//    if (state.loading) {
+//        Box(
+//            modifier = Modifier
+//                .fillMaxSize()
+//                .padding(top = 100.dp, start = 16.dp, end = 16.dp),
+//            contentAlignment = Alignment.Center
+//        ) {
+//            LazyColumn {
+//                item {
+//                    CircularProgressIndicator()
+//                }
+//                // Add other items here if needed
+//            }
+//        }
+//    }
+    if (state.lunch.isEmpty()) {
         Box(
             modifier = Modifier
                 .fillMaxSize(),
@@ -109,7 +108,7 @@ fun RedeemLunchLazyColumn(
             }
         }
 
-    } else if (state.isLoaded && state.lunch.isNotEmpty()) {
+    } else {
         LazyColumn(
             modifier = Modifier.padding(top = 100.dp, start = 16.dp, end = 16.dp),
         ) {

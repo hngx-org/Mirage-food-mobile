@@ -11,7 +11,6 @@ import com.shegs.miragefood.ui.states.GetAllLunchState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -29,7 +28,6 @@ class LunchViewModel @Inject constructor(
     val lunchState = _lunchState.asStateFlow()
 
     private val _eventFlow = MutableSharedFlow<GetAllLunchUiEvent>()
-    val eventFlow = _eventFlow.asSharedFlow()
 
      fun getLunch() {
         viewModelScope.launch(Dispatchers.IO) {
